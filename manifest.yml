@@ -1,0 +1,102 @@
+packages:
+  __APP_PACKAGE__:
+    license: Apache-2.0
+    actions:
+      get-sandboxes:
+        function: actions/PALM/get-sandboxes.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-profile-union-schema:
+        function: actions/UPS/get-profile-union-schema.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-identity-namespaces:
+        function: actions/UPS/get-identity-namespaces.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true 
+      get-identity-preview-report:
+        function: actions/UPS/get-identity-preview-report.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-profile:
+        function: actions/UPS/get-profile.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-profile-list:
+        function: actions/UPS/get-profile-list.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-profile-experience-events:
+        function: actions/UPS/get-profile-experience-events.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      post-preview-job:
+        function: actions/UPS/post-preview-job.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-preview-job-results:
+        function: actions/UPS/get-preview-job-results.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-aio-state:
+        function: actions/misc/get-aio-state.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+        annotations:
+          final: true

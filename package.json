@@ -1,0 +1,38 @@
+{
+  "name": "aepProfileEditor",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@adobe/aio-sdk": "^2.3.0",
+    "@adobe/exc-app": "^0.2.21",
+    "@adobe/react-spectrum": "^3.4.0",
+    "@emotion/react": "^11.1.5",
+    "@react-spectrum/provider": "^3.1.2",
+    "@react-spectrum/tabs": "^3.0.0-alpha.4",
+    "@spectrum-icons/illustrations": "^3.2.1",
+    "@spectrum-icons/workflow": "^3.2.0",
+    "core-js": "^3.6.4",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-error-boundary": "^1.2.5",
+    "react-json-editor": "^0.3.0",
+    "react-json-view": "^1.21.3",
+    "react-jsonschema-form": "^1.8.1",
+    "react-router-dom": "^5.2.0",
+    "regenerator-runtime": "^0.13.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@openwhisk/wskdebug": "^1.3.0",
+    "jest": "^24.9.0"
+  },
+  "scripts": {
+    "test": "jest --passWithNoTests ./test",
+    "e2e": "jest --collectCoverage=false --testRegex ./e2e"
+  },
+  "engines": {
+    "node": "^10 || ^12"
+  }
+}
