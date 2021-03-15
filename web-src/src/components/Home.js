@@ -19,8 +19,7 @@ const Home = ({
   return (
     <View width="size-6000">
       <Heading level={1}>
-        {firstName ? `${firstName}, ` : ""}Welcome to Adobe Experience Platform
-        Profile Editor! Previewer!
+        {firstName ? `${firstName}, ` : ""}Welcome to AEP Profile Editor!
       </Heading>
       <ProgressCircle
         id="home-page-progress-circle"

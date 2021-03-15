@@ -14,14 +14,20 @@ import {
   Switch,
 } from "@adobe/react-spectrum";
 import { Tabs, Item } from "@react-spectrum/tabs";
-
 import { useParams } from "react-router-dom";
+import {
+  ProfileProvider,
+  useProfileState,
+  useProfileDispatch,
+} from "../context/ProfileViewContext.js";
+
+import ProfileSchemaListBox from "./ProfileDatasetsListBox";
 import ImageProfile from "@spectrum-icons/workflow/ImageProfile";
 import NamespaceList from "./NamespaceList";
-
 import ProfileView from "./ProfileView";
 import ExperienceEventsView from "./ExperienceEventsView";
 
+import UnionSchemaView from "./UnionSchemaView";
 const FindProfile = (props) => {
   let { namespace, identityValue } = useParams();
   const [getProfile, setGetProfile] = useState(false);
@@ -85,9 +91,11 @@ const FindProfile = (props) => {
     </Button>
   );
 
-  let profileContent = null;
+  let profileJSONContent = null;
+  let profileUnionContent = null;
+  let profileDatasets = null;
   if (getProfile || (namespace && identityValue)) {
-    profileContent = (
+    profileJSONContent = (
       <Tabs aria-label="Profile Data">
         <Item title="Profile" key="profile">
           <ProfileView
@@ -113,6 +121,14 @@ const FindProfile = (props) => {
         </Item>
       </Tabs>
     );
+
+    profileUnionContent = (
+      <UnionSchemaView ims={props.ims} sandboxName={sandboxName} />
+    );
+
+    profileDatasets = (
+      <ProfileSchemaListBox ims={props.ims} sandboxName={sandboxName} />
+    );
   }
 
   return (
@@ -125,7 +141,7 @@ const FindProfile = (props) => {
         areas={[
           "namespace namespace entityValue entityValue profileButton",
           "spacing spacing spacing spacing spacing",
-          "profileContent profileContent profileContent profileContent profileContent",
+          "profileDatasets profileUnionContent profileUnionContent profileJSONContent profileJSONContent",
         ]}
         columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
         rows={["size-400", "size-100", "auto"]}
@@ -139,9 +155,17 @@ const FindProfile = (props) => {
         <View gridArea="spacing">
           <Divider></Divider>
         </View>
-        <View gridArea="profileContent" overflow="auto">
-          {profileContent}
-        </View>
+        <ProfileProvider>
+          <View gridArea="profileDatasets" overflow="auto">
+            {profileDatasets}
+          </View>
+          <View gridArea="profileUnionContent" overflow="auto">
+            {profileUnionContent}
+          </View>
+          <View gridArea="profileJSONContent" overflow="auto">
+            {profileJSONContent}
+          </View>
+        </ProfileProvider>
       </Grid>
     </div>
   );

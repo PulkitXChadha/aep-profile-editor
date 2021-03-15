@@ -62,19 +62,9 @@ function SideBar(props) {
           className="SideNav-itemLink"
           activeClassName="is-selected"
           aria-current="page"
-          to="/actions"
-        >
-          Your App Actions
-        </NavLink>
-      </li>
-      <li className="SideNav-item">
-        <NavLink
-          className="SideNav-itemLink"
-          activeClassName="is-selected"
-          aria-current="page"
           to="/about"
         >
-          About Project Firefly Apps
+          About
         </NavLink>
       </li>
     </ul>

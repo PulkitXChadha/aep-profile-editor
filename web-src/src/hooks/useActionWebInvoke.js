@@ -15,18 +15,26 @@ export const useActionWebInvoke = ({
 
   useEffect(() => {
     const cachedValue = JSON.parse(sessionStorage.getItem(key));
-
+    console.log(
+      `${actionName} ${JSON.stringify(headers)} ${JSON.stringify(params)}`
+    );
     if (cachedValue && cacheResponse) {
       setData(cachedValue);
       setIsLoading(false);
     } else {
-      actionWebInvoke(actionName, headers, params)
+      actionWebInvoke(
+        actionName,
+        JSON.stringify(headers),
+        JSON.stringify(params)
+      )
         .then((response) => {
+          console.log(`response = ${JSON.stringify(response)}`);
           setData(response);
           setIsLoading(false);
           sessionStorage.setItem(key, JSON.stringify(response));
         })
         .catch((e) => {
+          console.log(`error = ${JSON.stringify(e)}`);
           setData(null);
           setIsLoading(false);
           setError(e);

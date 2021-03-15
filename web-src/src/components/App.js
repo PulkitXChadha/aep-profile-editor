@@ -87,7 +87,7 @@ function App(props) {
         <Route exact path="/">
           <Home
             isSandboxSelected={sandboxName ? true : false}
-            firstName={props.ims.profile.first_name}
+            // firstName={props.ims.profile.first_name}
           ></Home>
         </Route>
         <Route path="/profile/:namespace?/:identityValue?">

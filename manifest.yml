@@ -100,3 +100,22 @@ packages:
           LOG_LEVEL: debug
         annotations:
           final: true
+      get-all-datasets:
+        function: actions/Catalog Service/get-all-datasets.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      hello-world:
+        function: actions/misc/hello-world.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe

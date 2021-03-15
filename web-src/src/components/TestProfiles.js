@@ -19,8 +19,8 @@ const TestProfiles = (props) => {
     headers: headers,
     params: {
       sandboxName: props.sandboxName,
-      // expression:
-      //   "_adobedemoamericas270.creditProfileDetails.creditRating > 2000 and CHAIN(xEvent, timestamp, [C0: WHAT(true)])",
+      expression:
+        "_adobedemoamericas270.identification.CRMID.isNotNull() and _adobedemoamericas270.identification.Email.isNotNull()",
     },
   });
 

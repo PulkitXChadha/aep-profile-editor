@@ -1,13 +1,21 @@
 import { css, jsx } from "@emotion/react";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import { Flex, ProgressCircle, Text } from "@adobe/react-spectrum";
+import { Button, ProgressCircle, Text } from "@adobe/react-spectrum";
 
-import Form from "react-jsonschema-form";
+import ImageProfile from "@spectrum-icons/workflow/ImageProfile";
+// import Form from "react-jsonschema-form";
+import Form from "@rjsf/material-ui";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
-
+import {
+  ProfileProvider,
+  useProfileState,
+  useProfileDispatch,
+} from "../context/ProfileViewContext.js";
 import mock from "../../../test/actions/mock";
 const UnionSchemaView = (props) => {
+  const profileData = useProfileState();
+
   let headers = {};
   // set the authorization header and org from the ims props object
   if (props.ims.token && !headers.authorization) {
@@ -39,37 +47,15 @@ const UnionSchemaView = (props) => {
     //   method: "GET",
     // });
     setUnionSchemaDetails(mock.data.profileUnionSchema);
-  }, [unionSchema]);
+  }, []);
 
-  const unionSchema = {
-    isLoading: false,
-    data: { message: "fake-message", link: "linky" },
-    error: null,
-  };
-  console.log(JSON.stringify(unionSchema));
-
-  let content = (
-    <ProgressCircle
-      id="namespace-list-progress-circle"
-      aria-label="Getting Identity Namespaces"
-      isIndeterminate
-      isHidden={!unionSchema.isLoading}
-      marginStart="size-100"
-    />
-  );
-
-  if (unionSchema.error) {
-    console.log(unionSchema.error.message);
-  }
-
-  if (!unionSchema.data && !unionSchema.error && !unionSchema.isLoading) {
-    content = <Text>Profile Union Schema not found</Text>;
-  }
+  let content = null;
 
   if (unionSchemaDetails) {
     delete unionSchemaDetails.properties._id;
     delete unionSchemaDetails.properties._experience;
     delete unionSchemaDetails.properties._repo;
+    // delete unionSchemaDetails.properties.homeAddress;
     delete unionSchemaDetails.properties.createdByBatchID;
     delete unionSchemaDetails.properties.identityMap;
     delete unionSchemaDetails.properties.identityPrivacyInfo;
@@ -82,23 +68,21 @@ const UnionSchemaView = (props) => {
     delete unionSchemaDetails.properties.timeSeriesEvents;
     delete unionSchemaDetails.properties.timeZone;
     content = (
-      // <TextArea
-      //   label="Notes (Controlled)"
-      //   value={JSON.stringify(unionSchemaDetails)}
-      // />
-      <Form schema={unionSchemaDetails} />
+      <Form schema={unionSchemaDetails} formData={profileData} disabled>
+        <Button
+          variant="primary"
+          onPress={() => {
+            console.log(JSON.stringify(unionSchemaDetails));
+          }}
+        >
+          <ImageProfile />
+          <Text>Get Profile</Text>
+        </Button>
+      </Form>
     );
   }
 
-  return (
-    <div
-      css={css`
-        height: calc(100vh - var(--spectrum-global-dimension-size-400));
-      `}
-    >
-      <Flex gap="size-400">{content}</Flex>
-    </div>
-  );
+  return content;
 };
 
 UnionSchemaView.propTypes = {

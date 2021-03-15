@@ -25,6 +25,12 @@ const SandboxPicker = (props) => {
     headers: headers,
     params: {},
   });
+  const helloWorld = useActionWebInvoke({
+    actionName: "hello-world",
+    headers: headers,
+    params: {},
+  });
+  console.log(helloWorld);
 
   let picker = (
     <ProgressCircle

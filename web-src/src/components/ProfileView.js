@@ -4,10 +4,14 @@ import ReactJson from "react-json-view";
 import PropTypes from "prop-types";
 import { ProgressCircle, Text } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
-
+import {
+  ProfileProvider,
+  useProfileState,
+  useProfileDispatch,
+} from "../context/ProfileViewContext.js";
 const ProfileView = (props) => {
   const userSettings = null;
-  const profileAttributesInRule = null;
+  const setProfileData = useProfileDispatch();
 
   let headers = {};
   if (props.ims.token && !headers.authorization) {
@@ -49,6 +53,7 @@ const ProfileView = (props) => {
     delete dataToDisplay._ACP_BATCHID;
     delete dataToDisplay._acp_system_metadata;
     delete dataToDisplay._id;
+    setProfileData(dataToDisplay);
     content = (
       <ReactJson
         theme={userSettings ? "twilight" : "rjv-default"}
@@ -57,10 +62,6 @@ const ProfileView = (props) => {
         displayObjectSize={false}
         displayDataTypes={false}
         quotesOnKeys={false}
-        // shouldCollapse={(field) => {
-        //   if (field.name === "profile") return false;
-        //   return !profileAttributesInRule.includes(field.name);
-        // }}
       />
     );
   }
