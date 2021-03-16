@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid, repeat, ProgressCircle, Text } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
-import ProfileIdentityView from "./ProfileIdentityView";
+import ProfileSummaryView from "./ProfileSummaryView";
 const ProfilesList = (props) => {
   //Identity Namespace State
   let headers = {};
@@ -47,15 +47,13 @@ const ProfilesList = (props) => {
     const keys = Object.keys(profileList.data);
     profileListContent = (
       <Grid
-        columns="auto-fit"
-        autoRows={repeat("auto-fit", "size-800")}
-        //   justifyContent="center"
-        gap="size-100"
+        columns={repeat("auto-fit", "size-3000")}
+        autoFlow="size-3000"
+        justifyContent="center"
+        gap="size-300"
       >
         {keys.map((key) => (
-          <ProfileIdentityView
-            identityMapData={profileList.data[key].entity.identityMap}
-          />
+          <ProfileSummaryView profileData={profileList.data[key].entity} />
         ))}
       </Grid>
     );

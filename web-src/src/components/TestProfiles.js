@@ -1,6 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { TextArea, ProgressCircle, Item, Text } from "@adobe/react-spectrum";
+import {
+  TextArea,
+  ProgressCircle,
+  Item,
+  Text,
+  View,
+  Divider,
+  Header,
+  Flex,
+  Heading,
+  Grid,
+} from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import TestProfilesList from "./TestProfilesList.js";
 const TestProfiles = (props) => {
@@ -23,7 +34,6 @@ const TestProfiles = (props) => {
         "_adobedemoamericas270.identification.CRMID.isNotNull() and _adobedemoamericas270.identification.Email.isNotNull()",
     },
   });
-
   let testProfilesContent = (
     <ProgressCircle
       id="test-profile-list-progress-circle"
@@ -40,8 +50,8 @@ const TestProfiles = (props) => {
   if (!previewJob.data && !previewJob.error && !previewJob.isLoading) {
     testProfilesContent = <Text>Issues Submitting Preview Job</Text>;
   }
-
-  if (previewJob.data && previewJob.data?.state === "RESULT_READY") {
+  console.log(JSON.stringify(previewJob.data));
+  if (previewJob.data && previewJob.data.state === "RESULT_READY") {
     testProfilesContent = (
       <TestProfilesList
         ims={props.ims}
@@ -51,7 +61,27 @@ const TestProfiles = (props) => {
     );
   }
 
-  return testProfilesContent;
+  let headerContent = (
+    <Grid
+      areas={["header header header header header"]}
+      columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
+      rows={["size-600"]}
+      height="100%"
+      // gap="size-100"
+      columnGap="size-300"
+    >
+      <View gridArea="header">
+        <Heading level={3}>Test Profiles</Heading>
+      </View>
+    </Grid>
+  );
+  return (
+    <Flex direction="column" gap="size-50">
+      {headerContent}
+      <Divider size="M" />
+      {testProfilesContent}
+    </Flex>
+  );
 };
 
 TestProfiles.propTypes = {

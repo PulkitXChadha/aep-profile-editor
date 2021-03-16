@@ -12,7 +12,7 @@ import {
   useProfileState,
   useProfileDispatch,
 } from "../context/ProfileViewContext.js";
-import mock from "../../../test/actions/mock";
+
 const UnionSchemaView = (props) => {
   const profileData = useProfileState();
 
@@ -25,54 +25,24 @@ const UnionSchemaView = (props) => {
     headers["x-gw-ims-org-id"] = props.ims.org;
   }
 
-  const [unionSchemaDetails, setUnionSchemaDetails] = useState("");
-
-  // const unionSchema = useActionWebInvoke({
-  //   actionName: "get-profile-union-schema",
-  //   headers: headers,
-  //   params: {
-  //     sandboxName: props.sandboxName,
-  //   },
-  // });
-
-  useEffect(() => {
-    // console.log(unionSchema.data.link);
-    // const response = fetch(unionSchema.data.link, {
-    //   headers: {
-    //     accept:
-    //       "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-    //     "accept-language": "en-US,en;q=0.9",
-    //     "cache-control": "no-cache",
-    //   },
-    //   method: "GET",
-    // });
-    setUnionSchemaDetails(mock.data.profileUnionSchema);
-  }, []);
+  const unionSchema = useActionWebInvoke({
+    actionName: "get-schema-details",
+    headers: headers,
+    params: {
+      sandboxName: props.sandboxName,
+      schemaId: props.schemaId,
+    },
+  });
 
   let content = null;
 
-  if (unionSchemaDetails) {
-    delete unionSchemaDetails.properties._id;
-    delete unionSchemaDetails.properties._experience;
-    delete unionSchemaDetails.properties._repo;
-    // delete unionSchemaDetails.properties.homeAddress;
-    delete unionSchemaDetails.properties.createdByBatchID;
-    delete unionSchemaDetails.properties.identityMap;
-    delete unionSchemaDetails.properties.identityPrivacyInfo;
-    delete unionSchemaDetails.properties.modifiedByBatchID;
-    delete unionSchemaDetails.properties.profilePictureLink;
-    delete unionSchemaDetails.properties.repositoryCreatedBy;
-    delete unionSchemaDetails.properties.repositoryLastModifiedBy;
-    delete unionSchemaDetails.properties.segmentMembership;
-    delete unionSchemaDetails.properties.segments;
-    delete unionSchemaDetails.properties.timeSeriesEvents;
-    delete unionSchemaDetails.properties.timeZone;
+  if (unionSchema.data) {
     content = (
-      <Form schema={unionSchemaDetails} formData={profileData} disabled>
+      <Form schema={unionSchema.data} formData={profileData} disabled>
         <Button
           variant="primary"
           onPress={() => {
-            console.log(JSON.stringify(unionSchemaDetails));
+            console.log(`Clicked`);
           }}
         >
           <ImageProfile />

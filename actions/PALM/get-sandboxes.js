@@ -9,6 +9,73 @@ const {
 
 // main function that will be executed by Adobe I/O Runtime
 async function main(params) {
+  const sampleResponse = {
+    sandboxes: [
+      {
+        name: "prod",
+        title: "Prod",
+        state: "active",
+        type: "production",
+        region: "VA7",
+        isDefault: true,
+        eTag: -1412772978,
+        createdDate: "2020-03-24 18:48:59",
+        lastModifiedDate: "2020-03-26 17:50:40",
+        createdBy: "system",
+        lastModifiedBy: "system",
+      },
+      {
+        name: "sandbox11",
+        title: "sandbox11",
+        state: "active",
+        type: "development",
+        region: "VA7",
+        isDefault: false,
+        eTag: 1433090876,
+        createdDate: "2020-09-09 21:11:51",
+        lastModifiedDate: "2021-03-12 16:40:06",
+        createdBy: "E76F15505E83842B0A495FE6@techacct.adobe.com",
+        lastModifiedBy: "system",
+      },
+      {
+        name: "sandbox1",
+        title: "sandbox1",
+        state: "active",
+        type: "development",
+        region: "VA7",
+        isDefault: false,
+        eTag: -1212020407,
+        createdDate: "2020-10-29 13:39:55",
+        lastModifiedDate: "2021-03-11 18:59:04",
+        createdBy: "E76F15505E83842B0A495FE6@techacct.adobe.com",
+        lastModifiedBy: "system",
+      },
+      {
+        name: "sandbox24",
+        title: "Sandbox 24",
+        state: "active",
+        type: "development",
+        region: "VA7",
+        isDefault: false,
+        eTag: -1989855906,
+        createdDate: "2021-01-20 15:55:46",
+        lastModifiedDate: "2021-02-24 20:21:24",
+        createdBy: "A5AE57325FE486BB0A495E28@techacct.adobe.com",
+        lastModifiedBy: "A5AE57325FE486BB0A495E28@techacct.adobe.com",
+      },
+    ],
+    _page: {
+      limit: 50,
+      count: 25,
+    },
+    _links: {
+      page: {
+        href:
+          "https://platform.adobe.io:443/data/foundation/sandbox-management/sandboxes?limit={limit}&offset={offset}",
+        templated: true,
+      },
+    },
+  };
   // create a Logger
   const logger = Core.Logger("main", { level: params.LOG_LEVEL || "info" });
 
@@ -57,7 +124,7 @@ async function main(params) {
     logger.debug("fetch content = " + JSON.stringify(content, null, 2));
     const response = {
       statusCode: 200,
-      body: content,
+      body: sampleResponse,
     };
 
     // log the response status code

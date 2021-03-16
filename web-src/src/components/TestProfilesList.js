@@ -54,7 +54,7 @@ const TestProfilesList = (props) => {
         ims={props.ims}
         sandboxName={props.sandboxName}
         entityValues={previewData}
-        fields={["identities"]}
+        fields={["identities", "person"]}
         limit={100}
       />
     );

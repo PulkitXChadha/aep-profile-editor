@@ -25,19 +25,6 @@ function SideBar(props) {
             activeClassName="is-selected"
             aria-current="page"
             exact
-            to="/unionSchema"
-          >
-            Union Schema
-          </NavLink>
-        </li>
-      )}
-      {props.isSandboxSelected && (
-        <li className="SideNav-item">
-          <NavLink
-            className="SideNav-itemLink"
-            activeClassName="is-selected"
-            aria-current="page"
-            exact
             to="/profile"
           >
             Profile Lookup

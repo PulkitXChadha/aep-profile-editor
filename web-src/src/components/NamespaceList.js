@@ -21,7 +21,6 @@ const NamespaceList = (props) => {
       sandboxName: props.sandboxName,
     },
   });
-
   let picker = (
     <ProgressCircle
       id="namespace-list-progress-circle"
@@ -40,16 +39,16 @@ const NamespaceList = (props) => {
     picker = <Text>You have no namespaces!</Text>;
   }
 
-  if (!namespaces.isLoading) {
-    const namespaceData = namespaces.data?.data || [];
+  if (namespaces.data) {
+    const namespaceData = namespaces.data.data || [];
     picker = (
       <Picker
         id="namespaces-list-picker"
         width="100%"
         maxWidth="100%"
-        label="Select Identity Namespace"
-        labelPosition="side"
-        labelAlign="end"
+        label="Identity Namespace"
+        // labelPosition="side"
+        labelAlign="start"
         isRequired={true}
         placeholder="select an identity namespace"
         aria-label="select an identity namespace"
