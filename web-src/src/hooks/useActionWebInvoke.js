@@ -21,11 +21,7 @@ export const useActionWebInvoke = ({
     } else {
       // setData(mockData.main(actionName));
       // setIsLoading(false);
-      actionWebInvoke(
-        actionName,
-        JSON.stringify(headers),
-        JSON.stringify(params)
-      )
+      actionWebInvoke(actionName, headers, params)
         .then((response) => {
           setData(response);
           setIsLoading(false);
