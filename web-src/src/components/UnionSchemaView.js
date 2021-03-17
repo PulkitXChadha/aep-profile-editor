@@ -5,7 +5,7 @@ import { Button, ProgressCircle, Text } from "@adobe/react-spectrum";
 
 import ImageProfile from "@spectrum-icons/workflow/ImageProfile";
 // import Form from "react-jsonschema-form";
-import Form from "@rjsf/material-ui";
+import Form from "@rjsf/bootstrap-4";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import {
   ProfileProvider,
@@ -38,7 +38,11 @@ const UnionSchemaView = (props) => {
 
   if (unionSchema.data) {
     content = (
-      <Form schema={unionSchema.data} formData={profileData} disabled>
+      <Form
+        schema={unionSchema.data}
+        formData={profileData}
+        disabled={props.isDisabled}
+      >
         <Button
           variant="primary"
           onPress={() => {

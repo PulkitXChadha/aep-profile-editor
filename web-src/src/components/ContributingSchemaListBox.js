@@ -61,18 +61,23 @@ const ContributingSchemaListBox = (props) => {
       .map((schema) => ({
         name: schema.title,
         key: schema["meta:altId"],
+        id: schema["$id"],
       }));
 
     picker = (
       <ListBox
         aria-label="profileSchemas"
         selectionMode="single"
-        itemKey="key"
+        // itemKey="key"
         onSelectionChange={props.onSelectionChange}
       >
         <Section title="Contributing Schemas">
           {listData.map((item) => (
-            <Item marginStart="size-100" key={item.key} textValue={item.name}>
+            <Item
+              marginStart="size-100"
+              key={(item.key, item.id)}
+              textValue={item.name}
+            >
               <Workflow />
               <Text>{item.name}</Text>
             </Item>

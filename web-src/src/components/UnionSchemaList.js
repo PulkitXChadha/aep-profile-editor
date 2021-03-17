@@ -45,8 +45,8 @@ const UnionSchemaList = (props) => {
     picker = (
       <Picker
         id="union-schema-list-picker"
-        width="80%"
-        maxWidth="80%"
+        width="90%"
+        maxWidth="90%"
         justifySelf="end"
         marginStart="size-100"
         label="Select a Class"

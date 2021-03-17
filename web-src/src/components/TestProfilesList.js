@@ -4,7 +4,6 @@ import { TextArea, ProgressCircle, Item, Text } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import ProfilesList from "./ProfilesList";
 const TestProfilesList = (props) => {
-  //Identity Namespace State
   let headers = {};
   // set the authorization header and org from the ims props object
   if (props.ims.token && !headers.authorization) {

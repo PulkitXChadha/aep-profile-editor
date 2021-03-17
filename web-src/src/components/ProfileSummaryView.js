@@ -23,7 +23,7 @@ const ProfileSummaryView = (props) => {
       backgroundColor="gray-50"
       borderWidth="thin"
       borderColor="dark"
-      borderRadius="medium"
+      borderRadius="regular"
     >
       <Flex
         marginTop="size-100"
@@ -32,7 +32,7 @@ const ProfileSummaryView = (props) => {
         direction="column"
       >
         <TestProfile alignSelf="center" size="XL" />
-        <Heading alignSelf="center" level={4}>
+        <Heading level={4}>
           {`${props.profileData.person.name.firstName} ${props.profileData.person.name.lastName}`}
         </Heading>
         <Header level={3}>Identities</Header>

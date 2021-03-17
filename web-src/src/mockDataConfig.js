@@ -48,7 +48,8 @@ function main(actionName, params = {}) {
       return mock.data.previewResult;
     case "get-profile-list":
       return mock.data.profileList;
-
+    case "get-all-data-inlets":
+      return mock.data.dataInlets;
     default:
     // code block
   }

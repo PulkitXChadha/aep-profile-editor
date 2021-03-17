@@ -4,6 +4,24 @@
 
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {
+  ListBox,
+  ProgressCircle,
+  Item,
+  Text,
+  ActionButton,
+  View,
+  Grid,
+  Section,
+  Flex,
+  Heading,
+  Divider,
+} from "@adobe/react-spectrum";
+import HomeIcon from "@spectrum-icons/workflow/Home";
+import ProfileIcon from "@spectrum-icons/workflow/RealTimeCustomerProfile";
+import TestProfileIcon from "@spectrum-icons/workflow/TestProfile";
+import DocumentIcon from "@spectrum-icons/workflow/Document";
+import ImportIcon from "@spectrum-icons/workflow//Import";
 function SideBar(props) {
   return (
     <ul className="SideNav">
@@ -15,7 +33,10 @@ function SideBar(props) {
           exact
           to="/"
         >
-          Home
+          <Flex direction="row" gap="size-50" alignItems="center">
+            <HomeIcon />
+            <Text>Home</Text>
+          </Flex>
         </NavLink>
       </li>
       {props.isSandboxSelected && (
@@ -27,7 +48,10 @@ function SideBar(props) {
             exact
             to="/profile"
           >
-            Profile Lookup
+            <Flex direction="row" gap="size-50" alignItems="center">
+              <ProfileIcon />
+              <Text>Profile Lookup</Text>
+            </Flex>
           </NavLink>
         </li>
       )}
@@ -40,7 +64,10 @@ function SideBar(props) {
             exact
             to="/testProfiles"
           >
-            Test Profiles
+            <Flex direction="row" gap="size-50" alignItems="center">
+              <TestProfileIcon />
+              <Text>Test Profiles</Text>
+            </Flex>
           </NavLink>
         </li>
       )}
@@ -51,7 +78,10 @@ function SideBar(props) {
           aria-current="page"
           to="/about"
         >
-          About
+          <Flex direction="row" gap="size-50" alignItems="center">
+            <DocumentIcon />
+            <Text>About</Text>
+          </Flex>
         </NavLink>
       </li>
     </ul>

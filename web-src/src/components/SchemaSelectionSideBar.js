@@ -92,6 +92,7 @@ const SchemaSelectionSideBar = (props) => {
               sandboxName={props.sandboxName}
               class={selectedClass}
               onSelectionChange={(id) => {
+                console.log(JSON.stringify(id));
                 setSelectedSchema(id.currentKey);
                 props.onSchemaSelection(id.currentKey);
               }}

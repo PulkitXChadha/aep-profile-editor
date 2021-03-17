@@ -50,7 +50,6 @@ const TestProfiles = (props) => {
   if (!previewJob.data && !previewJob.error && !previewJob.isLoading) {
     testProfilesContent = <Text>Issues Submitting Preview Job</Text>;
   }
-  console.log(JSON.stringify(previewJob.data));
   if (previewJob.data && previewJob.data.state === "RESULT_READY") {
     testProfilesContent = (
       <TestProfilesList
@@ -75,9 +74,24 @@ const TestProfiles = (props) => {
       </View>
     </Grid>
   );
+
+  let subHeaderContent = (
+    <Grid
+      areas={["subHeader subHeader subHeader subHeader subHeader"]}
+      columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
+      rows={["size-800"]}
+      height="100%"
+    >
+      <View gridArea="subHeader">
+        <Heading level={4}>Sample Test Profile</Heading>
+      </View>
+    </Grid>
+  );
   return (
     <Flex direction="column" gap="size-50">
       {headerContent}
+      <Divider size="M" />
+      {subHeaderContent}
       <Divider size="M" />
       {testProfilesContent}
     </Flex>

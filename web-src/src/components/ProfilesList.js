@@ -47,10 +47,10 @@ const ProfilesList = (props) => {
     const keys = Object.keys(profileList.data);
     profileListContent = (
       <Grid
-        columns={repeat("auto-fit", "size-3000")}
-        autoFlow="size-3000"
-        justifyContent="center"
-        gap="size-300"
+        columns={repeat("auto-fit", "size-2000")}
+        autoFlow="size-2000"
+        // justifyContent="center"
+        gap="size-100"
       >
         {keys.map((key) => (
           <ProfileSummaryView profileData={profileList.data[key].entity} />

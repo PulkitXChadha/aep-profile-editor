@@ -50,7 +50,7 @@ function App(props) {
 
   let sidebar = null;
   sidebar = (
-    <View margin="size-200">
+    <View marginStart="size-100">
       <SideBar isSandboxSelected={sandboxName ? true : false}></SideBar>
     </View>
   );

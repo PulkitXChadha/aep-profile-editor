@@ -7,11 +7,8 @@ import {
   View,
   Flex,
   Heading,
-  TextField,
-  Button,
   Text,
   Divider,
-  Switch,
   ActionGroup,
   Item as SpectrumTab,
 } from "@adobe/react-spectrum";
@@ -25,14 +22,12 @@ import {
 
 import SchemaSelectionSideBar from "./SchemaSelectionSideBar";
 import EditIcon from "@spectrum-icons/workflow//Edit";
-import ImageProfile from "@spectrum-icons/workflow/ImageProfile";
 import AddCircleIcon from "@spectrum-icons/workflow/AddCircle";
-import NamespaceList from "./NamespaceList";
 import ProfileView from "./ProfileView";
 import ExperienceEventsView from "./ExperienceEventsView";
-
 import UnionSchemaView from "./UnionSchemaView";
-
+import DataIngestionView from "./DataIngestionView";
+import FindProfileView from "./FindProfileView";
 const ProfileLookupView = (props) => {
   let { namespace, identityValue } = useParams();
   const [getProfile, setGetProfile] = useState(false);
@@ -43,6 +38,7 @@ const ProfileLookupView = (props) => {
   let [entityValue, setEntityValue] = useState(identityValue);
 
   const [selectedSchema, setSelectedSchema] = useState();
+  const [enableProfileEdit, setEnableProfileEdit] = useState(false);
   //refresh profile and experience events went entity value or selectedNamespace change
   useEffect(() => {
     setGetProfile(false);
@@ -55,57 +51,16 @@ const ProfileLookupView = (props) => {
     setSandboxName(props.sandboxName);
   }, [props.sandboxName]);
 
-  let valueInput = null;
-  let identityNamespace = null;
-
-  if (sandboxName) {
-    identityNamespace = (
-      <NamespaceList
-        ims={props.ims}
-        sandboxName={sandboxName}
-        onSelectionChange={(id) => {
-          setSelectedNamespace(id);
-        }}
-        initialSelection={namespace}
-      />
-    );
-    valueInput = (
-      <TextField
-        width="100%"
-        maxWidth="100%"
-        // isDisabled={selectedNamespace ? false : true}
-        label={`Enter ID value`}
-        labelPosition="top"
-        labelAlign="start"
-        isRequired={true}
-        onChange={setEntityValue}
-        inputMode="text"
-        maxLength="255"
-        defaultValue={identityValue}
-      />
-    );
-  }
-
-  let findProfileButton = null;
-  findProfileButton = (
-    <Button
-      variant="primary"
-      onPress={() => {
-        setGetProfile(true);
-      }}
-    >
-      <Text>View</Text>
-    </Button>
-  );
   let editProfileButton = null;
   editProfileButton = (
     <ActionGroup
       position="end"
       alignSelf="center"
       variant="primary"
+      isDisabled={selectedSchema ? false : true}
       onAction={() => {
         //TODO: Enable Form
-        //TODO: Display Streaming View
+        setEnableProfileEdit(true);
       }}
     >
       <SpectrumTab key="addProfile">
@@ -115,32 +70,34 @@ const ProfileLookupView = (props) => {
     </ActionGroup>
   );
 
-  let saveProfileButton = null;
-  saveProfileButton = (
-    <Button
-      variant="cta"
-      onPress={() => {
-        //TODO: Call Data inlet
-      }}
-    >
-      <Text>Save</Text>
-    </Button>
-  );
   let profileContent = null;
   let schemaSideBar = null;
   let editSideBar = null;
 
   if (getProfile || createProfile || (namespace && identityValue)) {
     profileContent = (
-      <Flex
-        marginStart="size-100"
-        // overflow="auto"
-        direction="column"
-        gap="size-125"
-      >
-        <Heading marginStart="size-100" start="size-50" level={4}>
-          Profile Data
-        </Heading>
+      <Flex marginStart="size-100" direction="column" gap="size-125">
+        <Grid
+          areas={["header header header header editButton"]}
+          columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
+          rows={["size-600"]}
+          height="100%"
+          columnGap="size-300"
+        >
+          <View gridArea="header">
+            <Heading marginStart="size-100" start="size-50" level={4}>
+              Profile Data
+            </Heading>
+          </View>
+          <View
+            justifySelf="end"
+            alignSelf="center"
+            marginEnd="size-100"
+            gridArea="editButton"
+          >
+            {editProfileButton}
+          </View>
+        </Grid>
 
         <Tabs aria-label="Profile Data">
           <Item title="Profile Form" key="profileForm">
@@ -148,6 +105,7 @@ const ProfileLookupView = (props) => {
               ims={props.ims}
               sandboxName={sandboxName}
               schemaId={selectedSchema || `_xdm.context.profile__union`}
+              isDisabled={!enableProfileEdit}
             />
           </Item>
           <Item title="Profile" key="profile">
@@ -189,19 +147,12 @@ const ProfileLookupView = (props) => {
     );
 
     editSideBar = (
-      <View marginStart="size-100">
-        <Flex direction="column" gap="size-300">
-          <View>
-            <Heading start="size-50" level={4}>
-              Data Ingestion
-            </Heading>
-          </View>
-          <View alignSelf="end">{editProfileButton}</View>
-          <View width="80%">{identityNamespace}</View>
-          <View width="80%">{identityNamespace}</View>
-          <View alignSelf="center">{saveProfileButton}</View>
-        </Flex>
-      </View>
+      <DataIngestionView
+        schemaId={selectedSchema}
+        ims={props.ims}
+        sandboxName={sandboxName}
+        isDisabled={!enableProfileEdit}
+      />
     );
   }
 
@@ -211,7 +162,6 @@ const ProfileLookupView = (props) => {
       columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
       rows={["size-600"]}
       height="100%"
-      // gap="size-100"
       columnGap="size-300"
     >
       <View gridArea="header">
@@ -235,6 +185,20 @@ const ProfileLookupView = (props) => {
     </Grid>
   );
 
+  let subHeaderContent = (
+    <Grid
+      areas={["subHeader subHeader subHeader subHeader subHeader"]}
+      columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
+      rows={["size-600"]}
+      height="100%"
+    >
+      <View gridArea="subHeader">
+        {createProfile && <Heading level={4}>Create Profile</Heading>}
+        {!createProfile && <Heading level={4}>Find Profiles</Heading>}
+      </View>
+    </Grid>
+  );
+
   let mainContent = (
     <Grid
       areas={[
@@ -242,8 +206,6 @@ const ProfileLookupView = (props) => {
       ]}
       columns={["1fr", "1fr", "1fr", "1fr", "1fr", "1fr"]}
       rows={["auto"]}
-      height="100%"
-      // gap="size-50"
       columnGap="size-50"
     >
       <ProfileProvider>
@@ -256,11 +218,7 @@ const ProfileLookupView = (props) => {
           {schemaSideBar}
         </View>
 
-        <View
-          gridArea="profileContent"
-          // overflow="auto"
-          backgroundColor="gray-50"
-        >
+        <View gridArea="profileContent" backgroundColor="gray-50">
           {profileContent}
         </View>
         <View
@@ -274,56 +232,29 @@ const ProfileLookupView = (props) => {
       </ProfileProvider>
     </Grid>
   );
-  let subHeaderContent = (
-    <Grid
-      areas={[
-        "subHeader subHeader subHeader subHeader subHeader",
-        "namespace entityValue profileButton entityValue1 profileButton1",
-      ]}
-      columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
-      rows={["size-400", "size-800"]}
-      height="100%"
-      // gap="size-100"
-      columnGap="size-300"
-    >
-      <View gridArea="subHeader">
-        <Heading level={4}>Find Profiles</Heading>
-      </View>
-      <View alignSelf="center" gridArea="namespace">
-        {identityNamespace}
-      </View>
-      <View alignSelf="center" gridArea="namespace">
-        {identityNamespace}
-      </View>
-      <View alignSelf="center" gridArea="entityValue">
-        {valueInput}
-      </View>
-      <View alignSelf="end" marginBottom="size-100" gridArea="profileButton">
-        {findProfileButton}
-      </View>
-    </Grid>
-  );
-
-  if (createProfile) {
-    subHeaderContent = (
-      <Grid
-        areas={["subHeader subHeader subHeader subHeader subHeader"]}
-        columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
-        rows={["size-800"]}
-        height="100%"
-      >
-        <View gridArea="subHeader">
-          <Heading level={4}>Create Profile</Heading>
-        </View>
-      </Grid>
-    );
-  }
 
   return (
     <Flex direction="column" gap="size-50">
       {headerContent}
       <Divider size="M" />
       {subHeaderContent}
+      {!createProfile && (
+        <FindProfileView
+          ims={props.ims}
+          sandboxName={sandboxName}
+          namespace={namespace}
+          identityValue={identityValue}
+          onEntityValueChange={(value) => {
+            setEntityValue(value);
+          }}
+          onNamespaceSelection={(selection) => {
+            setSelectedNamespace(selection);
+          }}
+          onButtonClick={() => {
+            setGetProfile(true);
+          }}
+        />
+      )}
       <Divider size="M" />
       {mainContent}
     </Flex>
