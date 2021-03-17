@@ -20,11 +20,9 @@ import ExperienceEventsView from "./ExperienceEventsView";
 import UnionSchemaView from "./UnionSchemaView";
 const ProfileDataView = (props) => {
   const [eventCount, setEventCount] = useState();
-
   const [enableProfileFormEdit, setEnableProfileFormEdit] = useState(false);
-  console.log(
-    `schema=${JSON.stringify(props.schemaId)} isDisabled=${props.isDisabled}`
-  );
+  const [profileData, setProfileData] = useState();
+
   let editProfileButton = null;
   editProfileButton = (
     <ActionGroup
@@ -75,6 +73,7 @@ const ProfileDataView = (props) => {
             schemaId={props.schemaId}
             isDisabled={!enableProfileFormEdit}
             onChange={props.onChange}
+            profileData={profileData}
           />
         </Item>
         <Item title="Profile" key="profile">
@@ -83,19 +82,9 @@ const ProfileDataView = (props) => {
             identityNamespace={props.identityNamespace}
             identityValue={props.identityValue}
             sandboxName={props.sandboxName}
-          />
-        </Item>
-        <Item
-          title={`Experience Events ${eventCount ? `(${eventCount})` : ``}`}
-          key="ee"
-        >
-          <ExperienceEventsView
-            ims={props.ims}
-            identityNamespace={props.identityNamespace}
-            identityValue={props.identityValue}
-            sandboxName={props.sandboxName}
-            onLoad={(count) => {
-              setEventCount(count);
+            onDataLoad={(data) => {
+              console.log(`Data = ${data}`);
+              setProfileData(data);
             }}
           />
         </Item>
