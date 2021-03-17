@@ -1,20 +1,13 @@
 import { css, jsx } from "@emotion/react";
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
-import { Button, ProgressCircle, Text } from "@adobe/react-spectrum";
+import React from "react";
+import { ProgressCircle, Text } from "@adobe/react-spectrum";
 
-import ImageProfile from "@spectrum-icons/workflow/ImageProfile";
 // import Form from "react-jsonschema-form";
 import Form from "@rjsf/bootstrap-4";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
-import {
-  ProfileProvider,
-  useProfileState,
-  useProfileDispatch,
-} from "../context/ProfileViewContext.js";
 
 const UnionSchemaView = (props) => {
-  const profileData = useProfileState();
   let headers = {};
   // set the authorization header and org from the ims props object
   if (props.ims.token && !headers.authorization) {
@@ -50,23 +43,16 @@ const UnionSchemaView = (props) => {
     content = <Text>Schema Not Found</Text>;
   }
   if (unionSchema.data) {
+    console.log(
+      `from Union Schema View ID= ${unionSchema.data["$id"]} and MetaID = ${unionSchema.data["meta:altId"]}`
+    );
     content = (
       <Form
         schema={unionSchema.data}
         formData={props.profileData}
         disabled={props.isDisabled}
         onChange={props.onChange}
-      >
-        <Button
-          variant="primary"
-          onPress={() => {
-            console.log(`Clicked`);
-          }}
-        >
-          <ImageProfile />
-          <Text>Get Profile</Text>
-        </Button>
-      </Form>
+      ></Form>
     );
   }
 
