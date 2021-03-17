@@ -1,5 +1,5 @@
 {
-  "name": "aepprofileviewer",
+  "name": "aepProfileEditor",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -19,6 +19,7 @@
     "@spectrum-icons/workflow": "^3.2.0",
     "core-js": "^3.6.4",
     "react": "^16.14.0",
+    "react-bootstrap": "^1.5.2",
     "react-dom": "^16.14.0",
     "react-error-boundary": "^1.2.5",
     "react-json-editor": "^0.3.0",

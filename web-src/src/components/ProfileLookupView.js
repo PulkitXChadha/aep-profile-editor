@@ -51,15 +51,15 @@ const ProfileLookupView = (props) => {
   let schemaSideBar = null;
   let editSideBar = null;
 
-  if (getProfile || createProfile || (namespace && identityValue)) {
+  if (getProfile || createProfile) {
     profileContent = (
       <ProfileDataView
         ims={props.ims}
         sandboxName={sandboxName}
         schemaId={selectedSchema || `_xdm.context.profile__union`}
         isDisabled={!selectedSchema}
-        identityValue={entityValue || identityValue}
-        identityNamespace={selectedNamespace || namespace}
+        identityValue={entityValue}
+        identityNamespace={selectedNamespace}
         onChange={() => {
           setDataIngestionVisibility(true);
         }}
@@ -174,16 +174,21 @@ const ProfileLookupView = (props) => {
         <FindProfileView
           ims={props.ims}
           sandboxName={sandboxName}
-          namespace={namespace}
-          identityValue={identityValue}
+          namespace={selectedNamespace}
+          identityValue={entityValue}
           onEntityValueChange={(value) => {
             setEntityValue(value);
           }}
           onNamespaceSelection={(selection) => {
             setSelectedNamespace(selection);
           }}
-          onButtonClick={() => {
+          onViewButtonClick={() => {
             setGetProfile(true);
+          }}
+          onClearButtonClick={() => {
+            setEntityValue();
+            setSelectedNamespace();
+            setGetProfile(false);
           }}
         />
       )}
