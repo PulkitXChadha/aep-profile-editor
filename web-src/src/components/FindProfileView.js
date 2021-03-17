@@ -48,7 +48,7 @@ const FindProfileView = (props) => {
       />
     );
     findProfileButton = (
-      <Button variant="primary" onPress={props.onButtonClick}>
+      <Button variant="primary" onPress={props.onViewButtonClick}>
         <Text>View</Text>
       </Button>
     );
