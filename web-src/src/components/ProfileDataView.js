@@ -76,11 +76,11 @@ const ProfileDataView = (props) => {
     );
     schemaContent = (
       <UnionSchemaView
+        key={props.schemaId} //important to set a key to re render the component
         ims={props.ims}
         sandboxName={props.sandboxName}
         schemaId={props.schemaId}
         isDisabled={!enableProfileFormEdit}
-        onChange={props.onChange}
         profileData={dataToDisplay}
       />
     );
@@ -113,6 +113,7 @@ const ProfileDataView = (props) => {
             isDisabled={props.isDisabled}
             onAction={() => {
               setEnableProfileFormEdit(true);
+              props.onEditButtonClick(true);
             }}
           >
             <SpectrumTab key="addProfile">

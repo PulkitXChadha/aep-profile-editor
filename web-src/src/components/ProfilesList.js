@@ -31,6 +31,9 @@ const ProfilesList = (props) => {
       id="profile-list-progress-circle"
       aria-label="Getting Profile Data"
       isIndeterminate
+      alignSelf="center"
+      size="L"
+      justifySelf="center"
       isHidden={!profileList.isLoading}
       marginStart="size-100"
     />
@@ -47,13 +50,15 @@ const ProfilesList = (props) => {
     const keys = Object.keys(profileList.data);
     profileListContent = (
       <Grid
-        columns={repeat("auto-fit", "size-2000")}
-        autoFlow="size-2000"
-        // justifyContent="center"
+        columns={repeat("auto-fit", "15%")}
+        justifyContent="center"
         gap="size-100"
       >
         {keys.map((key) => (
-          <ProfileSummaryView profileData={profileList.data[key].entity} />
+          <ProfileSummaryView
+            key={key}
+            profileData={profileList.data[key].entity}
+          />
         ))}
       </Grid>
     );

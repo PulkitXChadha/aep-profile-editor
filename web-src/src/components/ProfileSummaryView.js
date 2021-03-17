@@ -2,18 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import TestProfile from "@spectrum-icons/workflow/TestProfile";
-import {
-  Text,
-  Flex,
-  ProgressCircle,
-  View,
-  Grid,
-  Button,
-  repeat,
-  Header,
-  Section,
-  Heading,
-} from "@adobe/react-spectrum";
+import { Text, Flex, View, Header, Heading } from "@adobe/react-spectrum";
 
 import { Link } from "react-router-dom";
 
@@ -38,7 +27,10 @@ const ProfileSummaryView = (props) => {
         <Header level={3}>Identities</Header>
         {Object.keys(props.profileData.identityMap).map((namespace) =>
           props.profileData.identityMap[namespace].map((identity) => (
-            <Link to={`/profile/${namespace}/${identity.id}`}>
+            <Link
+              key={`${namespace}-${identity.id}`}
+              to={`/profile/${namespace}/${identity.id}`}
+            >
               <Text> {identity.id}</Text>
             </Link>
           ))

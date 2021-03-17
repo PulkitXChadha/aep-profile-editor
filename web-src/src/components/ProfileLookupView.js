@@ -27,6 +27,7 @@ import DataIngestionView from "./DataIngestionView";
 import FindProfileView from "./FindProfileView";
 const ProfileLookupView = (props) => {
   let { namespace, identityValue } = useParams();
+
   const [getProfile, setGetProfile] = useState(false);
   const [createProfile, setCreateProfile] = useState(false);
   const [sandboxName, setSandboxName] = useState(null);
@@ -36,15 +37,13 @@ const ProfileLookupView = (props) => {
   const [selectedSchemaMetaID, setSelectedSchemaMetaID] = useState();
   const [selectedClass, setSelectedClass] = useState();
   const [dataIngestionVisibility, setDataIngestionVisibility] = useState(false);
-  //refresh profile and experience events went entity value or selectedNamespace change
+
   useEffect(() => {
     setGetProfile(false);
   }, [entityValue, selectedNamespace]);
 
   //Update page if sandbox or container change
   useEffect(() => {
-    setSelectedNamespace(null);
-    setEntityValue(null);
     setSandboxName(props.sandboxName);
   }, [props.sandboxName]);
 
@@ -59,9 +58,9 @@ const ProfileLookupView = (props) => {
         sandboxName={sandboxName}
         schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
         isDisabled={!selectedSchemaMetaID}
-        identityValue={entityValue}
-        identityNamespace={selectedNamespace}
-        onChange={() => {
+        identityValue={identityValue || entityValue}
+        identityNamespace={namespace || selectedNamespace}
+        onEditButtonClick={() => {
           setDataIngestionVisibility(true);
         }}
       />
@@ -176,8 +175,8 @@ const ProfileLookupView = (props) => {
         <FindProfileView
           ims={props.ims}
           sandboxName={sandboxName}
-          namespace={selectedNamespace}
-          identityValue={entityValue}
+          namespace={namespace || selectedNamespace}
+          identityValue={identityValue || entityValue}
           onEntityValueChange={(value) => {
             setEntityValue(value);
           }}

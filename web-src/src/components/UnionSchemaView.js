@@ -1,6 +1,6 @@
 import { css, jsx } from "@emotion/react";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import { ProgressCircle, Text } from "@adobe/react-spectrum";
 
 // import Form from "react-jsonschema-form";
@@ -24,7 +24,6 @@ const UnionSchemaView = (props) => {
       sandboxName: props.sandboxName,
       schemaId: props.schemaId,
     },
-    cacheResponse: false,
   });
 
   let content = (
@@ -43,9 +42,6 @@ const UnionSchemaView = (props) => {
     content = <Text>Schema Not Found</Text>;
   }
   if (unionSchema.data) {
-    console.log(
-      `from Union Schema View ID= ${unionSchema.data["$id"]} and MetaID = ${unionSchema.data["meta:altId"]}`
-    );
     content = (
       <Form
         schema={unionSchema.data}

@@ -38,9 +38,10 @@ const DatasetList = (props) => {
   }
 
   if (datasets.data) {
-    const datasetsData = Object.keys(datasets.data).filter(
-      (dataset) => datasets.data[dataset].schemaRef.id === props.schemaId
-    );
+    const datasetsData = Object.keys(datasets.data).filter((dataset) => {
+      const schemaRef = datasets.data[dataset].schemaRef || {};
+      return schemaRef.id === props.schemaId;
+    });
 
     picker = (
       <Picker

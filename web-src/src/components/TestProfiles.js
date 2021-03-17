@@ -39,6 +39,9 @@ const TestProfiles = (props) => {
       id="test-profile-list-progress-circle"
       aria-label="Submitting a Preview Jo Offer Activities"
       isIndeterminate
+      alignSelf="center"
+      size="L"
+      justifySelf="center"
       isHidden={!previewJob.isLoading}
       marginStart="size-100"
     />
