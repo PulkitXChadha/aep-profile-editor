@@ -72,7 +72,12 @@ const ContributingSchemaListBox = (props) => {
         aria-label="profileSchemas"
         selectionMode="single"
         // itemKey="key"
-        onSelectionChange={props.onSelectionChange}
+        onSelectionChange={(id) => {
+          props.onSelectionChange(
+            id.currentKey,
+            listData.find((data) => data.id === id.currentKey).key
+          );
+        }}
       >
         <Section title="Contributing Schemas">
           {listData.map((item) => (

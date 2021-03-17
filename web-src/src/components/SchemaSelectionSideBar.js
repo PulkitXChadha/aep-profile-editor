@@ -85,8 +85,8 @@ const SchemaSelectionSideBar = (props) => {
               ims={props.ims}
               sandboxName={props.sandboxName}
               class={selectedClass}
-              onSelectionChange={(id) => {
-                props.onSelection(selectedSchema, id);
+              onSelectionChange={(id, metaId) => {
+                props.onSelection(selectedClass, id, metaId);
               }}
             />
           )}

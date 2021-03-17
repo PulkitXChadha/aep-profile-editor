@@ -32,7 +32,8 @@ const ProfileLookupView = (props) => {
   const [sandboxName, setSandboxName] = useState(null);
   const [selectedNamespace, setSelectedNamespace] = useState(namespace);
   let [entityValue, setEntityValue] = useState(identityValue);
-  const [selectedSchema, setSelectedSchema] = useState();
+  const [selectedSchemaId, setSelectedSchemaId] = useState();
+  const [selectedSchemaMetaID, setSelectedSchemaMetaID] = useState();
   const [selectedClass, setSelectedClass] = useState();
   const [dataIngestionVisibility, setDataIngestionVisibility] = useState(false);
   //refresh profile and experience events went entity value or selectedNamespace change
@@ -56,8 +57,8 @@ const ProfileLookupView = (props) => {
       <ProfileDataView
         ims={props.ims}
         sandboxName={sandboxName}
-        schemaId={selectedSchema || `_xdm.context.profile__union`}
-        isDisabled={!selectedSchema}
+        schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
+        isDisabled={!selectedSchemaMetaID}
         identityValue={entityValue}
         identityNamespace={selectedNamespace}
         onChange={() => {
@@ -71,8 +72,9 @@ const ProfileLookupView = (props) => {
         ims={props.ims}
         sandboxName={sandboxName}
         defaultSelection="https://ns.adobe.com/xdm/context/profile"
-        onSelection={(xdmClass, schema) => {
-          setSelectedSchema(schema);
+        onSelection={(xdmClass, schemaId, schemaMetaId) => {
+          setSelectedSchemaId(schemaId);
+          setSelectedSchemaMetaID(schemaMetaId);
           setSelectedClass(xdmClass);
         }}
       />
@@ -80,7 +82,7 @@ const ProfileLookupView = (props) => {
 
     editSideBar = (
       <DataIngestionView
-        schemaId={selectedSchema}
+        schemaId={selectedSchemaId}
         ims={props.ims}
         sandboxName={sandboxName}
         isDisabled={!dataIngestionVisibility}
