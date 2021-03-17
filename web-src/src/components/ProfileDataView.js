@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+import ReactJson from "react-json-view";
 import PropTypes from "prop-types";
 import {
   ListBox,
@@ -15,31 +17,74 @@ import {
 import { Tabs, Item } from "@react-spectrum/tabs";
 import EditIcon from "@spectrum-icons/workflow//Edit";
 
-import ProfileJSONView from "./ProfileJSONView";
-import ExperienceEventsView from "./ExperienceEventsView";
+import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import UnionSchemaView from "./UnionSchemaView";
 const ProfileDataView = (props) => {
-  const [eventCount, setEventCount] = useState();
   const [enableProfileFormEdit, setEnableProfileFormEdit] = useState(false);
-  const [profileData, setProfileData] = useState();
 
-  let editProfileButton = null;
-  editProfileButton = (
-    <ActionGroup
-      position="end"
-      alignSelf="center"
-      variant="primary"
-      isDisabled={props.isDisabled}
-      onAction={() => {
-        setEnableProfileFormEdit(true);
-      }}
-    >
-      <SpectrumTab key="addProfile">
-        <EditIcon />
-        <Text>Edit Profile</Text>
-      </SpectrumTab>
-    </ActionGroup>
+  let headers = {};
+  if (props.ims.token && !headers.authorization) {
+    headers.authorization = `Bearer ${props.ims.token}`;
+  }
+  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
+    headers["x-gw-ims-org-id"] = props.ims.org;
+  }
+
+  const profile = useActionWebInvoke({
+    actionName: "get-profile",
+    headers: headers,
+    params: {
+      identityNamespace: props.identityNamespace,
+      identityValue: props.identityValue,
+      sandboxName: props.sandboxName,
+    },
+  });
+  let profileJSONContent = (
+    <ProgressCircle
+      id="profile-view-progress-circle"
+      aria-label="Getting Profile"
+      isIndeterminate
+      isHidden={!profile.isLoading}
+      marginStart="size-100"
+    />
   );
+
+  let schemaContent = profileJSONContent;
+
+  if (!profile.isLoading && profile.error) {
+    profileJSONContent = <Text>No Profile Data Found</Text>;
+  }
+  if (!profile.data && !profile.error && !profile.isLoading) {
+    profileJSONContent = <Text>No Profile Data Found</Text>;
+  }
+
+  if (!profile.isLoading && profile.data) {
+    const keys = Object.keys(profile.data);
+    let dataToDisplay = profile.data[keys[0]].entity;
+    delete dataToDisplay._ACP_BATCHID;
+    delete dataToDisplay._acp_system_metadata;
+    delete dataToDisplay._id;
+    profileJSONContent = (
+      <ReactJson
+        theme="rjv-default"
+        src={dataToDisplay}
+        name="profile"
+        displayObjectSize={false}
+        displayDataTypes={false}
+        quotesOnKeys={false}
+      />
+    );
+    schemaContent = (
+      <UnionSchemaView
+        ims={props.ims}
+        sandboxName={props.sandboxName}
+        schemaId={props.schemaId}
+        isDisabled={!enableProfileFormEdit}
+        onChange={props.onChange}
+        profileData={dataToDisplay}
+      />
+    );
+  }
 
   return (
     <Flex marginStart="size-100" direction="column" gap="size-125">
@@ -61,32 +106,29 @@ const ProfileDataView = (props) => {
           marginEnd="size-100"
           gridArea="editButton"
         >
-          {editProfileButton}
+          <ActionGroup
+            position="end"
+            alignSelf="center"
+            variant="primary"
+            isDisabled={props.isDisabled}
+            onAction={() => {
+              setEnableProfileFormEdit(true);
+            }}
+          >
+            <SpectrumTab key="addProfile">
+              <EditIcon />
+              <Text>Edit Profile</Text>
+            </SpectrumTab>
+          </ActionGroup>
         </View>
       </Grid>
 
       <Tabs aria-label="Profile Data">
         <Item title="Profile Form" key="profileForm">
-          <UnionSchemaView
-            ims={props.ims}
-            sandboxName={props.sandboxName}
-            schemaId={props.schemaId}
-            isDisabled={!enableProfileFormEdit}
-            onChange={props.onChange}
-            profileData={profileData}
-          />
+          {schemaContent}
         </Item>
         <Item title="Profile" key="profile">
-          <ProfileJSONView
-            ims={props.ims}
-            identityNamespace={props.identityNamespace}
-            identityValue={props.identityValue}
-            sandboxName={props.sandboxName}
-            onDataLoad={(data) => {
-              console.log(`Data = ${data}`);
-              setProfileData(data);
-            }}
-          />
+          {profileJSONContent}
         </Item>
       </Tabs>
     </Flex>
