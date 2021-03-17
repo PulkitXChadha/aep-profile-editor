@@ -15,7 +15,6 @@ import {
 
 const UnionSchemaView = (props) => {
   const profileData = useProfileState();
-
   let headers = {};
   // set the authorization header and org from the ims props object
   if (props.ims.token && !headers.authorization) {
@@ -32,15 +31,29 @@ const UnionSchemaView = (props) => {
       sandboxName: props.sandboxName,
       schemaId: props.schemaId,
     },
+    cacheResponse: false,
   });
 
-  let content = null;
-
+  let content = (
+    <ProgressCircle
+      id="union-json-schema-view-progress-circle"
+      aria-label="Getting Schema"
+      isIndeterminate
+      isHidden={!unionSchema.isLoading}
+      marginStart="size-100"
+    />
+  );
+  if (!unionSchema.isLoading && unionSchema.error) {
+    console.log(unionSchema.error.message);
+  }
+  if (!unionSchema.data && !unionSchema.error && !unionSchema.isLoading) {
+    content = <Text>Schema Not Found</Text>;
+  }
   if (unionSchema.data) {
     content = (
       <Form
         schema={unionSchema.data}
-        formData={profileData}
+        formData={props.profileData}
         disabled={props.isDisabled}
         onChange={props.onChange}
       >
