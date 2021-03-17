@@ -42,6 +42,7 @@ const UnionSchemaView = (props) => {
         schema={unionSchema.data}
         formData={profileData}
         disabled={props.isDisabled}
+        onChange={props.onChange}
       >
         <Button
           variant="primary"

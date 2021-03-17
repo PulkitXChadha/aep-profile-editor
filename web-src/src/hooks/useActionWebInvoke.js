@@ -19,24 +19,24 @@ export const useActionWebInvoke = ({
       setData(cachedValue);
       setIsLoading(false);
     } else {
-      setData(mockData.main(actionName));
-      setIsLoading(false);
-      // actionWebInvoke(
-      //   actionName,
-      //   JSON.stringify(headers),
-      //   JSON.stringify(params)
-      // )
-      //   .then((response) => {
-      //     setData(response);
-      //     setIsLoading(false);
-      //     sessionStorage.setItem(key, JSON.stringify(response));
-      //   })
-      //   .catch((e) => {
-      //     console.log(`error = ${JSON.stringify(e)}`);
-      //     setData(null);
-      //     setIsLoading(false);
-      //     setError(e);
-      //   });
+      // setData(mockData.main(actionName));
+      // setIsLoading(false);
+      actionWebInvoke(
+        actionName,
+        JSON.stringify(headers),
+        JSON.stringify(params)
+      )
+        .then((response) => {
+          setData(response);
+          setIsLoading(false);
+          sessionStorage.setItem(key, JSON.stringify(response));
+        })
+        .catch((e) => {
+          console.log(`error = ${JSON.stringify(e)}`);
+          setData(null);
+          setIsLoading(false);
+          setError(e);
+        });
     }
   }, []);
   return { data, isLoading, error };

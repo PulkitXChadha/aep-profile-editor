@@ -12,7 +12,6 @@ import {
   ActionGroup,
   Item as SpectrumTab,
 } from "@adobe/react-spectrum";
-import { Tabs, Item } from "@react-spectrum/tabs";
 import { useParams } from "react-router-dom";
 import {
   ProfileProvider,
@@ -21,24 +20,21 @@ import {
 } from "../context/ProfileViewContext.js";
 
 import SchemaSelectionSideBar from "./SchemaSelectionSideBar";
-import EditIcon from "@spectrum-icons/workflow//Edit";
 import AddCircleIcon from "@spectrum-icons/workflow/AddCircle";
-import ProfileView from "./ProfileView";
-import ExperienceEventsView from "./ExperienceEventsView";
-import UnionSchemaView from "./UnionSchemaView";
+import ProfileDataView from "./ProfileDataView";
+
 import DataIngestionView from "./DataIngestionView";
 import FindProfileView from "./FindProfileView";
 const ProfileLookupView = (props) => {
   let { namespace, identityValue } = useParams();
   const [getProfile, setGetProfile] = useState(false);
   const [createProfile, setCreateProfile] = useState(false);
-  const [eventCount, setEventCount] = useState();
   const [sandboxName, setSandboxName] = useState(null);
   const [selectedNamespace, setSelectedNamespace] = useState(namespace);
   let [entityValue, setEntityValue] = useState(identityValue);
-
   const [selectedSchema, setSelectedSchema] = useState();
-  const [enableProfileEdit, setEnableProfileEdit] = useState(false);
+  const [selectedClass, setSelectedClass] = useState();
+  const [dataIngestionVisibility, setDataIngestionVisibility] = useState(false);
   //refresh profile and experience events went entity value or selectedNamespace change
   useEffect(() => {
     setGetProfile(false);
@@ -51,87 +47,23 @@ const ProfileLookupView = (props) => {
     setSandboxName(props.sandboxName);
   }, [props.sandboxName]);
 
-  let editProfileButton = null;
-  editProfileButton = (
-    <ActionGroup
-      position="end"
-      alignSelf="center"
-      variant="primary"
-      isDisabled={selectedSchema ? false : true}
-      onAction={() => {
-        //TODO: Enable Form
-        setEnableProfileEdit(true);
-      }}
-    >
-      <SpectrumTab key="addProfile">
-        <EditIcon />
-        <Text>Edit Profile</Text>
-      </SpectrumTab>
-    </ActionGroup>
-  );
-
   let profileContent = null;
   let schemaSideBar = null;
   let editSideBar = null;
 
   if (getProfile || createProfile || (namespace && identityValue)) {
     profileContent = (
-      <Flex marginStart="size-100" direction="column" gap="size-125">
-        <Grid
-          areas={["header header header header editButton"]}
-          columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
-          rows={["size-600"]}
-          height="100%"
-          columnGap="size-300"
-        >
-          <View gridArea="header">
-            <Heading marginStart="size-100" start="size-50" level={4}>
-              Profile Data
-            </Heading>
-          </View>
-          <View
-            justifySelf="end"
-            alignSelf="center"
-            marginEnd="size-100"
-            gridArea="editButton"
-          >
-            {editProfileButton}
-          </View>
-        </Grid>
-
-        <Tabs aria-label="Profile Data">
-          <Item title="Profile Form" key="profileForm">
-            <UnionSchemaView
-              ims={props.ims}
-              sandboxName={sandboxName}
-              schemaId={selectedSchema || `_xdm.context.profile__union`}
-              isDisabled={!enableProfileEdit}
-            />
-          </Item>
-          <Item title="Profile" key="profile">
-            <ProfileView
-              ims={props.ims}
-              identityNamespace={selectedNamespace || namespace}
-              identityValue={entityValue || identityValue}
-              sandboxName={sandboxName}
-            />
-          </Item>
-          <Item
-            title={`Experience Events ${eventCount ? `(${eventCount})` : ``}`}
-            key="ee"
-          >
-            <ExperienceEventsView
-              ims={props.ims}
-              identityNamespace={selectedNamespace || namespace}
-              identityValue={entityValue || identityValue}
-              sandboxName={sandboxName}
-              onLoad={(count) => {
-                setEventCount(count);
-              }}
-            />
-          </Item>
-        </Tabs>
-      </Flex>
+      <ProfileDataView
+        ims={props.ims}
+        sandboxName={sandboxName}
+        schemaId={selectedSchema || `_xdm.context.profile__union`}
+        isDisabled={!selectedSchema}
+        identityValue={entityValue || identityValue}
+        identityNamespace={selectedNamespace || namespace}
+        onChange={() => {
+          setDataIngestionVisibility(true);
+        }}
+      />
     );
 
     schemaSideBar = (
@@ -139,9 +71,9 @@ const ProfileLookupView = (props) => {
         ims={props.ims}
         sandboxName={sandboxName}
         defaultSelection="https://ns.adobe.com/xdm/context/profile"
-        onSchemaSelection={(id) => {
-          console.log(`selected Schema= ${id}`);
-          setSelectedSchema(id);
+        onSelection={(xdmClass, schema) => {
+          setSelectedSchema(schema);
+          setSelectedClass(xdmClass);
         }}
       />
     );
@@ -151,7 +83,7 @@ const ProfileLookupView = (props) => {
         schemaId={selectedSchema}
         ims={props.ims}
         sandboxName={sandboxName}
-        isDisabled={!enableProfileEdit}
+        isDisabled={!dataIngestionVisibility}
       />
     );
   }

@@ -9,7 +9,7 @@ import {
   useProfileState,
   useProfileDispatch,
 } from "../context/ProfileViewContext.js";
-const ProfileView = (props) => {
+const ProfileJSONView = (props) => {
   const userSettings = null;
   const setProfileData = useProfileDispatch();
 
@@ -69,8 +69,8 @@ const ProfileView = (props) => {
   return content;
 };
 
-ProfileView.propTypes = {
+ProfileJSONView.propTypes = {
   offer: PropTypes.any,
 };
 
-export default React.memo(ProfileView);
+export default ProfileJSONView;

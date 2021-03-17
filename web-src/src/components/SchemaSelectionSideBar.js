@@ -1,25 +1,18 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
-  ListBox,
   ProgressCircle,
-  Item,
   Text,
-  ActionButton,
   View,
-  Grid,
-  Section,
   Flex,
   Heading,
   Divider,
 } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import UnionSchemaList from "./UnionSchemaList";
-import Edit from "@spectrum-icons/workflow/Edit";
 import ContributingSchemaListBox from "./ContributingSchemaListBox";
 const SchemaSelectionSideBar = (props) => {
   const [selectedClass, setSelectedClass] = useState(props.defaultSelection);
-  const [selectedSchema, setSelectedSchema] = useState();
   //Identity Namespace State
   let headers = {};
   // set the authorization header and org from the ims props object
@@ -81,6 +74,7 @@ const SchemaSelectionSideBar = (props) => {
             ims={props.ims}
             sandboxName={props.sandboxName}
             onSelectionChange={(id) => {
+              props.onSelection(id, "");
               setSelectedClass(id);
             }}
             defaultSelection={props.defaultSelection}
@@ -92,9 +86,7 @@ const SchemaSelectionSideBar = (props) => {
               sandboxName={props.sandboxName}
               class={selectedClass}
               onSelectionChange={(id) => {
-                console.log(JSON.stringify(id));
-                setSelectedSchema(id.currentKey);
-                props.onSchemaSelection(id.currentKey);
+                props.onSelection(selectedSchema, id);
               }}
             />
           )}

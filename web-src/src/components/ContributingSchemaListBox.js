@@ -53,11 +53,14 @@ const ContributingSchemaListBox = (props) => {
 
   if (schemasList.data) {
     const listData = schemasList.data.results
-      .filter(
-        (schema) =>
+      .filter((schema) => {
+        const tags = schema["meta:immutableTags"] || [];
+
+        return (
           schema["meta:class"] === props.class &&
-          schema["meta:immutableTags"].find((element) => element === "union")
-      )
+          tags.find((element) => element === "union")
+        );
+      })
       .map((schema) => ({
         name: schema.title,
         key: schema["meta:altId"],
