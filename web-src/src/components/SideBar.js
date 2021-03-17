@@ -33,8 +33,8 @@ function SideBar(props) {
           exact
           to="/"
         >
-          <Flex direction="row" gap="size-50" alignItems="center">
-            <HomeIcon />
+          <Flex direction="row" gap="size-100" alignItems="center">
+            <HomeIcon size="S" />
             <Text>Home</Text>
           </Flex>
         </NavLink>
@@ -48,8 +48,8 @@ function SideBar(props) {
             exact
             to="/profile"
           >
-            <Flex direction="row" gap="size-50" alignItems="center">
-              <ProfileIcon />
+            <Flex direction="row" gap="size-100" alignItems="center">
+              <ProfileIcon size="S" />
               <Text>Profile Lookup</Text>
             </Flex>
           </NavLink>
@@ -64,8 +64,8 @@ function SideBar(props) {
             exact
             to="/testProfiles"
           >
-            <Flex direction="row" gap="size-50" alignItems="center">
-              <TestProfileIcon />
+            <Flex direction="row" gap="size-100" alignItems="center">
+              <TestProfileIcon size="S" />
               <Text>Test Profiles</Text>
             </Flex>
           </NavLink>
@@ -78,8 +78,8 @@ function SideBar(props) {
           aria-current="page"
           to="/about"
         >
-          <Flex direction="row" gap="size-50" alignItems="center">
-            <DocumentIcon />
+          <Flex direction="row" gap="size-100" alignItems="center">
+            <DocumentIcon size="S" />
             <Text>About</Text>
           </Flex>
         </NavLink>
