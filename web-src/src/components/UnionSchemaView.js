@@ -1,8 +1,6 @@
-import { css, jsx } from "@emotion/react";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
-import { ProgressCircle, Text } from "@adobe/react-spectrum";
-
+import { ProgressCircle, Text, View } from "@adobe/react-spectrum";
+import React from "react";
 // import Form from "react-jsonschema-form";
 import Form from "@rjsf/bootstrap-4";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
@@ -43,12 +41,16 @@ const UnionSchemaView = (props) => {
   }
   if (unionSchema.data) {
     content = (
-      <Form
-        schema={unionSchema.data}
-        formData={props.profileData}
-        disabled={props.isDisabled}
-        onChange={props.onChange}
-      ></Form>
+      <View marginStart="size-100">
+        <Form
+          schema={unionSchema.data}
+          formData={props.profileData}
+          disabled={props.isDisabled}
+          onChange={props.onChange}
+        >
+          <React.Fragment />
+        </Form>
+      </View>
     );
   }
 
