@@ -157,7 +157,11 @@ const ProfileLookupView = (props) => {
           {schemaSideBar}
         </View>
 
-        <View gridArea="profileContent" backgroundColor="gray-50">
+        <View
+          overflow="auto"
+          gridArea="profileContent"
+          backgroundColor="gray-50"
+        >
           {profileContent}
         </View>
         <View

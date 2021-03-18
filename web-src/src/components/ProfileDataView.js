@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/react";
+import { useState } from "react";
 
 import ReactJson from "react-json-view";
 import PropTypes from "prop-types";
@@ -65,24 +67,38 @@ const ProfileDataView = (props) => {
     delete dataToDisplay._acp_system_metadata;
     delete dataToDisplay._id;
     profileJSONContent = (
-      <ReactJson
-        theme="rjv-default"
-        src={dataToDisplay}
-        name="profile"
-        displayObjectSize={false}
-        displayDataTypes={false}
-        quotesOnKeys={false}
-      />
+      <div
+        css={css`
+          height: calc(100vh - 350px);
+          overflow: auto;
+        `}
+      >
+        <ReactJson
+          theme="rjv-default"
+          src={dataToDisplay}
+          name="profile"
+          displayObjectSize={false}
+          displayDataTypes={false}
+          quotesOnKeys={false}
+        />
+      </div>
     );
     schemaContent = (
-      <UnionSchemaView
-        key={props.schemaId} //important to set a key to re render the component
-        ims={props.ims}
-        sandboxName={props.sandboxName}
-        schemaId={props.schemaId}
-        isDisabled={!enableProfileFormEdit}
-        profileData={dataToDisplay}
-      />
+      <div
+        css={css`
+          height: calc(100vh - 350px);
+          overflow: auto;
+        `}
+      >
+        <UnionSchemaView
+          key={props.schemaId} //important to set a key to re render the component
+          ims={props.ims}
+          sandboxName={props.sandboxName}
+          schemaId={props.schemaId}
+          isDisabled={!enableProfileFormEdit}
+          profileData={dataToDisplay}
+        />
+      </div>
     );
   }
 
