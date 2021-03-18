@@ -13,6 +13,7 @@ const ProfileSummaryView = (props) => {
       borderWidth="thin"
       borderColor="dark"
       borderRadius="regular"
+      overflow="auto"
     >
       <Flex
         marginTop="size-100"

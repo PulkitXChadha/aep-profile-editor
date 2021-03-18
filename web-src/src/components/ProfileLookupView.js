@@ -107,6 +107,12 @@ const ProfileLookupView = (props) => {
           variant="primary"
           onAction={() => {
             setCreateProfile(true);
+            setSelectedNamespace("");
+            setEntityValue("");
+            setSelectedSchemaId();
+            setSelectedSchemaMetaID();
+            namespace = null;
+            identityValue = null;
           }}
         >
           <SpectrumTab key="addProfile">
