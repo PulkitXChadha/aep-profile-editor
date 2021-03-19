@@ -41,8 +41,8 @@ const TestProfiles = (props) => {
     headers: headers,
     params: {
       sandboxName: props.sandboxName,
-      expression:
-        "_adobedemoamericas270.identification.CRMID.isNotNull() and _adobedemoamericas270.identification.Email.isNotNull()",
+      expression: "1=1",
+      // expression: "testProfile = true",
     },
   });
   let testProfilesContent = (
@@ -89,11 +89,12 @@ const TestProfiles = (props) => {
       <Grid
         areas={[
           "header header header header header",
-          "subHeader subHeader subHeader subHeader pagination",
+          "subHeader subHeader subHeader subHeader subHeader",
           "mainContent mainContent mainContent mainContent mainContent",
+          "pagination pagination pagination pagination pagination",
         ]}
         columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
-        rows={["size-600", "size-800", "auto"]}
+        rows={["size-600", "size-800", "auto", "size-600"]}
         height="100%"
         // gap="size-100"
         columnGap="size-300"
@@ -108,7 +109,7 @@ const TestProfiles = (props) => {
           <Divider size="M" />
         </View>
 
-        <View gridArea="pagination" alignSelf="end">
+        <View gridArea="pagination" alignSelf="center" justifySelf="center">
           <Flex direction="row" gap="size-50" alignItems="center">
             <ActionButton
               isDisabled={resultsOffset ? false : true}

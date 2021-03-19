@@ -66,7 +66,7 @@ const NamespaceList = (props) => {
         onSelectionChange={props.onSelectionChange}
         selectedKey={selection.toUpperCase()}
       >
-        {(item) => <Item key={item.code}>{item.code}</Item>}
+        {(item) => <Item key={item.key}>{item.code}</Item>}
       </Picker>
     );
   }

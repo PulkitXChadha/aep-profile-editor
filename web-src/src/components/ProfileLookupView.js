@@ -58,8 +58,8 @@ const ProfileLookupView = (props) => {
         sandboxName={sandboxName}
         schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
         isDisabled={!selectedSchemaMetaID}
-        identityValue={identityValue || entityValue}
-        identityNamespace={namespace || selectedNamespace}
+        identityValue={entityValue || identityValue}
+        identityNamespace={selectedNamespace || namespace}
         onEditButtonClick={() => {
           setDataIngestionVisibility(true);
         }}
@@ -185,8 +185,8 @@ const ProfileLookupView = (props) => {
         <FindProfileView
           ims={props.ims}
           sandboxName={sandboxName}
-          namespace={namespace || selectedNamespace}
-          identityValue={identityValue || entityValue}
+          namespace={selectedNamespace || namespace}
+          identityValue={entityValue || identityValue}
           onEntityValueChange={(value) => {
             setEntityValue(value);
           }}

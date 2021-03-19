@@ -51,6 +51,8 @@ const UnionSchemaView = (props) => {
           schema={unionSchema.data}
           formData={props.profileData}
           disabled={props.isDisabled}
+          liveOmit
+          omitExtraData
           onChange={({ formData }, e) => {
             setUpdatedProfile(formData);
           }}
