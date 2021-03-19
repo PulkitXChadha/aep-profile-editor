@@ -4,6 +4,9 @@ import { TextArea, ProgressCircle, Item, Text } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import ProfilesList from "./ProfilesList";
 const TestProfilesList = (props) => {
+  const onData = (previewSampledResultsCount, nextOffset) => {
+    props.onDataLoad(previewSampledResultsCount, nextOffset);
+  };
   let headers = {};
   // set the authorization header and org from the ims props object
   if (props.ims.token && !headers.authorization) {
@@ -19,7 +22,8 @@ const TestProfilesList = (props) => {
     params: {
       sandboxName: props.sandboxName,
       previewJobID: props.previewId,
-      limit: 100,
+      limit: props.limit,
+      offset: props.offset,
     },
   });
 
@@ -51,13 +55,21 @@ const TestProfilesList = (props) => {
     const previewData = previewJobResults.data.results.map(
       (result) => result.objectId
     );
+
+    onData(
+      previewJobResults.data.previewSampledResultsCount,
+      props.offset + props.limit
+    );
+
+    // console.log(
+    //   `previewJobResults.data = ${JSON.stringify(previewJobResults.data)}`
+    // );
     testProfileListContent = (
       <ProfilesList
         ims={props.ims}
         sandboxName={props.sandboxName}
         entityValues={previewData}
         fields={["identities", "person"]}
-        limit={100}
       />
     );
   }

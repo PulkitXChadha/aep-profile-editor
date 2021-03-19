@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { ProgressCircle, Text, View } from "@adobe/react-spectrum";
 import React from "react";
 // import Form from "react-jsonschema-form";
-import Form from "@rjsf/bootstrap-4";
+import Form from "@rjsf/fluent-ui";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 
 const UnionSchemaView = (props) => {
@@ -46,7 +46,9 @@ const UnionSchemaView = (props) => {
           schema={unionSchema.data}
           formData={props.profileData}
           disabled={props.isDisabled}
-          onChange={props.onChange}
+          onChange={({ formData }, e) => {
+            props.onChange(formData);
+          }}
         >
           <React.Fragment />
         </Form>

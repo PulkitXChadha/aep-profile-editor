@@ -22,7 +22,6 @@ const ProfilesList = (props) => {
       previewJobID: props.previewId,
       entityValues: props.entityValues,
       fields: props.fields,
-      limit: 10,
     },
   });
 

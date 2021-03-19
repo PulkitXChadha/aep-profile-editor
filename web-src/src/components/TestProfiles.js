@@ -13,10 +13,19 @@ import {
   Flex,
   Heading,
   Grid,
+  ActionButton,
+  TextField,
 } from "@adobe/react-spectrum";
+
+import ChevronRight from "@spectrum-icons/workflow/ChevronRight";
+
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import TestProfilesList from "./TestProfilesList.js";
+import ChevronLeft from "@spectrum-icons/workflow/ChevronLeft";
 const TestProfiles = (props) => {
+  const [totalResultsCount, setTotalResultsCount] = useState();
+  const [resultsOffset, setResultsOffset] = useState(0);
+  const [limit, setLimit] = useState(100);
   //Identity Namespace State
   let headers = {};
   // set the authorization header and org from the ims props object
@@ -58,9 +67,15 @@ const TestProfiles = (props) => {
   if (previewJob.data && previewJob.data.state === "RESULT_READY") {
     testProfilesContent = (
       <TestProfilesList
+        key={`${previewJob.data.previewId}-${resultsOffset}`}
         ims={props.ims}
         sandboxName={props.sandboxName}
         previewId={previewJob.data.previewId}
+        onDataLoad={(resultsCount) => {
+          setTotalResultsCount(resultsCount);
+        }}
+        offset={resultsOffset}
+        limit={limit}
       />
     );
   }
@@ -74,7 +89,7 @@ const TestProfiles = (props) => {
       <Grid
         areas={[
           "header header header header header",
-          "subHeader subHeader subHeader subHeader subHeader",
+          "subHeader subHeader subHeader subHeader pagination",
           "mainContent mainContent mainContent mainContent mainContent",
         ]}
         columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
@@ -91,6 +106,30 @@ const TestProfiles = (props) => {
         <View gridArea="subHeader">
           <Heading level={4}>Sample Test Profile</Heading>
           <Divider size="M" />
+        </View>
+
+        <View gridArea="pagination" alignSelf="end">
+          <Flex direction="row" gap="size-50" alignItems="center">
+            <ActionButton
+              isDisabled={resultsOffset ? false : true}
+              isQuiet
+              aria-label="previous"
+            >
+              <ChevronLeft size="S" />
+            </ActionButton>
+            <TextField
+              alignSelf="center"
+              justifySelf="center"
+              justifyContent="center"
+              alignItems="center"
+              maxWidth="size-25"
+              value={Math.round(resultsOffset / limit) + 1}
+            ></TextField>
+            <Text> of {Math.round(totalResultsCount / limit)} Pages</Text>
+            <ActionButton isQuiet aria-label="next" onPress>
+              <ChevronRight size="S" />
+            </ActionButton>
+          </Flex>
         </View>
         <View gridArea="mainContent" overflow="auto">
           {testProfilesContent}
