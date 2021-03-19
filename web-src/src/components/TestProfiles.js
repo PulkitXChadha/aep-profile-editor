@@ -115,6 +115,9 @@ const TestProfiles = (props) => {
               isDisabled={resultsOffset ? false : true}
               isQuiet
               aria-label="previous"
+              onPress={() => {
+                setResultsOffset(resultsOffset - limit);
+              }}
             >
               <ChevronLeft size="S" />
             </ActionButton>
@@ -127,7 +130,13 @@ const TestProfiles = (props) => {
               value={Math.round(resultsOffset / limit) + 1}
             ></TextField>
             <Text> of {Math.round(totalResultsCount / limit)} Pages</Text>
-            <ActionButton isQuiet aria-label="next" onPress>
+            <ActionButton
+              isQuiet
+              aria-label="next"
+              onPress={() => {
+                setResultsOffset(resultsOffset + limit);
+              }}
+            >
               <ChevronRight size="S" />
             </ActionButton>
           </Flex>

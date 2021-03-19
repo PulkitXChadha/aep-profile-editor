@@ -7,6 +7,10 @@ import { Text, Flex, View, Header, Heading } from "@adobe/react-spectrum";
 import { Link } from "react-router-dom";
 
 const ProfileSummaryView = (props) => {
+  const person = props.profileData.person || {};
+  const personName = person.name || {};
+  const firstName = personName.firstName || "";
+  const lastName = personName.lastName || "";
   return (
     <View
       backgroundColor="gray-50"
@@ -22,9 +26,7 @@ const ProfileSummaryView = (props) => {
         direction="column"
       >
         <TestProfile alignSelf="center" size="XL" />
-        <Heading level={4}>
-          {`${props.profileData.person.name.firstName} ${props.profileData.person.name.lastName}`}
-        </Heading>
+        <Heading level={4}>{`${firstName} ${lastName}`}</Heading>
         <Header level={3}>Identities</Header>
         {Object.keys(props.profileData.identityMap).map((namespace) =>
           props.profileData.identityMap[namespace].map((identity) => (
