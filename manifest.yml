@@ -150,4 +150,14 @@ packages:
         annotations:
           require-adobe-auth: true
           final: true
+      stream-data:
+        function: actions/Data Ingestion/stream-data.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+        annotations:
+          require-adobe-auth: true
+          final: true
+        
           

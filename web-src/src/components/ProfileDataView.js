@@ -18,7 +18,6 @@ import {
 
 import { Tabs, Item } from "@react-spectrum/tabs";
 import EditIcon from "@spectrum-icons/workflow//Edit";
-
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import UnionSchemaView from "./UnionSchemaView";
 const ProfileDataView = (props) => {
@@ -40,6 +39,7 @@ const ProfileDataView = (props) => {
       identityValue: props.identityValue,
       sandboxName: props.sandboxName,
     },
+    cacheResponse: false,
   });
   let profileJSONContent = (
     <ProgressCircle

@@ -4,8 +4,13 @@ import React from "react";
 // import Form from "react-jsonschema-form";
 import Form from "@rjsf/fluent-ui";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
-
+import {
+  ProfileProvider,
+  useProfileState,
+  useProfileDispatch,
+} from "../context/ProfileViewContext.js";
 const UnionSchemaView = (props) => {
+  const setUpdatedProfile = useProfileDispatch();
   let headers = {};
   // set the authorization header and org from the ims props object
   if (props.ims.token && !headers.authorization) {
@@ -47,7 +52,7 @@ const UnionSchemaView = (props) => {
           formData={props.profileData}
           disabled={props.isDisabled}
           onChange={({ formData }, e) => {
-            props.onChange(formData);
+            setUpdatedProfile(formData);
           }}
         >
           <React.Fragment />

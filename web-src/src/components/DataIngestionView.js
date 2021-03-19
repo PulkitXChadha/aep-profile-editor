@@ -4,9 +4,25 @@ import { View, Flex, Heading, Text, Button } from "@adobe/react-spectrum";
 
 import DatasetList from "./DatasetList";
 import StreamingSourcesList from "./StreamingSourcesList";
+import StreamData from "./StreamData";
 const DataIngestionView = (props) => {
   const [selectedDataset, setSelectedDataset] = useState();
   const [selectedDataInlet, setSelectedDataInlet] = useState();
+
+  const [sendData, setSendData] = useState(false);
+
+  let sendDataContent = null;
+  if (sendData) {
+    sendDataContent = (
+      <StreamData
+        schemaId={props.schemaId}
+        ims={props.ims}
+        sandboxName={props.sandboxName}
+        datasetId={selectedDataset}
+        inletURL={selectedDataInlet}
+      />
+    );
+  }
   let datasetList = (
     <DatasetList
       ims={props.ims}
@@ -35,7 +51,7 @@ const DataIngestionView = (props) => {
       variant="cta"
       isDisabled={props.isDisabled || !selectedDataset || !selectedDataInlet}
       onPress={() => {
-        //TODO: Call Data inlet
+        setSendData(true);
       }}
     >
       <Text>Save</Text>
@@ -52,6 +68,9 @@ const DataIngestionView = (props) => {
         <View width="90%">{datasetList}</View>
         <View width="90%">{streamingSources}</View>
         <View alignSelf="center">{saveProfileButton}</View>
+        <View maxWidth="90%" alignSelf="center">
+          {sendDataContent}
+        </View>
       </Flex>
     </View>
   );
