@@ -30,39 +30,49 @@ const ProfileDataView = (props) => {
   if (props.ims.org && !headers["x-gw-ims-org-id"]) {
     headers["x-gw-ims-org-id"] = props.ims.org;
   }
+  let profile = null;
+  let dataToDisplay = {};
+  let schemaContent,
+    profileJSONContent = null;
 
-  const profile = useActionWebInvoke({
-    actionName: "get-profile",
-    headers: headers,
-    params: {
-      identityNamespace: props.identityNamespace,
-      identityValue: props.identityValue,
-      sandboxName: props.sandboxName,
-    },
-    cacheResponse: false,
-  });
-  let profileJSONContent = (
-    <ProgressCircle
-      id="profile-view-progress-circle"
-      aria-label="Getting Profile"
-      isIndeterminate
-      isHidden={!profile.isLoading}
-      marginStart="size-100"
-    />
-  );
-
-  let schemaContent = profileJSONContent;
-
-  if (!profile.isLoading && profile.error) {
-    profileJSONContent = <Text>No Profile Data Found</Text>;
+  if (props.forNewProfile) {
+    profile = { isLoading: false, error: {}, data: "no Data" };
   }
-  if (!profile.data && !profile.error && !profile.isLoading) {
-    profileJSONContent = <Text>No Profile Data Found</Text>;
+
+  if (!props.forNewProfile) {
+    profile = useActionWebInvoke({
+      actionName: "get-profile",
+      headers: headers,
+      params: {
+        identityNamespace: props.identityNamespace,
+        identityValue: props.identityValue,
+        sandboxName: props.sandboxName,
+      },
+      cacheResponse: false,
+    });
+
+    schemaContent,
+      (profileJSONContent = (
+        <ProgressCircle
+          id="profile-view-progress-circle"
+          aria-label="Getting Profile"
+          isIndeterminate
+          isHidden={!profile.isLoading}
+          marginStart="size-100"
+        />
+      ));
+
+    if (!profile.isLoading && profile.error) {
+      profileJSONContent = <Text>No Profile Data Found</Text>;
+    }
+    if (!profile.data && !profile.error && !profile.isLoading) {
+      profileJSONContent = <Text>No Profile Data Found</Text>;
+    }
   }
 
   if (!profile.isLoading && profile.data) {
-    const keys = Object.keys(profile.data);
-    let dataToDisplay = profile.data[keys[0]].entity;
+    const keys = Object.keys(profile.data) || "";
+    dataToDisplay = profile.data[keys[0]].entity || {};
     delete dataToDisplay._ACP_BATCHID;
     delete dataToDisplay._acp_system_metadata;
     delete dataToDisplay._id;

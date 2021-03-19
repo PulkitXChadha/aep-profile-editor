@@ -12,7 +12,7 @@ import {
   ActionGroup,
   Item as SpectrumTab,
 } from "@adobe/react-spectrum";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   ProfileProvider,
   useProfileState,
@@ -22,26 +22,14 @@ import {
 import SchemaSelectionSideBar from "./SchemaSelectionSideBar";
 import AddCircleIcon from "@spectrum-icons/workflow/AddCircle";
 import ProfileDataView from "./ProfileDataView";
-
 import DataIngestionView from "./DataIngestionView";
-import FindProfileView from "./FindProfileView";
-const ProfileLookupView = (props) => {
-  let { namespace, identityValue } = useParams();
 
-  const [getProfile, setGetProfile] = useState(false);
-  const [createProfile, setCreateProfile] = useState(false);
-  const [sandboxName, setSandboxName] = useState(null);
-  const [selectedNamespace, setSelectedNamespace] = useState(namespace);
-  let [entityValue, setEntityValue] = useState(identityValue);
+const AddProfileView = (props) => {
+  const [sandboxName, setSandboxName] = useState(props.sandboxName);
   const [selectedSchemaId, setSelectedSchemaId] = useState();
   const [selectedSchemaMetaID, setSelectedSchemaMetaID] = useState();
   const [selectedClass, setSelectedClass] = useState();
   const [dataIngestionVisibility, setDataIngestionVisibility] = useState(false);
-
-  const [redirect, setRedirect] = useState(false);
-  useEffect(() => {
-    setGetProfile(false);
-  }, [entityValue, selectedNamespace]);
 
   //Update page if sandbox or container change
   useEffect(() => {
@@ -52,43 +40,41 @@ const ProfileLookupView = (props) => {
   let schemaSideBar = null;
   let editSideBar = null;
 
-  if (getProfile || createProfile) {
-    profileContent = (
-      <ProfileDataView
-        ims={props.ims}
-        sandboxName={sandboxName}
-        schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
-        isDisabled={!selectedSchemaMetaID}
-        identityValue={entityValue || identityValue}
-        identityNamespace={selectedNamespace || namespace}
-        onEditButtonClick={() => {
-          setDataIngestionVisibility(true);
-        }}
-      />
-    );
+  profileContent = (
+    <ProfileDataView
+      ims={props.ims}
+      sandboxName={sandboxName}
+      schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
+      isDisabled={!selectedSchemaMetaID}
+      onEditButtonClick={() => {
+        setDataIngestionVisibility(true);
+      }}
+      forNewProfile={true}
+    />
+  );
 
-    schemaSideBar = (
-      <SchemaSelectionSideBar
-        ims={props.ims}
-        sandboxName={sandboxName}
-        defaultSelection="https://ns.adobe.com/xdm/context/profile"
-        onSelection={(xdmClass, schemaId, schemaMetaId) => {
-          setSelectedSchemaId(schemaId);
-          setSelectedSchemaMetaID(schemaMetaId);
-          setSelectedClass(xdmClass);
-        }}
-      />
-    );
+  schemaSideBar = (
+    <SchemaSelectionSideBar
+      ims={props.ims}
+      sandboxName={sandboxName}
+      defaultSelection="https://ns.adobe.com/xdm/context/profile"
+      onSelection={(xdmClass, schemaId, schemaMetaId) => {
+        setSelectedSchemaId(schemaId);
+        setSelectedSchemaMetaID(schemaMetaId);
+        setSelectedClass(xdmClass);
+      }}
+    />
+  );
 
-    editSideBar = (
-      <DataIngestionView
-        schemaId={selectedSchemaId}
-        ims={props.ims}
-        sandboxName={sandboxName}
-        isDisabled={!dataIngestionVisibility}
-      />
-    );
-  }
+  editSideBar = (
+    <DataIngestionView
+      schemaId={selectedSchemaId}
+      ims={props.ims}
+      sandboxName={sandboxName}
+      isDisabled={!dataIngestionVisibility}
+    />
+  );
+  //   }
 
   let headerContent = (
     <Grid
@@ -106,15 +92,11 @@ const ProfileLookupView = (props) => {
           position="end"
           alignSelf="center"
           variant="primary"
+          isDisabled={true}
           onAction={() => {
             setCreateProfile(true);
-            setSelectedNamespace("");
-            setEntityValue("");
             setSelectedSchemaId();
             setSelectedSchemaMetaID();
-            namespace = null;
-            identityValue = null;
-            setRedirect(true);
           }}
         >
           <SpectrumTab key="addProfile">
@@ -125,10 +107,6 @@ const ProfileLookupView = (props) => {
       </View>
     </Grid>
   );
-  let redirectTo = null;
-  if (redirect) {
-    redirectTo = <Redirect to="/addProfile" />;
-  }
 
   let subHeaderContent = (
     <Grid
@@ -138,8 +116,7 @@ const ProfileLookupView = (props) => {
       height="100%"
     >
       <View gridArea="subHeader">
-        {createProfile && <Heading level={4}>Create Profile</Heading>}
-        {!createProfile && <Heading level={4}>Find Profiles</Heading>}
+        <Heading level={4}>Create Profile</Heading>
       </View>
     </Grid>
   );
@@ -187,38 +164,15 @@ const ProfileLookupView = (props) => {
       {headerContent}
       <Divider size="M" />
       {subHeaderContent}
-      {!createProfile && (
-        <FindProfileView
-          ims={props.ims}
-          sandboxName={sandboxName}
-          namespace={selectedNamespace || namespace}
-          identityValue={entityValue || identityValue}
-          onEntityValueChange={(value) => {
-            setEntityValue(value);
-          }}
-          onNamespaceSelection={(selection) => {
-            setSelectedNamespace(selection);
-          }}
-          onViewButtonClick={() => {
-            setGetProfile(true);
-          }}
-          onClearButtonClick={() => {
-            setEntityValue();
-            setSelectedNamespace();
-            setGetProfile(false);
-          }}
-        />
-      )}
       <Divider size="M" />
       {mainContent}
-      {redirectTo}
     </Flex>
   );
 };
 
-ProfileLookupView.propTypes = {
+AddProfileView.propTypes = {
   runtime: PropTypes.any,
   ims: PropTypes.any,
 };
 
-export default ProfileLookupView;
+export default AddProfileView;

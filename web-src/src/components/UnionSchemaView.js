@@ -11,6 +11,7 @@ import {
 } from "../context/ProfileViewContext.js";
 const UnionSchemaView = (props) => {
   const setUpdatedProfile = useProfileDispatch();
+
   let headers = {};
   // set the authorization header and org from the ims props object
   if (props.ims.token && !headers.authorization) {
@@ -53,6 +54,8 @@ const UnionSchemaView = (props) => {
           disabled={props.isDisabled}
           liveOmit
           omitExtraData
+          liveValidate
+          showErrorList
           onChange={({ formData }, e) => {
             setUpdatedProfile(formData);
           }}

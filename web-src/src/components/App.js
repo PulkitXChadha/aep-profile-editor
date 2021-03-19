@@ -24,6 +24,7 @@ import Home from "./Home";
 import { About } from "./About";
 import TestProfiles from "./TestProfiles";
 import ProfileLookupView from "./ProfileLookupView";
+import AddProfileView from "./AddProfileView";
 function App(props) {
   let headers = {};
   if (props.ims.token && !headers.authorization) {
@@ -97,6 +98,12 @@ function App(props) {
         </Route>
         <Route path="/about">
           <About></About>
+        </Route>
+        <Route path="/addProfile">
+          <AddProfileView
+            ims={props.ims}
+            sandboxName={sandboxName}
+          ></AddProfileView>
         </Route>
       </Switch>
     </View>
