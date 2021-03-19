@@ -13,7 +13,7 @@ const ProfileSummaryView = (props) => {
   const lastName = personName.lastName || "";
   return (
     <View
-      backgroundColor="gray-50"
+      backgroundColor="gray-75"
       borderWidth="thin"
       borderColor="dark"
       borderRadius="regular"

@@ -26,6 +26,7 @@ const TestProfiles = (props) => {
   const [totalResultsCount, setTotalResultsCount] = useState();
   const [resultsOffset, setResultsOffset] = useState(0);
   const [limit, setLimit] = useState(100);
+
   //Identity Namespace State
   let headers = {};
   // set the authorization header and org from the ims props object
@@ -109,6 +110,9 @@ const TestProfiles = (props) => {
           <Divider size="M" />
         </View>
 
+        <View gridArea="mainContent" overflow="auto" backgroundColor="gray-50">
+          {testProfilesContent}
+        </View>
         <View gridArea="pagination" alignSelf="center" justifySelf="center">
           <Flex direction="row" gap="size-50" alignItems="center">
             <ActionButton
@@ -126,6 +130,9 @@ const TestProfiles = (props) => {
               justifySelf="center"
               justifyContent="center"
               alignItems="center"
+              onChange={(data) => {
+                setResultsOffset(limit * data);
+              }}
               maxWidth="size-25"
               value={Math.round(resultsOffset / limit) + 1}
             ></TextField>
@@ -140,9 +147,6 @@ const TestProfiles = (props) => {
               <ChevronRight size="S" />
             </ActionButton>
           </Flex>
-        </View>
-        <View gridArea="mainContent" overflow="auto">
-          {testProfilesContent}
         </View>
       </Grid>
     </div>
