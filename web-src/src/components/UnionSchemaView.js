@@ -54,8 +54,8 @@ const UnionSchemaView = (props) => {
           disabled={props.isDisabled}
           liveOmit
           omitExtraData
-          liveValidate
-          showErrorList
+          liveValidate={!props.isDisabled}
+          showErrorList={!props.isDisabled}
           onChange={({ formData }, e) => {
             setUpdatedProfile(formData);
           }}

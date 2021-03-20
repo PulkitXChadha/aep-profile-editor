@@ -138,8 +138,8 @@ const ProfileDataView = (props) => {
             variant="primary"
             isDisabled={props.isDisabled}
             onAction={() => {
-              setEnableProfileFormEdit(true);
-              props.onEditButtonClick(true);
+              setEnableProfileFormEdit(!enableProfileFormEdit);
+              props.onEditButtonClick(!enableProfileFormEdit);
             }}
           >
             <SpectrumTab key="addProfile">
