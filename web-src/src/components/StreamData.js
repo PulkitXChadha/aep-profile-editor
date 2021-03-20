@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { ProgressCircle, Text, View } from "@adobe/react-spectrum";
+import { ProgressCircle, Text, View, StatusLight } from "@adobe/react-spectrum";
 import React from "react";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import {
@@ -42,13 +42,23 @@ const StreamData = (props) => {
     />
   );
   if (!streamData.isLoading && streamData.error) {
-    content = <Text>{streamData.error.message}</Text>;
+    content = (
+      <StatusLight variant="negative">{streamData.error.message}</StatusLight>
+    );
   }
   if (!streamData.data && !streamData.error && !streamData.isLoading) {
-    content = <Text>Schema Not Found</Text>;
+    content = (
+      <StatusLight variant="notice">
+        No Response received, try Again!!
+      </StatusLight>
+    );
   }
   if (streamData.data) {
-    content = <Text>Success!!</Text>;
+    content = (
+      <StatusLight variant="positive">
+        Profile Fragment Saved Successfully!!
+      </StatusLight>
+    );
   }
 
   return content;
