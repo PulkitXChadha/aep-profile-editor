@@ -23,8 +23,8 @@ import SandboxPicker from "./SandboxPicker";
 import Home from "./Home";
 import { About } from "./About";
 import TestProfiles from "./TestProfiles";
-import FindProfile from "./FindProfile";
-import UnionSchemaView from "./UnionSchemaView";
+import ProfileLookupView from "./ProfileLookupView";
+import AddProfileView from "./AddProfileView";
 function App(props) {
   let headers = {};
   if (props.ims.token && !headers.authorization) {
@@ -51,7 +51,7 @@ function App(props) {
 
   let sidebar = null;
   sidebar = (
-    <View margin="size-200">
+    <View marginStart="size-100">
       <SideBar isSandboxSelected={sandboxName ? true : false}></SideBar>
     </View>
   );
@@ -87,20 +87,23 @@ function App(props) {
         <Route exact path="/">
           <Home
             isSandboxSelected={sandboxName ? true : false}
-            firstName={props.ims.profile.first_name}
+            // firstName={props.ims.profile.first_name}
           ></Home>
         </Route>
         <Route path="/profile/:namespace?/:identityValue?">
-          <FindProfile ims={props.ims} sandboxName={sandboxName} />
-        </Route>
-        <Route path="/unionSchema">
-          <UnionSchemaView ims={props.ims} sandboxName={sandboxName} />
+          <ProfileLookupView ims={props.ims} sandboxName={sandboxName} />
         </Route>
         <Route path="/testProfiles">
           <TestProfiles ims={props.ims} sandboxName={sandboxName} />
         </Route>
         <Route path="/about">
           <About></About>
+        </Route>
+        <Route path="/addProfile">
+          <AddProfileView
+            ims={props.ims}
+            sandboxName={sandboxName}
+          ></AddProfileView>
         </Route>
       </Switch>
     </View>
@@ -131,7 +134,7 @@ function App(props) {
               <Grid
                 id="Grid"
                 areas={["nav main"]}
-                columns={["size-3000", "auto"]}
+                columns={["size-2000", "auto"]}
                 height="100%"
               >
                 <View
@@ -139,7 +142,7 @@ function App(props) {
                   backgroundColor="gray-75"
                   gridArea="nav"
                   position="fixed"
-                  width="size-3000"
+                  width="size-2000"
                   height="100%"
                 >
                   {sidebar}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import actionWebInvoke from "../utils";
-
+import mockData from "../mockDataConfig";
 export const useActionWebInvoke = ({
   actionName,
   headers = {},
@@ -15,11 +15,12 @@ export const useActionWebInvoke = ({
 
   useEffect(() => {
     const cachedValue = JSON.parse(sessionStorage.getItem(key));
-
     if (cachedValue && cacheResponse) {
       setData(cachedValue);
       setIsLoading(false);
     } else {
+      // setData(mockData.main(actionName));
+      // setIsLoading(false);
       actionWebInvoke(actionName, headers, params)
         .then((response) => {
           setData(response);
@@ -27,6 +28,7 @@ export const useActionWebInvoke = ({
           sessionStorage.setItem(key, JSON.stringify(response));
         })
         .catch((e) => {
+          console.log(`error = ${JSON.stringify(e)}`);
           setData(null);
           setIsLoading(false);
           setError(e);

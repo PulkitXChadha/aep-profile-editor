@@ -38,7 +38,7 @@ async function main(params) {
     // replace this with the api you want to access
     const apiEndpoint = `https://platform.adobe.io/data/core/ups/preview/${
       params.previewJobID
-    }?limit=${params.limit || 100}`;
+    }?limit=${params.limit || 100}&offset=${params.offset || 0}`;
     // fetch content from external api endpoint
     const res = await fetch(apiEndpoint, {
       method: "GET",

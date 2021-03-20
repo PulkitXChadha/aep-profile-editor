@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Picker, ProgressCircle, Item, Text } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 
 const NamespaceList = (props) => {
-  const selection = props.initialSelection || "";
+  const [sandboxName, setSandboxName] = useState(props.sandboxName);
+  const [selection, setSelection] = useState(props.initialSelection || "");
+
+  useEffect(() => {
+    setSandboxName(props.sandboxName);
+    setSelection(props.initialSelection || "");
+  }, [props.sandboxName, props.initialSelection]);
+
   //Identity Namespace State
   let headers = {};
   // set the authorization header and org from the ims props object
@@ -18,10 +25,9 @@ const NamespaceList = (props) => {
     actionName: "get-identity-preview-report",
     headers: headers,
     params: {
-      sandboxName: props.sandboxName,
+      sandboxName: sandboxName,
     },
   });
-
   let picker = (
     <ProgressCircle
       id="namespace-list-progress-circle"
@@ -40,16 +46,15 @@ const NamespaceList = (props) => {
     picker = <Text>You have no namespaces!</Text>;
   }
 
-  if (!namespaces.isLoading) {
-    const namespaceData = namespaces.data?.data || [];
+  if (namespaces.data) {
+    const namespaceData = namespaces.data.data || [];
     picker = (
       <Picker
         id="namespaces-list-picker"
         width="100%"
         maxWidth="100%"
-        label="Select Identity Namespace"
-        labelPosition="side"
-        labelAlign="end"
+        label="Identity Namespace"
+        labelAlign="start"
         isRequired={true}
         placeholder="select an identity namespace"
         aria-label="select an identity namespace"
@@ -59,9 +64,9 @@ const NamespaceList = (props) => {
         }))}
         itemKey="key"
         onSelectionChange={props.onSelectionChange}
-        defaultSelectedKey={selection.toUpperCase()}
+        selectedKey={selection.toUpperCase()}
       >
-        {(item) => <Item key={item.code}>{item.code}</Item>}
+        {(item) => <Item key={item.key}>{item.code}</Item>}
       </Picker>
     );
   }

@@ -4,6 +4,24 @@
 
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {
+  ListBox,
+  ProgressCircle,
+  Item,
+  Text,
+  ActionButton,
+  View,
+  Grid,
+  Section,
+  Flex,
+  Heading,
+  Divider,
+} from "@adobe/react-spectrum";
+import HomeIcon from "@spectrum-icons/workflow/Home";
+import ProfileIcon from "@spectrum-icons/workflow/RealTimeCustomerProfile";
+import TestProfileIcon from "@spectrum-icons/workflow/TestProfile";
+import DocumentIcon from "@spectrum-icons/workflow/Document";
+import ImportIcon from "@spectrum-icons/workflow//Import";
 function SideBar(props) {
   return (
     <ul className="SideNav">
@@ -15,7 +33,10 @@ function SideBar(props) {
           exact
           to="/"
         >
-          Home
+          <Flex direction="row" gap="size-100" alignItems="center">
+            <HomeIcon size="S" />
+            <Text>Home</Text>
+          </Flex>
         </NavLink>
       </li>
       {props.isSandboxSelected && (
@@ -25,22 +46,12 @@ function SideBar(props) {
             activeClassName="is-selected"
             aria-current="page"
             exact
-            to="/unionSchema"
-          >
-            Union Schema
-          </NavLink>
-        </li>
-      )}
-      {props.isSandboxSelected && (
-        <li className="SideNav-item">
-          <NavLink
-            className="SideNav-itemLink"
-            activeClassName="is-selected"
-            aria-current="page"
-            exact
             to="/profile"
           >
-            Profile Lookup
+            <Flex direction="row" gap="size-100" alignItems="center">
+              <ProfileIcon size="S" />
+              <Text>Profile Lookup</Text>
+            </Flex>
           </NavLink>
         </li>
       )}
@@ -53,7 +64,10 @@ function SideBar(props) {
             exact
             to="/testProfiles"
           >
-            Test Profiles
+            <Flex direction="row" gap="size-100" alignItems="center">
+              <TestProfileIcon size="S" />
+              <Text>Test Profiles</Text>
+            </Flex>
           </NavLink>
         </li>
       )}
@@ -62,19 +76,12 @@ function SideBar(props) {
           className="SideNav-itemLink"
           activeClassName="is-selected"
           aria-current="page"
-          to="/actions"
-        >
-          Your App Actions
-        </NavLink>
-      </li>
-      <li className="SideNav-item">
-        <NavLink
-          className="SideNav-itemLink"
-          activeClassName="is-selected"
-          aria-current="page"
           to="/about"
         >
-          About Project Firefly Apps
+          <Flex direction="row" gap="size-100" alignItems="center">
+            <DocumentIcon size="S" />
+            <Text>About</Text>
+          </Flex>
         </NavLink>
       </li>
     </ul>

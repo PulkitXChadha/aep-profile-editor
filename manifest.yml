@@ -10,7 +10,7 @@ packages:
           LOG_LEVEL: debug
           apiKey: $SERVICE_API_KEY
         annotations:
-          require-adobe-auth: true
+          # require-adobe-auth: true
           final: true
       get-profile-union-schema:
         function: actions/UPS/get-profile-union-schema.js
@@ -100,3 +100,64 @@ packages:
           LOG_LEVEL: debug
         annotations:
           final: true
+      get-all-datasets:
+        function: actions/Catalog Service/get-all-datasets.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-all-schemas:
+        function: actions/Schema Registry/get-all-schemas.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-schema-details:
+        function: actions/Schema Registry/get-schema-details.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true 
+      get-all-data-inlets:
+        function: actions/Data Ingestion/get-all-data-inlets.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      get-all-unions:
+        function: actions/Schema Registry/get-all-unions.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+          apiKey: $SERVICE_API_KEY
+        annotations:
+          require-adobe-auth: true
+          final: true
+      stream-data:
+        function: actions/Data Ingestion/stream-data.js
+        web: "yes"
+        runtime: "nodejs:12"
+        inputs:
+          LOG_LEVEL: debug
+        annotations:
+          require-adobe-auth: true
+          final: true
+        
+          
