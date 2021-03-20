@@ -51,16 +51,16 @@ const ProfileDataView = (props) => {
       cacheResponse: false,
     });
 
-    schemaContent,
-      (profileJSONContent = (
-        <ProgressCircle
-          id="profile-view-progress-circle"
-          aria-label="Getting Profile"
-          isIndeterminate
-          isHidden={!profile.isLoading}
-          marginStart="size-100"
-        />
-      ));
+    profileJSONContent = (
+      <ProgressCircle
+        id="profile-view-progress-circle"
+        aria-label="Getting Profile"
+        isIndeterminate
+        isHidden={!profile.isLoading}
+        marginStart="size-100"
+      />
+    );
+    schemaContent = profileJSONContent;
 
     if (!profile.isLoading && profile.error) {
       profileJSONContent = <Text>No Profile Data Found</Text>;
