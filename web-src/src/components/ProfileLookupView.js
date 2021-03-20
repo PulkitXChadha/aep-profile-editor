@@ -62,7 +62,7 @@ const ProfileLookupView = (props) => {
         identityValue={entityValue || identityValue}
         identityNamespace={selectedNamespace || namespace}
         onEditButtonClick={() => {
-          setDataIngestionVisibility(true);
+          setDataIngestionVisibility(!dataIngestionVisibility);
         }}
       />
     );
