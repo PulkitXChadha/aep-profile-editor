@@ -1,4 +1,4 @@
-name: AIO App CI
+name: JOS-Test PR
 
 on: [pull_request]
 jobs:
@@ -27,7 +27,7 @@ jobs:
         with:
           os: ${{ matrix.os }}
           command: build
-          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_STAGE }}
+          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_STAGE_JOS }}
       - name: Test
         uses: adobe/aio-apps-action@1.0.0
         with:
