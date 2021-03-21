@@ -29,7 +29,6 @@ const ProfileLookupView = (props) => {
   let { namespace, identityValue } = useParams();
 
   const [getProfile, setGetProfile] = useState(false);
-  const [createProfile, setCreateProfile] = useState(false);
   const [sandboxName, setSandboxName] = useState(null);
   const [selectedNamespace, setSelectedNamespace] = useState(namespace);
   let [entityValue, setEntityValue] = useState(identityValue);
@@ -52,7 +51,7 @@ const ProfileLookupView = (props) => {
   let schemaSideBar = null;
   let editSideBar = null;
 
-  if (getProfile || createProfile) {
+  if (getProfile) {
     profileContent = (
       <ProfileDataView
         ims={props.ims}
@@ -107,13 +106,6 @@ const ProfileLookupView = (props) => {
           alignSelf="center"
           variant="primary"
           onAction={() => {
-            setCreateProfile(true);
-            setSelectedNamespace("");
-            setEntityValue("");
-            setSelectedSchemaId();
-            setSelectedSchemaMetaID();
-            namespace = null;
-            identityValue = null;
             setRedirect(true);
           }}
         >
@@ -138,8 +130,7 @@ const ProfileLookupView = (props) => {
       height="100%"
     >
       <View gridArea="subHeader">
-        {createProfile && <Heading level={4}>Create Profile</Heading>}
-        {!createProfile && <Heading level={4}>Find Profiles</Heading>}
+        <Heading level={4}>Find Profiles</Heading>
       </View>
     </Grid>
   );
@@ -187,28 +178,26 @@ const ProfileLookupView = (props) => {
       {headerContent}
       <Divider size="M" />
       {subHeaderContent}
-      {!createProfile && (
-        <FindProfileView
-          ims={props.ims}
-          sandboxName={sandboxName}
-          namespace={selectedNamespace || namespace}
-          identityValue={entityValue || identityValue}
-          onEntityValueChange={(value) => {
-            setEntityValue(value);
-          }}
-          onNamespaceSelection={(selection) => {
-            setSelectedNamespace(selection);
-          }}
-          onViewButtonClick={() => {
-            setGetProfile(true);
-          }}
-          onClearButtonClick={() => {
-            setEntityValue();
-            setSelectedNamespace();
-            setGetProfile(false);
-          }}
-        />
-      )}
+      <FindProfileView
+        ims={props.ims}
+        sandboxName={sandboxName}
+        namespace={selectedNamespace || namespace}
+        identityValue={entityValue || identityValue}
+        onEntityValueChange={(value) => {
+          setEntityValue(value);
+        }}
+        onNamespaceSelection={(selection) => {
+          setSelectedNamespace(selection);
+        }}
+        onViewButtonClick={() => {
+          setGetProfile(true);
+        }}
+        onClearButtonClick={() => {
+          setEntityValue();
+          setSelectedNamespace();
+          setGetProfile(false);
+        }}
+      />
       <Divider size="M" />
       {mainContent}
       {redirectTo}
