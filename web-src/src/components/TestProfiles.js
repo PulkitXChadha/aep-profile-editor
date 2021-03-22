@@ -42,8 +42,8 @@ const TestProfiles = (props) => {
     headers: headers,
     params: {
       sandboxName: props.sandboxName,
-      expression: "1=1",
-      // expression: "testProfile = true",
+      // expression: "1=1",
+      expression: "testProfile = true",
     },
   });
   let testProfilesContent = (
