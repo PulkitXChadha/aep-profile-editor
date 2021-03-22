@@ -22,25 +22,33 @@ import {
 import SchemaSelectionSideBar from "./SchemaSelectionSideBar";
 import AddCircleIcon from "@spectrum-icons/workflow/AddCircle";
 import ProfileDataView from "./ProfileDataView";
-
+import ExperienceEventsView from "./ExperienceEventsView";
 import DataIngestionView from "./DataIngestionView";
 import FindProfileView from "./FindProfileView";
 const ProfileLookupView = (props) => {
   let { namespace, identityValue } = useParams();
-
-  const [getProfile, setGetProfile] = useState(false);
-  const [createProfile, setCreateProfile] = useState(false);
+  const [getData, setGetData] = useState(false);
   const [sandboxName, setSandboxName] = useState(null);
-  const [selectedNamespace, setSelectedNamespace] = useState(namespace);
-  let [entityValue, setEntityValue] = useState(identityValue);
+  const [selectedNamespace, setSelectedNamespace] = useState();
+  let [entityValue, setEntityValue] = useState();
   const [selectedSchemaId, setSelectedSchemaId] = useState();
   const [selectedSchemaMetaID, setSelectedSchemaMetaID] = useState();
-  const [selectedClass, setSelectedClass] = useState();
+  const [selectedClass, setSelectedClass] = useState(
+    "https://ns.adobe.com/xdm/context/profile"
+  );
+  const [selectedClassBehaviour, setSelectedClassBehaviour] = useState(
+    "record"
+  );
   const [dataIngestionVisibility, setDataIngestionVisibility] = useState(false);
-
   const [redirect, setRedirect] = useState(false);
+
   useEffect(() => {
-    setGetProfile(false);
+    setSelectedNamespace(namespace);
+    setEntityValue(identityValue);
+  }, []);
+
+  useEffect(() => {
+    setGetData(false);
   }, [entityValue, selectedNamespace]);
 
   //Update page if sandbox or container change
@@ -52,30 +60,46 @@ const ProfileLookupView = (props) => {
   let schemaSideBar = null;
   let editSideBar = null;
 
-  if (getProfile || createProfile) {
-    profileContent = (
-      <ProfileDataView
-        ims={props.ims}
-        sandboxName={sandboxName}
-        schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
-        isDisabled={!selectedSchemaMetaID}
-        identityValue={entityValue || identityValue}
-        identityNamespace={selectedNamespace || namespace}
-        onEditButtonClick={() => {
-          setDataIngestionVisibility(true);
-        }}
-      />
-    );
-
+  if (getData) {
+    if (selectedClassBehaviour === "record") {
+      profileContent = (
+        <ProfileDataView
+          ims={props.ims}
+          sandboxName={sandboxName}
+          schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
+          isDisabled={!selectedSchemaMetaID}
+          identityValue={entityValue}
+          identityNamespace={selectedNamespace}
+          onEditButtonClick={() => {
+            setDataIngestionVisibility(!dataIngestionVisibility);
+          }}
+        />
+      );
+    }
+    if (selectedClassBehaviour === "time-series") {
+      profileContent = (
+        <ExperienceEventsView
+          ims={props.ims}
+          sandboxName={sandboxName}
+          schemaId={
+            selectedSchemaMetaID || `_xdm.context.experienceevent__union`
+          }
+          identityValue={entityValue}
+          identityNamespace={selectedNamespace}
+        />
+      );
+    }
     schemaSideBar = (
       <SchemaSelectionSideBar
         ims={props.ims}
         sandboxName={sandboxName}
-        defaultSelection="https://ns.adobe.com/xdm/context/profile"
-        onSelection={(xdmClass, schemaId, schemaMetaId) => {
+        defaultClassSelection={selectedClass}
+        defaultClassBehaviorSelection={selectedClassBehaviour}
+        onSelection={(xdmClass, xdmClassBehaviour, schemaId, schemaMetaId) => {
           setSelectedSchemaId(schemaId);
           setSelectedSchemaMetaID(schemaMetaId);
           setSelectedClass(xdmClass);
+          setSelectedClassBehaviour(xdmClassBehaviour);
         }}
       />
     );
@@ -107,13 +131,6 @@ const ProfileLookupView = (props) => {
           alignSelf="center"
           variant="primary"
           onAction={() => {
-            setCreateProfile(true);
-            setSelectedNamespace("");
-            setEntityValue("");
-            setSelectedSchemaId();
-            setSelectedSchemaMetaID();
-            namespace = null;
-            identityValue = null;
             setRedirect(true);
           }}
         >
@@ -138,8 +155,7 @@ const ProfileLookupView = (props) => {
       height="100%"
     >
       <View gridArea="subHeader">
-        {createProfile && <Heading level={4}>Create Profile</Heading>}
-        {!createProfile && <Heading level={4}>Find Profiles</Heading>}
+        <Heading level={4}>Find Profiles</Heading>
       </View>
     </Grid>
   );
@@ -187,28 +203,26 @@ const ProfileLookupView = (props) => {
       {headerContent}
       <Divider size="M" />
       {subHeaderContent}
-      {!createProfile && (
-        <FindProfileView
-          ims={props.ims}
-          sandboxName={sandboxName}
-          namespace={selectedNamespace || namespace}
-          identityValue={entityValue || identityValue}
-          onEntityValueChange={(value) => {
-            setEntityValue(value);
-          }}
-          onNamespaceSelection={(selection) => {
-            setSelectedNamespace(selection);
-          }}
-          onViewButtonClick={() => {
-            setGetProfile(true);
-          }}
-          onClearButtonClick={() => {
-            setEntityValue();
-            setSelectedNamespace();
-            setGetProfile(false);
-          }}
-        />
-      )}
+      <FindProfileView
+        ims={props.ims}
+        sandboxName={sandboxName}
+        namespace={selectedNamespace}
+        identityValue={entityValue}
+        onEntityValueChange={(value) => {
+          setEntityValue(value);
+        }}
+        onNamespaceSelection={(selection) => {
+          setSelectedNamespace(selection);
+        }}
+        onViewButtonClick={() => {
+          setGetData(true);
+        }}
+        onClearButtonClick={() => {
+          setEntityValue();
+          setSelectedNamespace();
+          setGetData(false);
+        }}
+      />
       <Divider size="M" />
       {mainContent}
       {redirectTo}
