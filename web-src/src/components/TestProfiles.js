@@ -58,6 +58,7 @@ const TestProfiles = (props) => {
       marginStart="size-100"
     />
   );
+  let paginationControls;
   if (previewJob.error) {
     console.log(previewJob.error.message);
   }
@@ -79,6 +80,43 @@ const TestProfiles = (props) => {
         limit={limit}
       />
     );
+    if (totalResultsCount) {
+      paginationControls = (
+        <Flex direction="row" gap="size-50" alignItems="center">
+          <ActionButton
+            isDisabled={resultsOffset ? false : true}
+            isQuiet
+            aria-label="previous"
+            onPress={() => {
+              setResultsOffset(resultsOffset - limit);
+            }}
+          >
+            <ChevronLeft size="S" />
+          </ActionButton>
+          <TextField
+            alignSelf="center"
+            justifySelf="center"
+            justifyContent="center"
+            alignItems="center"
+            onChange={(data) => {
+              setResultsOffset(limit * data);
+            }}
+            maxWidth="size-25"
+            value={Math.round(resultsOffset / limit) + 1}
+          ></TextField>
+          <Text> of {Math.round(totalResultsCount / limit) + 1} Pages</Text>
+          <ActionButton
+            isQuiet
+            aria-label="next"
+            onPress={() => {
+              setResultsOffset(resultsOffset + limit);
+            }}
+          >
+            <ChevronRight size="S" />
+          </ActionButton>
+        </Flex>
+      );
+    }
   }
 
   return (
@@ -114,39 +152,7 @@ const TestProfiles = (props) => {
           {testProfilesContent}
         </View>
         <View gridArea="pagination" alignSelf="center" justifySelf="center">
-          <Flex direction="row" gap="size-50" alignItems="center">
-            <ActionButton
-              isDisabled={resultsOffset ? false : true}
-              isQuiet
-              aria-label="previous"
-              onPress={() => {
-                setResultsOffset(resultsOffset - limit);
-              }}
-            >
-              <ChevronLeft size="S" />
-            </ActionButton>
-            <TextField
-              alignSelf="center"
-              justifySelf="center"
-              justifyContent="center"
-              alignItems="center"
-              onChange={(data) => {
-                setResultsOffset(limit * data);
-              }}
-              maxWidth="size-25"
-              value={Math.round(resultsOffset / limit) + 1}
-            ></TextField>
-            <Text> of {Math.round(totalResultsCount / limit)} Pages</Text>
-            <ActionButton
-              isQuiet
-              aria-label="next"
-              onPress={() => {
-                setResultsOffset(resultsOffset + limit);
-              }}
-            >
-              <ChevronRight size="S" />
-            </ActionButton>
-          </Flex>
+          {paginationControls}
         </View>
       </Grid>
     </div>
