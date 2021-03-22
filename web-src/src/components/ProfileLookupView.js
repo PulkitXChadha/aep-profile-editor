@@ -26,6 +26,7 @@ import ExperienceEventsView from "./ExperienceEventsView";
 import DataIngestionView from "./DataIngestionView";
 import FindProfileView from "./FindProfileView";
 const ProfileLookupView = (props) => {
+  let { namespace, identityValue } = useParams();
   const [getData, setGetData] = useState(false);
   const [sandboxName, setSandboxName] = useState(null);
   const [selectedNamespace, setSelectedNamespace] = useState();
@@ -42,7 +43,6 @@ const ProfileLookupView = (props) => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    let { namespace, identityValue } = useParams();
     setSelectedNamespace(namespace);
     setEntityValue(identityValue);
   }, []);
@@ -206,8 +206,8 @@ const ProfileLookupView = (props) => {
       <FindProfileView
         ims={props.ims}
         sandboxName={sandboxName}
-        namespace={selectedNamespace || namespace}
-        identityValue={entityValue || identityValue}
+        namespace={selectedNamespace}
+        identityValue={entityValue}
         onEntityValueChange={(value) => {
           setEntityValue(value);
         }}
