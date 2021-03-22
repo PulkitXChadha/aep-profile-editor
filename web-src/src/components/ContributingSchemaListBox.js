@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import {
   ListBox,
@@ -68,30 +70,37 @@ const ContributingSchemaListBox = (props) => {
       }));
 
     picker = (
-      <ListBox
-        aria-label="profileSchemas"
-        selectionMode="single"
-        // itemKey="key"
-        onSelectionChange={(id) => {
-          props.onSelectionChange(
-            id.currentKey,
-            listData.find((data) => data.id === id.currentKey).key
-          );
-        }}
+      <div
+        css={css`
+          height: calc(100vh - 385px);
+          overflow: auto;
+        `}
       >
-        <Section title="Contributing Schemas">
-          {listData.map((item) => (
-            <Item
-              marginStart="size-100"
-              key={(item.key, item.id)}
-              textValue={item.name}
-            >
-              <Workflow />
-              <Text>{item.name}</Text>
-            </Item>
-          ))}
-        </Section>
-      </ListBox>
+        <ListBox
+          aria-label="profileSchemas"
+          selectionMode="single"
+          // itemKey="key"
+          onSelectionChange={(id) => {
+            props.onSelectionChange(
+              id.currentKey,
+              listData.find((data) => data.id === id.currentKey).key
+            );
+          }}
+        >
+          <Section title="Contributing Schemas">
+            {listData.map((item) => (
+              <Item
+                marginStart="size-100"
+                key={(item.key, item.id)}
+                textValue={item.name}
+              >
+                <Workflow />
+                <Text>{item.name}</Text>
+              </Item>
+            ))}
+          </Section>
+        </ListBox>
+      </div>
     );
   }
 
