@@ -79,7 +79,7 @@ const ProfileDataView = (props) => {
     profileJSONContent = (
       <div
         css={css`
-          height: calc(100vh - 350px);
+          height: calc(100vh - 330px);
           overflow: auto;
         `}
       >
@@ -96,7 +96,7 @@ const ProfileDataView = (props) => {
     schemaContent = (
       <div
         css={css`
-          height: calc(100vh - 350px);
+          height: calc(100vh - 330px);
           overflow: auto;
         `}
       >
