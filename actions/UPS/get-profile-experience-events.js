@@ -43,6 +43,14 @@ async function main(params) {
         "cache-control": "no-cache",
       },
     });
+    if (res.status === 404) {
+      const response = {
+        statusCode: 200,
+        body: {},
+      };
+      return response;
+    }
+
     if (!res.ok) {
       throw new Error(
         "request to " + apiEndpoint + " failed with status code " + res.status
