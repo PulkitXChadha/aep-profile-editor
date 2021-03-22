@@ -21,14 +21,17 @@ import {
 
 import SchemaSelectionSideBar from "./SchemaSelectionSideBar";
 import AddCircleIcon from "@spectrum-icons/workflow/AddCircle";
+import SearchIcon from "@spectrum-icons/workflow/Search";
 import ProfileDataView from "./ProfileDataView";
+import NewProfileView from "./NewProfileView";
 import ExperienceEventsView from "./ExperienceEventsView";
 import DataIngestionView from "./DataIngestionView";
 import FindProfileView from "./FindProfileView";
 const ProfileLookupView = (props) => {
   let { namespace, identityValue } = useParams();
+  const [addNewFlag, setAddNewFlag] = useState(false);
   const [getData, setGetData] = useState(false);
-  const [sandboxName, setSandboxName] = useState(null);
+  const [sandboxName, setSandboxName] = useState();
   const [selectedNamespace, setSelectedNamespace] = useState();
   let [entityValue, setEntityValue] = useState();
   const [selectedSchemaId, setSelectedSchemaId] = useState();
@@ -59,36 +62,38 @@ const ProfileLookupView = (props) => {
   let profileContent = null;
   let schemaSideBar = null;
   let editSideBar = null;
+  let findProfileInputs = null;
+  if (sandboxName) {
+    if (!addNewFlag) {
+      findProfileInputs = (
+        <View>
+          <Heading level={4}>Find Profiles</Heading>
+          <FindProfileView
+            ims={props.ims}
+            sandboxName={sandboxName}
+            namespace={selectedNamespace}
+            identityValue={entityValue}
+            onEntityValueChange={(value) => {
+              setEntityValue(value);
+            }}
+            onNamespaceSelection={(selection) => {
+              setSelectedNamespace(selection);
+            }}
+            onViewButtonClick={() => {
+              setGetData(false);
+              setGetData(true);
+            }}
+            onClearButtonClick={() => {
+              setEntityValue();
+              setSelectedNamespace();
+              setGetData(false);
+            }}
+          />
+          <Divider size="M" />
+        </View>
+      );
+    }
 
-  if (getData) {
-    if (selectedClassBehaviour === "record") {
-      profileContent = (
-        <ProfileDataView
-          ims={props.ims}
-          sandboxName={sandboxName}
-          schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
-          isDisabled={!selectedSchemaMetaID}
-          identityValue={entityValue}
-          identityNamespace={selectedNamespace}
-          onEditButtonClick={() => {
-            setDataIngestionVisibility(!dataIngestionVisibility);
-          }}
-        />
-      );
-    }
-    if (selectedClassBehaviour === "time-series") {
-      profileContent = (
-        <ExperienceEventsView
-          ims={props.ims}
-          sandboxName={sandboxName}
-          schemaId={
-            selectedSchemaMetaID || `_xdm.context.experienceevent__union`
-          }
-          identityValue={entityValue}
-          identityNamespace={selectedNamespace}
-        />
-      );
-    }
     schemaSideBar = (
       <SchemaSelectionSideBar
         ims={props.ims}
@@ -113,118 +118,132 @@ const ProfileLookupView = (props) => {
       />
     );
   }
-
-  let headerContent = (
-    <Grid
-      areas={["header header header header addButton"]}
-      columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
-      rows={["size-600"]}
-      height="100%"
-      columnGap="size-300"
-    >
-      <View gridArea="header">
-        <Heading level={3}>Profiles</Heading>
-      </View>
-      <View justifySelf="end" gridArea="addButton">
-        <ActionGroup
-          position="end"
-          alignSelf="center"
-          variant="primary"
-          onAction={() => {
-            setRedirect(true);
+  if (getData && selectedNamespace && entityValue) {
+    if (selectedClassBehaviour === "record") {
+      profileContent = (
+        <ProfileDataView
+          ims={props.ims}
+          sandboxName={sandboxName}
+          schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
+          isDisabled={!selectedSchemaMetaID}
+          identityValue={entityValue}
+          identityNamespace={selectedNamespace}
+          overFlowOffset={335}
+          loadData={!addNewFlag}
+          onEditButtonClick={() => {
+            setDataIngestionVisibility(!dataIngestionVisibility);
           }}
-        >
-          <SpectrumTab key="addProfile">
-            <AddCircleIcon />
-            <Text>Add Profile</Text>
-          </SpectrumTab>
-        </ActionGroup>
-      </View>
-    </Grid>
-  );
+        />
+      );
+    }
+    if (selectedClassBehaviour === "time-series") {
+      profileContent = (
+        <ExperienceEventsView
+          ims={props.ims}
+          sandboxName={sandboxName}
+          schemaId={
+            selectedSchemaMetaID || `_xdm.context.experienceevent__union`
+          }
+          identityValue={entityValue}
+          identityNamespace={selectedNamespace}
+        />
+      );
+    }
+  }
+  if (addNewFlag) {
+    profileContent = (
+      <NewProfileView
+        ims={props.ims}
+        sandboxName={sandboxName}
+        schemaId={selectedSchemaMetaID || `_xdm.context.profile__union`}
+        overFlowOffset={215}
+        isDisabled={!selectedSchemaMetaID}
+      />
+    );
+  }
+
   let redirectTo = null;
   if (redirect) {
     redirectTo = <Redirect to="/addProfile" />;
   }
-
-  let subHeaderContent = (
-    <Grid
-      areas={["subHeader subHeader subHeader subHeader subHeader"]}
-      columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
-      rows={["size-600"]}
-      height="100%"
-    >
-      <View gridArea="subHeader">
-        <Heading level={4}>Find Profiles</Heading>
-      </View>
-    </Grid>
-  );
-
-  let mainContent = (
-    <Grid
-      areas={[
-        "schemaSideBar profileContent profileContent profileContent profileContent editProfileContent",
-      ]}
-      columns={["1fr", "1fr", "1fr", "1fr", "1fr", "1fr"]}
-      rows={["auto"]}
-      columnGap="size-50"
-    >
-      <ProfileProvider>
-        <View
-          gridArea="schemaSideBar"
-          overflow="auto"
-          height="100%"
-          backgroundColor="gray-50"
-        >
-          {schemaSideBar}
-        </View>
-
-        <View
-          overflow="auto"
-          gridArea="profileContent"
-          backgroundColor="gray-50"
-        >
-          {profileContent}
-        </View>
-        <View
-          gridArea="editProfileContent"
-          overflow="auto"
-          height="100%"
-          backgroundColor="gray-50"
-        >
-          {editSideBar}
-        </View>
-      </ProfileProvider>
-    </Grid>
-  );
-
   return (
     <Flex direction="column" gap="size-50">
-      {headerContent}
+      <Grid
+        areas={["header header header header addButton"]}
+        columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
+        rows={["size-600"]}
+        height="100%"
+        columnGap="size-300"
+      >
+        <View gridArea="header">
+          <Heading level={3}>Profiles</Heading>
+        </View>
+        <View justifySelf="end" gridArea="addButton">
+          <ActionGroup
+            position="end"
+            alignSelf="center"
+            variant="primary"
+            onAction={() => {
+              // setRedirect(true);
+              setAddNewFlag(!addNewFlag);
+              setEntityValue();
+              setSelectedNamespace();
+              setDataIngestionVisibility(!dataIngestionVisibility);
+            }}
+          >
+            {addNewFlag && (
+              <SpectrumTab key="addProfile">
+                <SearchIcon />
+                <Text>Find</Text>
+              </SpectrumTab>
+            )}
+            {!addNewFlag && (
+              <SpectrumTab key="addProfile">
+                <AddCircleIcon />
+                <Text>Add</Text>
+              </SpectrumTab>
+            )}
+          </ActionGroup>
+        </View>
+      </Grid>
       <Divider size="M" />
-      {subHeaderContent}
-      <FindProfileView
-        ims={props.ims}
-        sandboxName={sandboxName}
-        namespace={selectedNamespace}
-        identityValue={entityValue}
-        onEntityValueChange={(value) => {
-          setEntityValue(value);
-        }}
-        onNamespaceSelection={(selection) => {
-          setSelectedNamespace(selection);
-        }}
-        onViewButtonClick={() => {
-          setGetData(true);
-        }}
-        onClearButtonClick={() => {
-          setEntityValue();
-          setSelectedNamespace();
-          setGetData(false);
-        }}
-      />
-      <Divider size="M" />
-      {mainContent}
+      <Grid
+        areas={[
+          "schemaSideBar profileContent profileContent profileContent profileContent editProfileContent",
+        ]}
+        columns={["1fr", "1fr", "1fr", "1fr", "1fr", "1fr"]}
+        rows={["auto"]}
+        columnGap="size-50"
+      >
+        <ProfileProvider>
+          <View
+            gridArea="schemaSideBar"
+            overflow="auto"
+            height="100%"
+            backgroundColor="gray-50"
+          >
+            {schemaSideBar}
+          </View>
+          <View
+            overflow="auto"
+            gridArea="profileContent"
+            marginStart="size-100"
+          >
+            {findProfileInputs}
+            <View overflow="auto" backgroundColor="gray-50">
+              {profileContent}
+            </View>
+          </View>
+          <View
+            gridArea="editProfileContent"
+            overflow="auto"
+            height="100%"
+            backgroundColor="gray-50"
+          >
+            {editSideBar}
+          </View>
+        </ProfileProvider>
+      </Grid>
       {redirectTo}
     </Flex>
   );

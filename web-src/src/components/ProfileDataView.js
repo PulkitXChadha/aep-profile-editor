@@ -35,39 +35,33 @@ const ProfileDataView = (props) => {
   let schemaContent,
     profileJSONContent = null;
 
-  if (props.forNewProfile) {
-    profile = { isLoading: false, error: {}, data: "no Data" };
+  profile = useActionWebInvoke({
+    actionName: "get-profile",
+    headers: headers,
+    params: {
+      identityNamespace: props.identityNamespace,
+      identityValue: props.identityValue,
+      sandboxName: props.sandboxName,
+    },
+    cacheResponse: false,
+  });
+
+  profileJSONContent = (
+    <ProgressCircle
+      id="profile-view-progress-circle"
+      aria-label="Getting Profile"
+      isIndeterminate
+      isHidden={!profile.isLoading}
+      marginStart="size-100"
+    />
+  );
+  schemaContent = profileJSONContent;
+
+  if (!profile.isLoading && profile.error) {
+    profileJSONContent = <Text>No Profile Data Found</Text>;
   }
-
-  if (!props.forNewProfile) {
-    profile = useActionWebInvoke({
-      actionName: "get-profile",
-      headers: headers,
-      params: {
-        identityNamespace: props.identityNamespace,
-        identityValue: props.identityValue,
-        sandboxName: props.sandboxName,
-      },
-      cacheResponse: false,
-    });
-
-    profileJSONContent = (
-      <ProgressCircle
-        id="profile-view-progress-circle"
-        aria-label="Getting Profile"
-        isIndeterminate
-        isHidden={!profile.isLoading}
-        marginStart="size-100"
-      />
-    );
-    schemaContent = profileJSONContent;
-
-    if (!profile.isLoading && profile.error) {
-      profileJSONContent = <Text>No Profile Data Found</Text>;
-    }
-    if (!profile.data && !profile.error && !profile.isLoading) {
-      profileJSONContent = <Text>No Profile Data Found</Text>;
-    }
+  if (!profile.data && !profile.error && !profile.isLoading) {
+    profileJSONContent = <Text>No Profile Data Found</Text>;
   }
 
   if (!profile.isLoading && profile.data) {
@@ -79,7 +73,7 @@ const ProfileDataView = (props) => {
     profileJSONContent = (
       <div
         css={css`
-          height: calc(100vh - 330px);
+          height: calc(100vh - ${props.overFlowOffset || 325}px);
           overflow: auto;
         `}
       >
@@ -96,7 +90,7 @@ const ProfileDataView = (props) => {
     schemaContent = (
       <div
         css={css`
-          height: calc(100vh - 330px);
+          height: calc(100vh - ${props.overFlowOffset || 325}px);
           overflow: auto;
         `}
       >
@@ -123,7 +117,7 @@ const ProfileDataView = (props) => {
       >
         <View gridArea="header">
           <Heading marginStart="size-100" start="size-50" level={4}>
-            Profile Data
+            Data
           </Heading>
         </View>
         <View
