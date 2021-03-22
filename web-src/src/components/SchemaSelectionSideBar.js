@@ -12,7 +12,12 @@ import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import UnionSchemaList from "./UnionSchemaList";
 import ContributingSchemaListBox from "./ContributingSchemaListBox";
 const SchemaSelectionSideBar = (props) => {
-  const [selectedClass, setSelectedClass] = useState(props.defaultSelection);
+  const [selectedClass, setSelectedClass] = useState(
+    props.defaultClassSelection
+  );
+  const [selectedClassBehaviour, setSelectedClassBehaviour] = useState(
+    props.defaultClassBehaviorSelection
+  );
   //Identity Namespace State
   let headers = {};
   // set the authorization header and org from the ims props object
@@ -62,37 +67,42 @@ const SchemaSelectionSideBar = (props) => {
         key: key,
       }));
     picker = (
-      <View overflow="auto" height="100%">
-        <Flex direction="column" gap="size-125">
-          <View>
-            <Heading marginStart="size-100" start="size-50" level={4}>
-              Union Schemas
-            </Heading>
-          </View>
-          <Divider size="S" />
-          <UnionSchemaList
+      <Flex direction="column" gap="size-125">
+        <View>
+          <Heading marginStart="size-100" start="size-50" level={4}>
+            Union Schemas
+          </Heading>
+        </View>
+        <Divider size="S" />
+        <UnionSchemaList
+          ims={props.ims}
+          sandboxName={props.sandboxName}
+          onSelectionChange={(id, behaviour) => {
+            props.onSelection(id, behaviour, "", "");
+            setSelectedClass(id);
+            setSelectedClassBehaviour(behaviour);
+          }}
+          defaultClassSelection={props.defaultClassSelection}
+          defaultClassBehaviorSelection={props.defaultClassBehaviorSelection}
+        />
+        <Divider size="S" />
+        {selectedClass && (
+          <ContributingSchemaListBox
             ims={props.ims}
             sandboxName={props.sandboxName}
-            onSelectionChange={(id) => {
-              props.onSelection(id, "");
-              setSelectedClass(id);
+            class={selectedClass}
+            onSelectionChange={(id, metaId) => {
+              props.onSelection(
+                selectedClass,
+                selectedClassBehaviour,
+                id,
+                metaId
+              );
             }}
-            defaultSelection={props.defaultSelection}
           />
-          <Divider size="S" />
-          {selectedClass && (
-            <ContributingSchemaListBox
-              ims={props.ims}
-              sandboxName={props.sandboxName}
-              class={selectedClass}
-              onSelectionChange={(id, metaId) => {
-                props.onSelection(selectedClass, id, metaId);
-              }}
-            />
-          )}
-          <Divider size="S" />
-        </Flex>
-      </View>
+        )}
+        <Divider size="S" />
+      </Flex>
     );
   }
 

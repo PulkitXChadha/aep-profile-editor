@@ -41,7 +41,16 @@ const UnionSchemaList = (props) => {
   }
 
   if (unions.data) {
-    const unionData = unions.data.results || [];
+    const unionData =
+      unions.data.results.map((union) => ({
+        title: union.title,
+        key: union["meta:class"],
+        behaviour: union["meta:extends"].find(
+          (id) => id === "https://ns.adobe.com/xdm/context/profile"
+        )
+          ? "record"
+          : "time-series",
+      })) || [];
     picker = (
       <Picker
         id="union-schema-list-picker"
@@ -50,16 +59,18 @@ const UnionSchemaList = (props) => {
         justifySelf="end"
         marginStart="size-100"
         label="Select a Class"
-        defaultSelectedKey={props.defaultSelection}
+        defaultSelectedKey={props.defaultClassSelection}
         isRequired={true}
         placeholder="Select an Class"
         aria-label="Select an Class"
-        items={unionData.map((union) => ({
-          title: union.title,
-          key: union["meta:class"],
-        }))}
+        items={unionData}
         itemKey="key"
-        onSelectionChange={props.onSelectionChange}
+        onSelectionChange={(key) => {
+          props.onSelectionChange(
+            key,
+            unionData.find((data) => data.key === key).behaviour
+          );
+        }}
       >
         {(item) => <Item key={item.key}>{item.title}</Item>}
       </Picker>
