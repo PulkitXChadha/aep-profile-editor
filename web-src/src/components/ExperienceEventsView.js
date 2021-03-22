@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import { useState } from "react";
 import ReactJson from "react-json-view";
 import PropTypes from "prop-types";
 import {
@@ -17,12 +18,12 @@ import {
 
 import Event from "@spectrum-icons/workflow/Event";
 
-import EditIcon from "@spectrum-icons/workflow//Edit";
+import AddCircleIcon from "@spectrum-icons/workflow/AddCircle";
 import { Tabs, Item } from "@react-spectrum/tabs";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import UnionSchemaView from "./UnionSchemaView";
 const ExperienceEventsView = (props) => {
-  const userSettings = null;
+  const [dataToDisplay, setDataToDisplay] = useState();
 
   let headers = {};
   if (props.ims.token && !headers.authorization) {
@@ -31,8 +32,6 @@ const ExperienceEventsView = (props) => {
   if (props.ims.org && !headers["x-gw-ims-org-id"]) {
     headers["x-gw-ims-org-id"] = props.ims.org;
   }
-
-  let dataToDisplay = {};
   const experienceEvents = useActionWebInvoke({
     actionName: "get-profile-experience-events",
     headers: headers,
@@ -66,60 +65,41 @@ const ExperienceEventsView = (props) => {
   ) {
     content = <Text>No Experience Events Found</Text>;
   }
-
+  let eventsList = {};
   if (!experienceEvents.isLoading && experienceEvents.data) {
-    dataToDisplay = experienceEvents.data.children || [];
+    eventsList = experienceEvents.data.children || [];
 
     eventListContent = (
-      <View borderWidth="thin" borderColor="dark" borderRadius="small">
-        <div
-          css={css`
-            height: calc(100vh - 310px);
-            overflow: auto;
-          `}
+      <div
+        css={css`
+          height: calc(100vh - 280px);
+          overflow: auto;
+        `}
+      >
+        <ListBox
+          onSelectionChange={(id) => {
+            setDataToDisplay(eventsList[id.currentKey].entity);
+            // console.log(`id.currentKey = ${id.currentKey}`);
+            console.log(
+              `dataToDisplay element = ${JSON.stringify(
+                eventsList[id.currentKey]
+              )}`
+            );
+          }}
+          aria-label="Options"
+          selectionMode="single"
         >
-          <ListBox
-            onSelectionChange={(id) => {
-              // console.log(`id.currentKey = ${id.currentKey}`);
-              console.log(
-                `dataToDisplay element = ${JSON.stringify(
-                  dataToDisplay[id.currentKey]
-                )}`
-              );
-            }}
-            aria-label="Options"
-            selectionMode="single"
-          >
-            {dataToDisplay
-              .sort((a, b) => b.timestamp - a.timestamp)
-              .map((events, index) => (
-                <SpectrumTab key={index} textValue="Read">
-                  <Event size="S" />
-                  <Text>{events.entity._id}</Text>
-                  <Text slot="description">
-                    {new Date(events.entity.timestamp).toString()}
-                  </Text>
-                </SpectrumTab>
-              ))}
-          </ListBox>
-        </div>
-        <View alignSelf="center" justifySelf="center">
-          <ActionGroup
-            alignSelf="center"
-            variant="primary"
-            // isDisabled={props.isDisabled}
-            // onAction={() => {
-            //   setEnableProfileFormEdit(!enableProfileFormEdit);
-            //   props.onEditButtonClick(!enableProfileFormEdit);
-            // }}
-          >
-            <SpectrumTab key="addEvent" alignSelf="center">
-              <EditIcon />
-              <Text>Add Event</Text>
-            </SpectrumTab>
-          </ActionGroup>
-        </View>
-      </View>
+          {eventsList
+            .sort((a, b) => b.timestamp - a.timestamp)
+            .map((events, index) => (
+              <SpectrumTab key={index} textValue="Read">
+                <Event size="S" />
+                <Text>{events.entity.eventType || ""}</Text>
+                <Text slot="description">{events.entity.timestamp}</Text>
+              </SpectrumTab>
+            ))}
+        </ListBox>
+      </div>
     );
     content = (
       <div
@@ -129,8 +109,8 @@ const ExperienceEventsView = (props) => {
         `}
       >
         <ReactJson
-          theme={userSettings ? "twilight" : "rjv-default"}
-          src={dataToDisplay}
+          theme="rjv-default"
+          src={eventsList}
           name="events"
           displayObjectSize={false}
           displayDataTypes={false}
@@ -162,10 +142,10 @@ const ExperienceEventsView = (props) => {
     // <Flex marginStart="size-100" direction="column" gap="size-125">
     <Grid
       areas={[
-        "header header mainContent mainContent mainContent",
-        "timeline timeline mainContent mainContent mainContent",
+        "header mainContent mainContent mainContent",
+        "timeline mainContent mainContent mainContent",
       ]}
-      columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
+      columns={["1fr", "1fr", "1fr", "1fr"]}
       rows={["size-600", "auto"]}
       height="100%"
       columnGap="size-300"
