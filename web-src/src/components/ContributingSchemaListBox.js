@@ -72,7 +72,7 @@ const ContributingSchemaListBox = (props) => {
     picker = (
       <div
         css={css`
-          height: calc(100vh - 385px);
+          height: calc(100vh - 260px);
           overflow: auto;
         `}
       >
