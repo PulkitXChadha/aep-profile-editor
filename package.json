@@ -9,6 +9,7 @@
     "@emotion/react": "^11.1.5",
     "@fluentui/react": "^7.164.0",
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "@react-spectrum/provider": "^3.1.2",
     "@react-spectrum/tabs": "^3.0.0-alpha.4",
     "@rjsf/antd": "^2.5.0",
