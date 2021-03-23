@@ -47,6 +47,7 @@ Welcome to Adobe Experience Platform Profile Editor, an Adobe I/O Application th
   - [Adobe Experience Platform - Unified Profile](#adobe-experience-platform---unified-profile)
   - [Adobe Offer Decisioning Engine](#adobe-offer-decisioning-engine)
 - [Releases](#releases)
+  - [v0.0.4](#v004)
   - [v0.0.3](#v003)
   - [v0.0.2](#v002)
   - [v0.0.1](#v001)
