@@ -66,7 +66,7 @@ const ProfileLookupView = (props) => {
   if (sandboxName) {
     if (!addNewFlag) {
       findProfileInputs = (
-        <View>
+        <View marginStart="size-100">
           <Heading level={4}>Find Profiles</Heading>
           <FindProfileView
             ims={props.ims}
@@ -224,11 +224,7 @@ const ProfileLookupView = (props) => {
           >
             {schemaSideBar}
           </View>
-          <View
-            overflow="auto"
-            gridArea="profileContent"
-            marginStart="size-100"
-          >
+          <View overflow="auto" gridArea="profileContent">
             {findProfileInputs}
             <View overflow="auto" backgroundColor="gray-50">
               {profileContent}

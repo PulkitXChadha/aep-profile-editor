@@ -57,6 +57,22 @@ async function main(params) {
       );
     }
     const content = await res.json();
+
+    const keysToDelete = [
+      "createdByBatchID",
+      "identityPrivacyInfo",
+      "segmentMembership",
+      "segments",
+      "timeSeriesEvents",
+      "_repo",
+      "_schema",
+    ];
+    const keys = Object.keys(content.properties);
+    keys.map((key) => {
+      if (keysToDelete.find((id) => id === key)) {
+        delete content.properties[key];
+      }
+    });
     logger.debug("fetch content = " + JSON.stringify(content, null, 2));
     const response = {
       statusCode: 200,
