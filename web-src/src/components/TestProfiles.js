@@ -46,6 +46,8 @@ const TestProfiles = (props) => {
       expression: "testProfile = true",
     },
   });
+
+  console.log(`post-preview-job = ${JSON.stringify(previewJob)}`);
   let testProfilesContent = (
     <ProgressCircle
       id="test-profile-list-progress-circle"
@@ -66,7 +68,7 @@ const TestProfiles = (props) => {
   if (!previewJob.data && !previewJob.error && !previewJob.isLoading) {
     testProfilesContent = <Text>Issues Submitting Preview Job</Text>;
   }
-  if (previewJob.data && previewJob.data.state === "RESULT_READY") {
+  if (previewJob.data) {
     testProfilesContent = (
       <TestProfilesList
         key={`${previewJob.data.previewId}-${resultsOffset}`}
@@ -102,12 +104,18 @@ const TestProfiles = (props) => {
               setResultsOffset(limit * data);
             }}
             maxWidth="size-25"
-            value={Math.round(resultsOffset / limit) + 1}
+            value={Math.ceil(resultsOffset / limit) + 1}
           ></TextField>
-          <Text> of {Math.round(totalResultsCount / limit) + 1} Pages</Text>
+          <Text> of {Math.ceil(totalResultsCount / limit)} Pages</Text>
           <ActionButton
             isQuiet
             aria-label="next"
+            isDisabled={
+              Math.ceil(resultsOffset / limit) + 1 >=
+              Math.ceil(totalResultsCount / limit)
+                ? true
+                : false
+            }
             onPress={() => {
               setResultsOffset(resultsOffset + limit);
             }}

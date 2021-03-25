@@ -21,7 +21,9 @@ import HomeIcon from "@spectrum-icons/workflow/Home";
 import ProfileIcon from "@spectrum-icons/workflow/RealTimeCustomerProfile";
 import TestProfileIcon from "@spectrum-icons/workflow/TestProfile";
 import DocumentIcon from "@spectrum-icons/workflow/Document";
-import ImportIcon from "@spectrum-icons/workflow//Import";
+
+import PasteListIcon from "@spectrum-icons/workflow/PasteList";
+
 function SideBar(props) {
   return (
     <ul className="SideNav">
@@ -71,6 +73,19 @@ function SideBar(props) {
           </NavLink>
         </li>
       )}
+      <li className="SideNav-item">
+        <NavLink
+          className="SideNav-itemLink"
+          activeClassName="is-selected"
+          aria-current="page"
+          to="/runtimeLogs"
+        >
+          <Flex direction="row" gap="size-100" alignItems="center">
+            <PasteListIcon size="S" />
+            <Text>Runtime Logs</Text>
+          </Flex>
+        </NavLink>
+      </li>
       <li className="SideNav-item">
         <NavLink
           className="SideNav-itemLink"

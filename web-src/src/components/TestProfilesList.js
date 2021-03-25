@@ -27,6 +27,8 @@ const TestProfilesList = (props) => {
     },
   });
 
+  console.log(`get-preview-job-results = ${JSON.stringify(previewJobResults)}`);
+
   let testProfileListContent = (
     <ProgressCircle
       id="test-profile-list-progress-circle"
@@ -51,7 +53,11 @@ const TestProfilesList = (props) => {
     testProfileListContent = <Text>Issues Submitting Preview Job</Text>;
   }
 
-  if (previewJobResults.data) {
+  if (
+    previewJobResults.data &&
+    !previewJobResults.error &&
+    !previewJobResults.isLoading
+  ) {
     const previewData = previewJobResults.data.results.map(
       (result) => result.objectId
     );
@@ -61,9 +67,6 @@ const TestProfilesList = (props) => {
       props.offset + props.limit
     );
 
-    // console.log(
-    //   `previewJobResults.data = ${JSON.stringify(previewJobResults.data)}`
-    // );
     testProfileListContent = (
       <ProfilesList
         ims={props.ims}

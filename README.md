@@ -356,3 +356,7 @@ SERVICE_API_KEY=
 - Edit Profile Fragments and stream data into AEP Sandbox.
 
 ## Features Requested
+
+- Add check to disable the edit button when no dataset for the schema exists. Or disable the dataset
+- Add an Ease button to create a streaming source if there is nothing created.
+- On Sandbox selection error unmount component.
