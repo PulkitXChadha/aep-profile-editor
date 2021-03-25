@@ -79,12 +79,6 @@ const ExperienceEventsView = (props) => {
         <ListBox
           onSelectionChange={(id) => {
             setDataToDisplay(eventsList[id.currentKey].entity);
-            // console.log(`id.currentKey = ${id.currentKey}`);
-            console.log(
-              `dataToDisplay element = ${JSON.stringify(
-                eventsList[id.currentKey]
-              )}`
-            );
           }}
           aria-label="Options"
           selectionMode="single"

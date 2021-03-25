@@ -72,10 +72,7 @@ const ActivationLog = (props) => {
               width="100%"
               maxWidth="100%"
               height="100%"
-              value={activationLog.data.logs.map((line) => {
-                console.log(line);
-                return `${line}\n`;
-              })}
+              value={activationLog.data.logs.map((line) => `${line}\n`)}
             />
           </View>
           <View
