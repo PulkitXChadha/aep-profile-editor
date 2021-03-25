@@ -40,22 +40,31 @@ async function main(params) {
       params.previewJobID
     }?limit=${params.limit || 100}&offset=${params.offset || 0}`;
     // fetch content from external api endpoint
-    const res = await fetch(apiEndpoint, {
-      method: "GET",
-      headers: {
-        "x-api-key": params.apiKey,
-        "x-gw-ims-org-id": params.__ow_headers["x-gw-ims-org-id"],
-        Authorization: `Bearer ${token}`,
-        "x-sandbox-name": params.sandboxName,
-        "Content-Type": "application/json",
-      },
-    });
-    if (!res.ok) {
-      throw new Error(
-        "request to " + apiEndpoint + " failed with status code " + res.status
-      );
-    }
-    const content = await res.json();
+    let res = null;
+    let content = null;
+
+    do {
+      res = await fetch(apiEndpoint, {
+        method: "GET",
+        headers: {
+          "x-api-key": params.apiKey,
+          "x-gw-ims-org-id": params.__ow_headers["x-gw-ims-org-id"],
+          Authorization: `Bearer ${token}`,
+          "x-sandbox-name": params.sandboxName,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        throw new Error(
+          "request to " + apiEndpoint + " failed with status code " + res.status
+        );
+      }
+      content = await res.json();
+      await setTimeout(() => {}, 10000);
+
+      logger.debug(`Result is not ready status = ${content.status}`);
+    } while (content.state != "RESULT_READY");
+
     logger.debug("fetch content = " + JSON.stringify(content, null, 2));
     const response = {
       statusCode: 200,
