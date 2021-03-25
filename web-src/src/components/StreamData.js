@@ -18,7 +18,6 @@ const StreamData = (props) => {
   if (props.ims.org && !headers["x-gw-ims-org-id"]) {
     headers["x-gw-ims-org-id"] = props.ims.org;
   }
-  console.log(`profileData = ${JSON.stringify(profileData)}`);
   const streamData = useActionWebInvoke({
     actionName: "stream-data",
     headers: headers,

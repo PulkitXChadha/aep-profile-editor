@@ -47,7 +47,6 @@ const TestProfiles = (props) => {
     },
   });
 
-  console.log(`post-preview-job = ${JSON.stringify(previewJob)}`);
   let testProfilesContent = (
     <ProgressCircle
       id="test-profile-list-progress-circle"
