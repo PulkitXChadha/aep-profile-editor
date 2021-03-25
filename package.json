@@ -21,6 +21,7 @@
     "@spectrum-icons/illustrations": "^3.2.1",
     "@spectrum-icons/workflow": "^3.2.0",
     "core-js": "^3.6.4",
+    "openwhisk": "^3.21.3",
     "react": "^16.14.0",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^16.14.0",

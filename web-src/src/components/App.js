@@ -25,6 +25,7 @@ import { About } from "./About";
 import TestProfiles from "./TestProfiles";
 import ProfileLookupView from "./ProfileLookupView";
 import AddProfileView from "./AddProfileView";
+import RuntimeLogsView from "./RuntimeLogsView";
 function App(props) {
   let headers = {};
   if (props.ims.token && !headers.authorization) {
@@ -104,6 +105,12 @@ function App(props) {
             ims={props.ims}
             sandboxName={sandboxName}
           ></AddProfileView>
+        </Route>
+        <Route path="/runtimeLogs">
+          <RuntimeLogsView
+            ims={props.ims}
+            sandboxName={sandboxName}
+          ></RuntimeLogsView>
         </Route>
       </Switch>
     </View>
