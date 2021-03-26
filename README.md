@@ -47,6 +47,8 @@ Welcome to Adobe Experience Platform Profile Editor, an Adobe I/O Application th
   - [Adobe Experience Platform - Unified Profile](#adobe-experience-platform---unified-profile)
   - [Adobe Offer Decisioning Engine](#adobe-offer-decisioning-engine)
 - [Releases](#releases)
+  - [v0.0.6](#v006)
+  - [v0.0.5](#v005)
   - [v0.0.4](#v004)
   - [v0.0.3](#v003)
   - [v0.0.2](#v002)
@@ -328,6 +330,17 @@ SERVICE_API_KEY=
 - [Unified Profile API Reference](https://experienceleague.adobe.com/docs/experience-platform/profile/home.html?lang=en#api)
 
 ## Releases
+
+### v0.0.6
+
+- Added Filter component on the sample profile page.
+- UI Layout updated for the Find Profile component and search results page.
+
+### v0.0.5
+
+- Added looping in runtime action to wait till preview job result are ready
+- Fixed the rounding error on the Test Profile Display page.
+- Added Runtime Logs Page to display runtime failure logs in the UI
 
 ### v0.0.4
 
