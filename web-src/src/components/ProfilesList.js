@@ -49,7 +49,7 @@ const ProfilesList = (props) => {
     const keys = Object.keys(profileList.data);
     profileListContent = (
       <Grid
-        columns={repeat("auto-fit", "15%")}
+        columns={repeat("auto-fit", "19%")}
         justifyContent="center"
         gap="size-100"
       >
