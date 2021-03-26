@@ -62,9 +62,7 @@ const FindProfileView = (props) => {
 
   return (
     <Grid
-      areas={[
-        "namespace entityValue profileViewButton placeHolder placeHolder",
-      ]}
+      areas={["namespace namespace entityValue entityValue profileViewButton"]}
       columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
       rows={["size-800"]}
       height="100%"
