@@ -1,33 +1,29 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import React from "react";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
-  TextArea,
   ProgressCircle,
-  Item,
   Text,
   View,
-  Divider,
-  Header,
   Flex,
-  Heading,
   Grid,
   ActionButton,
   TextField,
+  Heading,
+  Content,
 } from "@adobe/react-spectrum";
 
 import ChevronRight from "@spectrum-icons/workflow/ChevronRight";
-
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
-import TestProfilesList from "./TestProfilesList.js";
+import SampleProfilesList from "./SampleProfilesList.js";
 import ChevronLeft from "@spectrum-icons/workflow/ChevronLeft";
-const TestProfiles = (props) => {
+
+const SampleProfileJob = (props) => {
   const [totalResultsCount, setTotalResultsCount] = useState();
   const [resultsOffset, setResultsOffset] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const [limit, setLimit] = useState(100);
 
-  //Identity Namespace State
   let headers = {};
   // set the authorization header and org from the ims props object
   if (props.ims.token && !headers.authorization) {
@@ -42,14 +38,13 @@ const TestProfiles = (props) => {
     headers: headers,
     params: {
       sandboxName: props.sandboxName,
-      // expression: "1=1",
-      expression: "testProfile = true",
+      expression: props.expression,
     },
   });
 
-  let testProfilesContent = (
+  let sampleProfilesContent = (
     <ProgressCircle
-      id="test-profile-list-progress-circle"
+      id="sample-profile-list-progress-circle"
       aria-label="Submitting a Preview Jo Offer Activities"
       isIndeterminate
       alignSelf="center"
@@ -65,17 +60,19 @@ const TestProfiles = (props) => {
   }
 
   if (!previewJob.data && !previewJob.error && !previewJob.isLoading) {
-    testProfilesContent = <Text>Issues Submitting Preview Job</Text>;
+    sampleProfilesContent = <Text>Issues Submitting Preview Job</Text>;
   }
+
   if (previewJob.data) {
-    testProfilesContent = (
-      <TestProfilesList
+    sampleProfilesContent = (
+      <SampleProfilesList
         key={`${previewJob.data.previewId}-${resultsOffset}`}
         ims={props.ims}
         sandboxName={props.sandboxName}
         previewId={previewJob.data.previewId}
         onDataLoad={(resultsCount) => {
           setTotalResultsCount(resultsCount);
+          console.log(`totalResultsCount = ${totalResultsCount}`);
         }}
         offset={resultsOffset}
         limit={limit}
@@ -90,6 +87,7 @@ const TestProfiles = (props) => {
             aria-label="previous"
             onPress={() => {
               setResultsOffset(resultsOffset - limit);
+              setPageNumber(pageNumber - 1);
             }}
           >
             <ChevronLeft size="S" />
@@ -101,9 +99,10 @@ const TestProfiles = (props) => {
             alignItems="center"
             onChange={(data) => {
               setResultsOffset(limit * data);
+              setPageNumber(data);
             }}
             maxWidth="size-25"
-            value={Math.ceil(resultsOffset / limit) + 1}
+            value={pageNumber}
           ></TextField>
           <Text> of {Math.ceil(totalResultsCount / limit)} Pages</Text>
           <ActionButton
@@ -117,6 +116,7 @@ const TestProfiles = (props) => {
             }
             onPress={() => {
               setResultsOffset(resultsOffset + limit);
+              setPageNumber(pageNumber + 1);
             }}
           >
             <ChevronRight size="S" />
@@ -127,49 +127,35 @@ const TestProfiles = (props) => {
   }
 
   return (
-    <div
-      css={css`
-        height: calc(100vh - var(--spectrum-global-dimension-size-800));
-      `}
+    <Grid
+      areas={["header", "mainContent", "pagination"]}
+      rows={["size-600", "auto", "size-600"]}
+      height="100%"
+      columnGap="size-300"
     >
-      <Grid
-        areas={[
-          "header header header header header",
-          "subHeader subHeader subHeader subHeader subHeader",
-          "mainContent mainContent mainContent mainContent mainContent",
-          "pagination pagination pagination pagination pagination",
-        ]}
-        columns={["1fr", "1fr", "1fr", "1fr", "1fr"]}
-        rows={["size-600", "size-800", "auto", "size-600"]}
-        height="100%"
-        // gap="size-100"
-        columnGap="size-300"
-      >
-        <View gridArea="header">
-          <Heading level={3}>Test Profiles</Heading>
-          <Divider size="M" />
-        </View>
+      <View gridArea="header">
+        <Flex direction="row" gap="size-100">
+          <Heading level={4}>Results</Heading>
+          <Content alignSelf="center" alignItems="flex-end">
+            {totalResultsCount} Profiles Found
+          </Content>
+        </Flex>
+      </View>
 
-        <View gridArea="subHeader">
-          <Heading level={4}>Sample Test Profile</Heading>
-          <Divider size="M" />
-        </View>
-
-        <View gridArea="mainContent" overflow="auto" backgroundColor="gray-50">
-          {testProfilesContent}
-        </View>
-        <View gridArea="pagination" alignSelf="center" justifySelf="center">
-          {paginationControls}
-        </View>
-      </Grid>
-    </div>
+      <View gridArea="mainContent" overflow="auto" backgroundColor="gray-50">
+        {sampleProfilesContent}
+      </View>
+      <View gridArea="pagination" alignSelf="center" justifySelf="center">
+        {paginationControls}
+      </View>
+    </Grid>
   );
 };
 
-TestProfiles.propTypes = {
+SampleProfileJob.propTypes = {
   ims: PropTypes.any,
   sandboxName: PropTypes.string,
   onSelectionChange: PropTypes.func,
 };
 
-export default TestProfiles;
+export default SampleProfileJob;

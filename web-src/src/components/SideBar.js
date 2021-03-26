@@ -64,11 +64,11 @@ function SideBar(props) {
             activeClassName="is-selected"
             aria-current="page"
             exact
-            to="/testProfiles"
+            to="/sampleProfiles"
           >
             <Flex direction="row" gap="size-100" alignItems="center">
               <TestProfileIcon size="S" />
-              <Text>Test Profiles</Text>
+              <Text>Sample Profiles</Text>
             </Flex>
           </NavLink>
         </li>
