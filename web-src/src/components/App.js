@@ -22,7 +22,7 @@ import SideBar from "./SideBar";
 import SandboxPicker from "./SandboxPicker";
 import Home from "./Home";
 import { About } from "./About";
-import TestProfiles from "./TestProfiles";
+import SampleProfiles from "./SampleProfiles";
 import ProfileLookupView from "./ProfileLookupView";
 import AddProfileView from "./AddProfileView";
 import RuntimeLogsView from "./RuntimeLogsView";
@@ -94,8 +94,8 @@ function App(props) {
         <Route path="/profile/:namespace?/:identityValue?">
           <ProfileLookupView ims={props.ims} sandboxName={sandboxName} />
         </Route>
-        <Route path="/testProfiles">
-          <TestProfiles ims={props.ims} sandboxName={sandboxName} />
+        <Route path="/sampleProfiles">
+          <SampleProfiles ims={props.ims} sandboxName={sandboxName} />
         </Route>
         <Route path="/about">
           <About></About>

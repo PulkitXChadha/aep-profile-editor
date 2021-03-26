@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { TextArea, ProgressCircle, Item, Text } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import ProfilesList from "./ProfilesList";
-const TestProfilesList = (props) => {
+const SampleProfilesList = (props) => {
   const onData = (previewSampledResultsCount, nextOffset) => {
     props.onDataLoad(previewSampledResultsCount, nextOffset);
   };
@@ -27,9 +27,9 @@ const TestProfilesList = (props) => {
     },
   });
 
-  let testProfileListContent = (
+  let sampleProfileListContent = (
     <ProgressCircle
-      id="test-profile-list-progress-circle"
+      id="sample-profile-list-progress-circle"
       aria-label="Submitting a Preview Jo Offer Activities"
       isIndeterminate
       alignSelf="center"
@@ -48,7 +48,7 @@ const TestProfilesList = (props) => {
     !previewJobResults.error &&
     !previewJobResults.isLoading
   ) {
-    testProfileListContent = <Text>Issues Submitting Preview Job</Text>;
+    sampleProfileListContent = <Text>Issues Submitting Preview Job</Text>;
   }
 
   if (
@@ -65,7 +65,7 @@ const TestProfilesList = (props) => {
       props.offset + props.limit
     );
 
-    testProfileListContent = (
+    sampleProfileListContent = (
       <ProfilesList
         ims={props.ims}
         sandboxName={props.sandboxName}
@@ -75,13 +75,13 @@ const TestProfilesList = (props) => {
     );
   }
 
-  return testProfileListContent;
+  return sampleProfileListContent;
 };
 
-TestProfilesList.propTypes = {
+SampleProfilesList.propTypes = {
   ims: PropTypes.any,
   sandboxName: PropTypes.string,
   onSelectionChange: PropTypes.func,
 };
 
-export default TestProfilesList;
+export default SampleProfilesList;
