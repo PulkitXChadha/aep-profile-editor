@@ -22,7 +22,7 @@ const NamespaceList = (props) => {
     headers["x-gw-ims-org-id"] = props.ims.org;
   }
   const namespaces = useActionWebInvoke({
-    actionName: "get-identity-preview-report",
+    actionName: "get-identity-namespaces",
     headers: headers,
     params: {
       sandboxName: sandboxName,
@@ -47,7 +47,7 @@ const NamespaceList = (props) => {
   }
 
   if (namespaces.data) {
-    const namespaceData = namespaces.data.data || [];
+    const namespaceData = namespaces.data || [];
     picker = (
       <Picker
         id="namespaces-list-picker"
