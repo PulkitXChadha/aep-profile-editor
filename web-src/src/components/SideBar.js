@@ -4,24 +4,12 @@
 
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {
-  ListBox,
-  ProgressCircle,
-  Item,
-  Text,
-  ActionButton,
-  View,
-  Grid,
-  Section,
-  Flex,
-  Heading,
-  Divider,
-} from "@adobe/react-spectrum";
+import { Text, Flex } from "@adobe/react-spectrum";
+
 import HomeIcon from "@spectrum-icons/workflow/Home";
 import ProfileIcon from "@spectrum-icons/workflow/RealTimeCustomerProfile";
 import TestProfileIcon from "@spectrum-icons/workflow/TestProfile";
 import DocumentIcon from "@spectrum-icons/workflow/Document";
-
 import PasteListIcon from "@spectrum-icons/workflow/PasteList";
 
 function SideBar(props) {
@@ -103,4 +91,4 @@ function SideBar(props) {
   );
 }
 
-export default SideBar;
+export default React.memo(SideBar);

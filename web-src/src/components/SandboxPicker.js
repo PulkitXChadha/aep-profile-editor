@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import { Item, Text, Picker, ProgressCircle } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 
@@ -8,24 +8,25 @@ const SandboxPicker = (props) => {
     return function (a, b) {
       if (a[property] > b[property]) return 1;
       else if (a[property] < b[property]) return -1;
-      return 0;
     };
   }
 
   let headers = {};
-  // set the authorization header and org from the ims props object
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
 
   const sandboxes = useActionWebInvoke({
     actionName: "get-sandboxes",
     headers: headers,
     params: {},
   });
+
+  useEffect(() => {
+    props.isLoading(sandboxes.isLoading);
+  }, [sandboxes.isLoading]);
+  useEffect(() => {
+    props.error(sandboxes.error);
+  }, [sandboxes.error]);
 
   let picker = (
     <ProgressCircle
@@ -46,8 +47,6 @@ const SandboxPicker = (props) => {
   }
 
   if (sandboxes.data) {
-    // const defaultSelection = sandboxes.data.sandboxes[0].name;
-
     picker = (
       <Picker
         isQuiet
@@ -56,7 +55,7 @@ const SandboxPicker = (props) => {
         isRequired={true}
         placeholder="select a sandbox"
         aria-label="select a sandbox"
-        // defaultSelectedKey={defaultSelection}
+        id="sandbox-picker"
         items={sandboxes.data.sandboxes
           .sort(sortByProperty("name"))
           .map((sandbox) => ({
@@ -66,7 +65,11 @@ const SandboxPicker = (props) => {
         itemKey="id"
         onSelectionChange={props.onSelectionChange}
       >
-        {(item) => <Item key={item.id}>{item.name}</Item>}
+        {(item) => (
+          <Item id={item.id} key={item.id}>
+            {item.name}
+          </Item>
+        )}
       </Picker>
     );
   }
@@ -79,4 +82,4 @@ SandboxPicker.propTypes = {
   ims: PropTypes.any,
 };
 
-export default SandboxPicker;
+export default React.memo(SandboxPicker);

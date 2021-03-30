@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { TextArea, ProgressCircle, Item, Text } from "@adobe/react-spectrum";
+import {
+  TextArea,
+  ProgressCircle,
+  Item,
+  Text,
+  IllustratedMessage,
+  Heading,
+  Content,
+} from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
+import NotFound from "@spectrum-icons/illustrations/NotFound";
+
 import ProfilesList from "./ProfilesList";
 const SampleProfilesList = (props) => {
-  const onData = (previewSampledResultsCount, nextOffset) => {
-    props.onDataLoad(previewSampledResultsCount, nextOffset);
-  };
   let headers = {};
-  // set the authorization header and org from the ims props object
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
 
   const previewJobResults = useActionWebInvoke({
     actionName: "get-preview-job-results",
@@ -27,10 +29,26 @@ const SampleProfilesList = (props) => {
     },
   });
 
-  let sampleProfileListContent = (
+  useEffect(() => {
+    if (previewJobResults.data) {
+      onData(
+        previewJobResults.data.previewSampledResultsCount,
+        props.offset + props.limit
+      );
+    }
+  }, [previewJobResults.data]);
+
+  const onData = (previewSampledResultsCount, nextOffset) => {
+    props.onDataLoad(previewSampledResultsCount, nextOffset);
+  };
+
+  let sampleProfileListContent = null;
+
+  sampleProfileListContent = (
     <ProgressCircle
-      id="sample-profile-list-progress-circle"
-      aria-label="Submitting a Preview Jo Offer Activities"
+      data-testid="preview-job-results-progress-circle"
+      id="preview-job-results-progress-circle"
+      aria-label="Getting Preview Job Results"
       isIndeterminate
       alignSelf="center"
       size="L"
@@ -40,7 +58,13 @@ const SampleProfilesList = (props) => {
     />
   );
   if (previewJobResults.error) {
-    console.log(previewJobResults.error.message);
+    sampleProfileListContent = (
+      <IllustratedMessage>
+        <NotFound />
+        <Heading>Error encountered while getting preview job results</Heading>
+        <Content>{previewJobResults.error.message}</Content>
+      </IllustratedMessage>
+    );
   }
 
   if (
@@ -48,7 +72,7 @@ const SampleProfilesList = (props) => {
     !previewJobResults.error &&
     !previewJobResults.isLoading
   ) {
-    sampleProfileListContent = <Text>Issues Submitting Preview Job</Text>;
+    sampleProfileListContent = <Text>Issues getting Preview Job Results</Text>;
   }
 
   if (
@@ -60,13 +84,9 @@ const SampleProfilesList = (props) => {
       (result) => result.objectId
     );
 
-    onData(
-      previewJobResults.data.previewSampledResultsCount,
-      props.offset + props.limit
-    );
-
     sampleProfileListContent = (
       <ProfilesList
+        key={`profilelist-${props.previewId}-${props.offset}`}
         ims={props.ims}
         sandboxName={props.sandboxName}
         entityValues={previewData}
@@ -84,4 +104,4 @@ SampleProfilesList.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default SampleProfilesList;
+export default React.memo(SampleProfilesList);

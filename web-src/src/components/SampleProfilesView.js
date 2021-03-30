@@ -4,15 +4,17 @@ import PropTypes from "prop-types";
 import {
   ProgressCircle,
   Text,
-  View,
   Flex,
   Grid,
   ActionButton,
   TextField,
   Heading,
+  View,
+  IllustratedMessage,
   Content,
 } from "@adobe/react-spectrum";
 
+import NotFound from "@spectrum-icons/illustrations/NotFound";
 import ChevronRight from "@spectrum-icons/workflow/ChevronRight";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import SampleProfilesList from "./SampleProfilesList.js";
@@ -25,13 +27,8 @@ const SampleProfileJob = (props) => {
   const [limit, setLimit] = useState(100);
 
   let headers = {};
-  // set the authorization header and org from the ims props object
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
 
   const previewJob = useActionWebInvoke({
     actionName: "post-preview-job",
@@ -44,8 +41,8 @@ const SampleProfileJob = (props) => {
 
   let sampleProfilesContent = (
     <ProgressCircle
-      id="sample-profile-list-progress-circle"
-      aria-label="Submitting a Preview Jo Offer Activities"
+      data-testid="preview-job-progress-circle"
+      aria-label="Submitting Preview Job"
       isIndeterminate
       alignSelf="center"
       size="L"
@@ -56,7 +53,13 @@ const SampleProfileJob = (props) => {
   );
   let paginationControls;
   if (previewJob.error) {
-    console.log(previewJob.error.message);
+    sampleProfilesContent = (
+      <IllustratedMessage>
+        <NotFound />
+        <Heading>Error encountered while submitting preview job</Heading>
+        <Content>{previewJob.error.message}</Content>
+      </IllustratedMessage>
+    );
   }
 
   if (!previewJob.data && !previewJob.error && !previewJob.isLoading) {
@@ -72,7 +75,6 @@ const SampleProfileJob = (props) => {
         previewId={previewJob.data.previewId}
         onDataLoad={(resultsCount) => {
           setTotalResultsCount(resultsCount);
-          console.log(`totalResultsCount = ${totalResultsCount}`);
         }}
         offset={resultsOffset}
         limit={limit}
@@ -82,6 +84,8 @@ const SampleProfileJob = (props) => {
       paginationControls = (
         <Flex direction="row" gap="size-50" alignItems="center">
           <ActionButton
+            data-testid="previous-page-button"
+            aria-labelledby="previous-page-button"
             isDisabled={resultsOffset ? false : true}
             isQuiet
             aria-label="previous"
@@ -93,6 +97,8 @@ const SampleProfileJob = (props) => {
             <ChevronLeft size="S" />
           </ActionButton>
           <TextField
+            data-testid="current-page-textfield"
+            aria-labelledby="current-page-textfield"
             alignSelf="center"
             justifySelf="center"
             justifyContent="center"
@@ -104,8 +110,12 @@ const SampleProfileJob = (props) => {
             maxWidth="size-25"
             value={pageNumber}
           ></TextField>
-          <Text> of {Math.ceil(totalResultsCount / limit)} Pages</Text>
+          <Text data-testid="total-pages-text">
+            of {Math.ceil(totalResultsCount / limit)} Pages
+          </Text>
           <ActionButton
+            data-testid="next-page-button"
+            aria-labelledby="next-page-button"
             isQuiet
             aria-label="next"
             isDisabled={
@@ -158,4 +168,4 @@ SampleProfileJob.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default SampleProfileJob;
+export default React.memo(SampleProfileJob);

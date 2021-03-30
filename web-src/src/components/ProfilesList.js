@@ -1,25 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, repeat, ProgressCircle, Text } from "@adobe/react-spectrum";
+import {
+  Grid,
+  repeat,
+  ProgressCircle,
+  Text,
+  IllustratedMessage,
+  Heading,
+  Content,
+} from "@adobe/react-spectrum";
+
+import NotFound from "@spectrum-icons/illustrations/NotFound";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import ProfileSummaryView from "./ProfileSummaryView";
 const ProfilesList = (props) => {
-  //Identity Namespace State
   let headers = {};
-  // set the authorization header and org from the ims props object
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
 
   const profileList = useActionWebInvoke({
     actionName: "get-profile-list",
     headers: headers,
     params: {
       sandboxName: props.sandboxName,
-      previewJobID: props.previewId,
       entityValues: props.entityValues,
       fields: props.fields,
     },
@@ -27,7 +30,8 @@ const ProfilesList = (props) => {
 
   let profileListContent = (
     <ProgressCircle
-      id="profile-list-progress-circle"
+      id="sample-profile-list-progress-circle"
+      data-testid="sample-profile-list-progress-circle"
       aria-label="Getting Profile Data"
       isIndeterminate
       alignSelf="center"
@@ -38,11 +42,22 @@ const ProfilesList = (props) => {
     />
   );
   if (profileList.error) {
-    console.log(profileList.error.message);
+    profileListContent = (
+      <IllustratedMessage>
+        <NotFound />
+        <Heading>
+          Error encountered while getting sample profiles from the preview job
+          results
+        </Heading>
+        <Content>{profileList.error.message}</Content>
+      </IllustratedMessage>
+    );
   }
 
   if (!profileList.data && !profileList.error && !profileList.isLoading) {
-    profileListContent = <Text>Issues Submitting Preview Job</Text>;
+    profileListContent = (
+      <Text>Issues getting profile from Preview Job results</Text>
+    );
   }
 
   if (profileList.data) {
@@ -52,6 +67,7 @@ const ProfilesList = (props) => {
         columns={repeat("auto-fit", "19%")}
         justifyContent="center"
         gap="size-100"
+        data-testid="profiles-grid"
       >
         {keys.map((key) => (
           <ProfileSummaryView
@@ -72,4 +88,4 @@ ProfilesList.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default ProfilesList;
+export default React.memo(ProfilesList);

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import React from "react";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import {
@@ -31,7 +32,7 @@ const SampleProfiles = (props) => {
   const [queryExpression, setQueryExpression] = useState();
 
   const parameterInputsContent = (
-    <Flex direction="column" gap="size-50">
+    <Flex direction="column" gap="size-50" data-testid="sample-profile-filters">
       <View>
         <Heading alignSelf="center" marginStart="size-100" level={4}>
           Filters
@@ -39,8 +40,11 @@ const SampleProfiles = (props) => {
       </View>
       <Divider size="S" />
       <TextField
+        id="filter-first-name-textfield"
+        data-testid="filter-first-name-textfield"
         margin="size-100"
         width="80%"
+        aria-labelledby="First Name : "
         label="First Name : "
         value={firstNameContains}
         onChange={setFirstNameContains}
@@ -49,6 +53,7 @@ const SampleProfiles = (props) => {
         placeholder="contains"
       />
       <LogicButton
+        data-testid="filter-variant-button-1"
         alignSelf="center"
         variant={variant.toLowerCase()}
         onPress={() => setVariant(variant === "Or" ? "And" : "Or")}
@@ -57,8 +62,11 @@ const SampleProfiles = (props) => {
         {variant}
       </LogicButton>
       <TextField
+        id="filter-last-name-textfield"
+        data-testid="filter-last-name-textfield"
         marginStart="size-100"
         width="80%"
+        aria-labelledby="Last Name : "
         label="Last Name : "
         value={lastNameContains}
         onChange={setLastNameContains}
@@ -69,6 +77,7 @@ const SampleProfiles = (props) => {
       />
 
       <LogicButton
+        data-testid="filter-variant-button-2"
         variant={variant.toLowerCase()}
         alignSelf="center"
         onPress={() => setVariant(variant === "Or" ? "And" : "Or")}
@@ -78,6 +87,7 @@ const SampleProfiles = (props) => {
       </LogicButton>
 
       <Checkbox
+        data-testid="filter-test-profile-checkbox"
         marginStart="size-100"
         isSelected={testProfileFlag}
         onChange={setTestProfileFlag}
@@ -90,7 +100,6 @@ const SampleProfiles = (props) => {
         alignSelf="center"
         variant="primary"
         marginTop="size-300"
-        // isDisabled={props.isDisabled}
         onAction={() => {
           let testFlagExp = "";
           if (testProfileFlag) {
@@ -110,7 +119,7 @@ const SampleProfiles = (props) => {
           setQueryExpression(`${testFlagExp} ${firstNameExp} ${lastNameExp}`);
         }}
       >
-        <SpectrumTab key="getSampleProfile">
+        <SpectrumTab key="getSampleProfile" textValue="getSampleProfile">
           <SearchIcon />
           <Text>Get Sample Profiles</Text>
         </SpectrumTab>
@@ -185,4 +194,4 @@ SampleProfiles.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default SampleProfiles;
+export default React.memo(SampleProfiles);
