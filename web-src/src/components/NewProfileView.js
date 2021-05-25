@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-
+import React from "react";
 import ReactJson from "react-json-view";
 import PropTypes from "prop-types";
 import {
@@ -17,7 +17,7 @@ const NewProfileView = (props) => {
   let schemaContent = (
     <div
       css={css`
-        height: calc(100vh - ${props.overFlowOffset || 325}px);
+        height: calc(100vh - ${props.overFlowOffset}px);
         overflow: auto;
       `}
     >
@@ -35,7 +35,7 @@ const NewProfileView = (props) => {
   let profileJSONContent = (
     <div
       css={css`
-        height: calc(100vh - ${props.overFlowOffset || 325}px);
+        height: calc(100vh - ${props.overFlowOffset}px);
         overflow: auto;
       `}
     >
@@ -84,4 +84,4 @@ NewProfileView.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default NewProfileView;
+export default React.memo(NewProfileView);

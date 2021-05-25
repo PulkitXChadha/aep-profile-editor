@@ -49,4 +49,4 @@ ProfileSummaryView.propTypes = {
   ims: PropTypes.any,
 };
 
-export default ProfileSummaryView;
+export default React.memo(ProfileSummaryView);

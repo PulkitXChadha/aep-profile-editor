@@ -1,32 +1,21 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   ListBox,
   ProgressCircle,
   Item,
   Text,
-  ActionButton,
-  View,
-  Grid,
   Section,
-  Flex,
-  Heading,
-  Divider,
 } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import Workflow from "@spectrum-icons/workflow/Workflow";
 const ContributingSchemaListBox = (props) => {
-  //Identity Namespace State
   let headers = {};
-  // set the authorization header and org from the ims props object
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
+
   const schemasList = useActionWebInvoke({
     actionName: "get-all-schemas",
     headers: headers,
@@ -37,6 +26,7 @@ const ContributingSchemaListBox = (props) => {
 
   let picker = (
     <ProgressCircle
+      data-testid="schema-list-progress-circle"
       id="schema-list-progress-circle"
       aria-label="Getting Schemas"
       isIndeterminate
@@ -44,17 +34,18 @@ const ContributingSchemaListBox = (props) => {
       marginStart="size-100"
     />
   );
-
+  let listData = [];
   if (schemasList.error) {
-    console.log(schemasList.error.message);
+    listData = [];
   }
 
   if (!schemasList.data && !schemasList.error && !schemasList.isLoading) {
+    listData = [];
     picker = <Text>You have no schemasList!</Text>;
   }
 
   if (schemasList.data) {
-    const listData = schemasList.data.results
+    listData = schemasList.data.results
       .filter((schema) => {
         const tags = schema["meta:immutableTags"] || [];
 
@@ -79,7 +70,6 @@ const ContributingSchemaListBox = (props) => {
         <ListBox
           aria-label="profileSchemas"
           selectionMode="single"
-          // itemKey="key"
           onSelectionChange={(id) => {
             props.onSelectionChange(
               id.currentKey,
@@ -113,4 +103,4 @@ ContributingSchemaListBox.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default ContributingSchemaListBox;
+export default React.memo(ContributingSchemaListBox);

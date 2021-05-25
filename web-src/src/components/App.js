@@ -2,6 +2,7 @@
  * <license header>
  */ /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import React from "react";
 import { useState, useEffect } from "react";
 import {
   Provider,
@@ -24,8 +25,8 @@ import Home from "./Home";
 import { About } from "./About";
 import SampleProfiles from "./SampleProfiles";
 import ProfileLookupView from "./ProfileLookupView";
-import AddProfileView from "./AddProfileView";
 import RuntimeLogsView from "./RuntimeLogsView";
+
 function App(props) {
   let headers = {};
   if (props.ims.token && !headers.authorization) {
@@ -37,6 +38,8 @@ function App(props) {
   const userSettings = false;
   const [sandboxName, setSandboxName] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [sandboxLoading, setSandboxLoading] = useState(true);
+  const [error, setError] = useState();
   let redirectTo = null;
   if (redirect) {
     redirectTo = <Redirect to="/" />;
@@ -75,6 +78,8 @@ function App(props) {
             <SandboxPicker
               ims={props.ims}
               onSelectionChange={handleSandboxSelection}
+              isLoading={setSandboxLoading}
+              error={setError}
             />
           </View>
         </Flex>
@@ -88,7 +93,9 @@ function App(props) {
         <Route exact path="/">
           <Home
             isSandboxSelected={sandboxName ? true : false}
-            // firstName={props.ims.profile.first_name}
+            firstName={props.ims.profile.first_name}
+            isLoading={sandboxLoading}
+            error={error}
           ></Home>
         </Route>
         <Route path="/profile/:namespace?/:identityValue?">
@@ -100,17 +107,8 @@ function App(props) {
         <Route path="/about">
           <About></About>
         </Route>
-        <Route path="/addProfile">
-          <AddProfileView
-            ims={props.ims}
-            sandboxName={sandboxName}
-          ></AddProfileView>
-        </Route>
         <Route path="/runtimeLogs">
-          <RuntimeLogsView
-            ims={props.ims}
-            sandboxName={sandboxName}
-          ></RuntimeLogsView>
+          <RuntimeLogsView ims={props.ims}></RuntimeLogsView>
         </Route>
       </Switch>
     </View>
@@ -182,4 +180,4 @@ function App(props) {
   }
 }
 
-export default App;
+export default React.memo(App);

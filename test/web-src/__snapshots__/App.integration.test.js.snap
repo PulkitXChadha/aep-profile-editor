@@ -1,0 +1,1251 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App - About Page initial about page view 1`] = `
+<DocumentFragment>
+  <div
+    class="_spectrum_d43d2 _spectrum_60105 _spectrum--light_606b7 _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+    dir="ltr"
+    lang="en-US"
+    style="isolation: isolate; color-scheme: light;"
+  >
+    <div
+      style="height: 100vh; overflow: hidden;"
+    >
+      <header
+        style="position: fixed; width: 100vw;"
+      >
+        <div
+          class="_spectrum_d43d2 _spectrum_60105 _spectrum--darkest_acf7f _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+          dir="ltr"
+          lang="en-US"
+          style="color-scheme: dark;"
+        >
+          <div>
+            <div
+              class="_flex_ffbb7"
+              style="align-items: center;"
+            >
+              <div
+                style="flex: 1;"
+              >
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="sandbox-list-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main
+        class="css-1cdcbgx-App"
+      >
+        <div
+          id="Grid"
+          style="grid-template-areas: \\"nav main\\"; grid-template-columns: var(--spectrum-global-dimension-size-2000, var(--spectrum-alias-size-2000)) auto; height: 100%; display: grid;"
+        >
+          <div
+            id="Sidenav"
+            style="grid-area: nav; position: fixed; height: 100%;"
+          >
+            <div>
+              <ul
+                class="SideNav"
+              >
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    aria-current="page"
+                    class="SideNav-itemLink is-selected"
+                    href="#/"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M35.332 20.25L18.75 3.668a1.063 1.063 0 0 0-1.5 0L.668 20.25a1.061 1.061 0 0 0 0 1.5l1.958 1.957a1 1 0 0 0 .707.293H4v9a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V23a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-9h.667a1 1 0 0 0 .707-.293l1.958-1.957a1.061 1.061 0 0 0 0-1.5z"
+                          />
+                        </svg>
+                        <span>
+                          Home
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/runtimeLogs"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M22 6V4a4 4 0 0 0-8 0v2h-4v4h16V6zm-2 0h-4V4a2 2 0 0 1 4 0z"
+                          />
+                          <path
+                            d="M31 6h-3v5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V6H5a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1zM12 27a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm0-8a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm14 6.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5zm0-8a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5z"
+                          />
+                        </svg>
+                        <span>
+                          Runtime Logs
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/about"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M20 11V2H7a1 1 0 0 0-1 1v30a1 1 0 0 0 1 1h22a1 1 0 0 0 1-1V12h-9a1 1 0 0 1-1-1z"
+                          />
+                          <path
+                            d="M22 2h.086a1 1 0 0 1 .707.293l6.914 6.914a1 1 0 0 1 .293.707V10h-8z"
+                          />
+                        </svg>
+                        <span>
+                          About
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style="grid-area: main;"
+          >
+            <div
+              style="grid-area: content;"
+            >
+              <div>
+                <h1>
+                  fake-firstname, Welcome to AEP Profile Editor!
+                </h1>
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="home-page-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`App Page home page view - post sandbox selection 1`] = `
+<DocumentFragment>
+  <div
+    class="_spectrum_d43d2 _spectrum_60105 _spectrum--light_606b7 _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+    dir="ltr"
+    lang="en-US"
+    style="isolation: isolate; color-scheme: light;"
+  >
+    <div
+      style="height: 100vh; overflow: hidden;"
+    >
+      <header
+        style="position: fixed; width: 100vw;"
+      >
+        <div
+          class="_spectrum_d43d2 _spectrum_60105 _spectrum--darkest_acf7f _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+          dir="ltr"
+          lang="en-US"
+          style="color-scheme: dark;"
+        >
+          <div>
+            <div
+              class="_flex_ffbb7"
+              style="align-items: center;"
+            >
+              <div
+                style="flex: 1;"
+              >
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="sandbox-list-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main
+        class="css-1cdcbgx-App"
+      >
+        <div
+          id="Grid"
+          style="grid-template-areas: \\"nav main\\"; grid-template-columns: var(--spectrum-global-dimension-size-2000, var(--spectrum-alias-size-2000)) auto; height: 100%; display: grid;"
+        >
+          <div
+            id="Sidenav"
+            style="grid-area: nav; position: fixed; height: 100%;"
+          >
+            <div>
+              <ul
+                class="SideNav"
+              >
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    aria-current="page"
+                    class="SideNav-itemLink is-selected"
+                    href="#/"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M35.332 20.25L18.75 3.668a1.063 1.063 0 0 0-1.5 0L.668 20.25a1.061 1.061 0 0 0 0 1.5l1.958 1.957a1 1 0 0 0 .707.293H4v9a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V23a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-9h.667a1 1 0 0 0 .707-.293l1.958-1.957a1.061 1.061 0 0 0 0-1.5z"
+                          />
+                        </svg>
+                        <span>
+                          Home
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/runtimeLogs"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M22 6V4a4 4 0 0 0-8 0v2h-4v4h16V6zm-2 0h-4V4a2 2 0 0 1 4 0z"
+                          />
+                          <path
+                            d="M31 6h-3v5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V6H5a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1zM12 27a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm0-8a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm14 6.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5zm0-8a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5z"
+                          />
+                        </svg>
+                        <span>
+                          Runtime Logs
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/about"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M20 11V2H7a1 1 0 0 0-1 1v30a1 1 0 0 0 1 1h22a1 1 0 0 0 1-1V12h-9a1 1 0 0 1-1-1z"
+                          />
+                          <path
+                            d="M22 2h.086a1 1 0 0 1 .707.293l6.914 6.914a1 1 0 0 1 .293.707V10h-8z"
+                          />
+                        </svg>
+                        <span>
+                          About
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style="grid-area: main;"
+          >
+            <div
+              style="grid-area: content;"
+            >
+              <div>
+                <h1>
+                  fake-firstname, Welcome to AEP Profile Editor!
+                </h1>
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="home-page-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`App Page initial home page view - sandbox list request errors 1`] = `
+<DocumentFragment>
+  <div
+    class="_spectrum_d43d2 _spectrum_60105 _spectrum--light_606b7 _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+    dir="ltr"
+    lang="en-US"
+    style="isolation: isolate; color-scheme: light;"
+  >
+    <div
+      style="height: 100vh; overflow: hidden;"
+    >
+      <header
+        style="position: fixed; width: 100vw;"
+      >
+        <div
+          class="_spectrum_d43d2 _spectrum_60105 _spectrum--darkest_acf7f _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+          dir="ltr"
+          lang="en-US"
+          style="color-scheme: dark;"
+        >
+          <div>
+            <div
+              class="_flex_ffbb7"
+              style="align-items: center;"
+            >
+              <div
+                style="flex: 1;"
+              >
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="sandbox-list-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main
+        class="css-1cdcbgx-App"
+      >
+        <div
+          id="Grid"
+          style="grid-template-areas: \\"nav main\\"; grid-template-columns: var(--spectrum-global-dimension-size-2000, var(--spectrum-alias-size-2000)) auto; height: 100%; display: grid;"
+        >
+          <div
+            id="Sidenav"
+            style="grid-area: nav; position: fixed; height: 100%;"
+          >
+            <div>
+              <ul
+                class="SideNav"
+              >
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    aria-current="page"
+                    class="SideNav-itemLink is-selected"
+                    href="#/"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M35.332 20.25L18.75 3.668a1.063 1.063 0 0 0-1.5 0L.668 20.25a1.061 1.061 0 0 0 0 1.5l1.958 1.957a1 1 0 0 0 .707.293H4v9a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V23a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-9h.667a1 1 0 0 0 .707-.293l1.958-1.957a1.061 1.061 0 0 0 0-1.5z"
+                          />
+                        </svg>
+                        <span>
+                          Home
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/runtimeLogs"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M22 6V4a4 4 0 0 0-8 0v2h-4v4h16V6zm-2 0h-4V4a2 2 0 0 1 4 0z"
+                          />
+                          <path
+                            d="M31 6h-3v5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V6H5a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1zM12 27a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm0-8a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm14 6.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5zm0-8a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5z"
+                          />
+                        </svg>
+                        <span>
+                          Runtime Logs
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/about"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M20 11V2H7a1 1 0 0 0-1 1v30a1 1 0 0 0 1 1h22a1 1 0 0 0 1-1V12h-9a1 1 0 0 1-1-1z"
+                          />
+                          <path
+                            d="M22 2h.086a1 1 0 0 1 .707.293l6.914 6.914a1 1 0 0 1 .293.707V10h-8z"
+                          />
+                        </svg>
+                        <span>
+                          About
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style="grid-area: main;"
+          >
+            <div
+              style="grid-area: content;"
+            >
+              <div>
+                <h1>
+                  fake-firstname, Welcome to AEP Profile Editor!
+                </h1>
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="home-page-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`App Page initial home page view - without first-name 1`] = `
+<DocumentFragment>
+  <div
+    class="_spectrum_d43d2 _spectrum_60105 _spectrum--light_606b7 _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+    dir="ltr"
+    lang="en-US"
+    style="isolation: isolate; color-scheme: light;"
+  >
+    <div
+      style="height: 100vh; overflow: hidden;"
+    >
+      <header
+        style="position: fixed; width: 100vw;"
+      >
+        <div
+          class="_spectrum_d43d2 _spectrum_60105 _spectrum--darkest_acf7f _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+          dir="ltr"
+          lang="en-US"
+          style="color-scheme: dark;"
+        >
+          <div>
+            <div
+              class="_flex_ffbb7"
+              style="align-items: center;"
+            >
+              <div
+                style="flex: 1;"
+              >
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="sandbox-list-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main
+        class="css-1cdcbgx-App"
+      >
+        <div
+          id="Grid"
+          style="grid-template-areas: \\"nav main\\"; grid-template-columns: var(--spectrum-global-dimension-size-2000, var(--spectrum-alias-size-2000)) auto; height: 100%; display: grid;"
+        >
+          <div
+            id="Sidenav"
+            style="grid-area: nav; position: fixed; height: 100%;"
+          >
+            <div>
+              <ul
+                class="SideNav"
+              >
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    aria-current="page"
+                    class="SideNav-itemLink is-selected"
+                    href="#/"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M35.332 20.25L18.75 3.668a1.063 1.063 0 0 0-1.5 0L.668 20.25a1.061 1.061 0 0 0 0 1.5l1.958 1.957a1 1 0 0 0 .707.293H4v9a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V23a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-9h.667a1 1 0 0 0 .707-.293l1.958-1.957a1.061 1.061 0 0 0 0-1.5z"
+                          />
+                        </svg>
+                        <span>
+                          Home
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/runtimeLogs"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M22 6V4a4 4 0 0 0-8 0v2h-4v4h16V6zm-2 0h-4V4a2 2 0 0 1 4 0z"
+                          />
+                          <path
+                            d="M31 6h-3v5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V6H5a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1zM12 27a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm0-8a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm14 6.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5zm0-8a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5z"
+                          />
+                        </svg>
+                        <span>
+                          Runtime Logs
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/about"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M20 11V2H7a1 1 0 0 0-1 1v30a1 1 0 0 0 1 1h22a1 1 0 0 0 1-1V12h-9a1 1 0 0 1-1-1z"
+                          />
+                          <path
+                            d="M22 2h.086a1 1 0 0 1 .707.293l6.914 6.914a1 1 0 0 1 .293.707V10h-8z"
+                          />
+                        </svg>
+                        <span>
+                          About
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style="grid-area: main;"
+          >
+            <div
+              style="grid-area: content;"
+            >
+              <div>
+                <h1>
+                  Welcome to AEP Profile Editor!
+                </h1>
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="home-page-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`App Page initial home page view 1`] = `
+<DocumentFragment>
+  <div
+    class="_spectrum_d43d2 _spectrum_60105 _spectrum--light_606b7 _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+    dir="ltr"
+    lang="en-US"
+    style="isolation: isolate; color-scheme: light;"
+  >
+    <div
+      style="height: 100vh; overflow: hidden;"
+    >
+      <header
+        style="position: fixed; width: 100vw;"
+      >
+        <div
+          class="_spectrum_d43d2 _spectrum_60105 _spectrum--darkest_acf7f _spectrum--large_38267 _spectrum_5be2e _spectrum--medium_5be2e _spectrum--large_5be2e _spectrum--darkest_5be2e _spectrum--dark_5be2e _spectrum--light_5be2e _spectrum--lightest_5be2e"
+          dir="ltr"
+          lang="en-US"
+          style="color-scheme: dark;"
+        >
+          <div>
+            <div
+              class="_flex_ffbb7"
+              style="align-items: center;"
+            >
+              <div
+                style="flex: 1;"
+              >
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="sandbox-list-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main
+        class="css-1cdcbgx-App"
+      >
+        <div
+          id="Grid"
+          style="grid-template-areas: \\"nav main\\"; grid-template-columns: var(--spectrum-global-dimension-size-2000, var(--spectrum-alias-size-2000)) auto; height: 100%; display: grid;"
+        >
+          <div
+            id="Sidenav"
+            style="grid-area: nav; position: fixed; height: 100%;"
+          >
+            <div>
+              <ul
+                class="SideNav"
+              >
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    aria-current="page"
+                    class="SideNav-itemLink is-selected"
+                    href="#/"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M35.332 20.25L18.75 3.668a1.063 1.063 0 0 0-1.5 0L.668 20.25a1.061 1.061 0 0 0 0 1.5l1.958 1.957a1 1 0 0 0 .707.293H4v9a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V23a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-9h.667a1 1 0 0 0 .707-.293l1.958-1.957a1.061 1.061 0 0 0 0-1.5z"
+                          />
+                        </svg>
+                        <span>
+                          Home
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/runtimeLogs"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M22 6V4a4 4 0 0 0-8 0v2h-4v4h16V6zm-2 0h-4V4a2 2 0 0 1 4 0z"
+                          />
+                          <path
+                            d="M31 6h-3v5a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V6H5a1 1 0 0 0-1 1v26a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1zM12 27a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm0-8a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm14 6.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5zm0-8a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5z"
+                          />
+                        </svg>
+                        <span>
+                          Runtime Logs
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li
+                  class="SideNav-item"
+                >
+                  <a
+                    class="SideNav-itemLink"
+                    href="#/about"
+                  >
+                    <div
+                      class="_flex-container_ffbb7"
+                    >
+                      <div
+                        class="_flex_ffbb7 _flex-gap_ffbb7"
+                        style="flex-direction: row; align-items: center; --gap: var(--spectrum-global-dimension-size-100, var(--spectrum-alias-size-100));"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="_spectrum-Icon_8ac98 _spectrum-Icon--sizeS_8ac98"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 36 36"
+                        >
+                          <path
+                            d="M20 11V2H7a1 1 0 0 0-1 1v30a1 1 0 0 0 1 1h22a1 1 0 0 0 1-1V12h-9a1 1 0 0 1-1-1z"
+                          />
+                          <path
+                            d="M22 2h.086a1 1 0 0 1 .707.293l6.914 6.914a1 1 0 0 1 .293.707V10h-8z"
+                          />
+                        </svg>
+                        <span>
+                          About
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style="grid-area: main;"
+          >
+            <div
+              style="grid-area: content;"
+            >
+              <div>
+                <h1>
+                  fake-firstname, Welcome to AEP Profile Editor!
+                </h1>
+                <div
+                  aria-label="Getting Sandboxes"
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="_spectrum-CircleLoader_40b43 _spectrum-CircleLoader--indeterminate_40b43"
+                  id="home-page-progress-circle"
+                  role="progressbar"
+                >
+                  <div
+                    class="_spectrum-CircleLoader-track_40b43"
+                  />
+                  <div
+                    class="_spectrum-CircleLoader-fills_40b43"
+                  >
+                    <div
+                      class="_spectrum-CircleLoader-fillMask1_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask1_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="_spectrum-CircleLoader-fillMask2_40b43"
+                    >
+                      <div
+                        class="_spectrum-CircleLoader-fillSubMask2_40b43"
+                      >
+                        <div
+                          class="_spectrum-CircleLoader-fill_40b43"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocumentFragment>
+`;

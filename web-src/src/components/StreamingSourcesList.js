@@ -19,6 +19,8 @@ const StreamingSourcesList = (props) => {
       sandboxName: props.sandboxName,
     },
   });
+
+  let dataInletsList = [];
   let picker = (
     <ProgressCircle
       id="inlet-list-progress-circle"
@@ -30,14 +32,20 @@ const StreamingSourcesList = (props) => {
   );
 
   if (dataInlets.error) {
-    console.log(dataInlets.error.message);
+    dataInletsList = [];
   }
-
   if (!dataInlets.data && !dataInlets.error && !dataInlets.isLoading) {
-    picker = <Text>No DataInlets found!</Text>;
+    dataInletsList = [];
   }
 
   if (dataInlets.data) {
+    dataInletsList = dataInlets.data.items.map((inlet) => ({
+      name: inlet.name,
+      key: inlet.inletUrl,
+    }));
+  }
+
+  if (!dataInlets.isLoading) {
     picker = (
       <Picker
         isDisabled={!props.schemaId || props.isDisabled}
@@ -49,10 +57,7 @@ const StreamingSourcesList = (props) => {
         isRequired={true}
         placeholder="select a Inlet"
         aria-label="select a Inlet"
-        items={dataInlets.data.items.map((inlet) => ({
-          name: inlet.name,
-          key: inlet.inletUrl,
-        }))}
+        items={dataInletsList}
         itemKey="key"
         onSelectionChange={props.onSelectionChange}
       >
@@ -70,4 +75,4 @@ StreamingSourcesList.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default StreamingSourcesList;
+export default React.memo(StreamingSourcesList);

@@ -23,42 +23,45 @@ const FindProfileView = (props) => {
   let valueInput = null;
   let findProfileButton = null;
   let clearButton = null;
-  if (sandboxName) {
-    identityNamespace = (
-      <NamespaceList
-        ims={props.ims}
-        sandboxName={sandboxName}
-        onSelectionChange={props.onNamespaceSelection}
-        initialSelection={namespace}
-      />
-    );
-    valueInput = (
-      <TextField
-        width="100%"
-        maxWidth="100%"
-        isDisabled={namespace ? false : true}
-        label={`Enter ID value`}
-        labelPosition="top"
-        labelAlign="start"
-        isRequired={true}
-        onChange={props.onEntityValueChange}
-        inputMode="text"
-        maxLength="255"
-        value={entityValue}
-      />
-    );
-    findProfileButton = (
-      <Button variant="primary" onPress={props.onViewButtonClick}>
-        <Text>View</Text>
-      </Button>
-    );
+  identityNamespace = (
+    <NamespaceList
+      ims={props.ims}
+      sandboxName={sandboxName}
+      onSelectionChange={props.onNamespaceSelection}
+      initialSelection={namespace}
+    />
+  );
+  valueInput = (
+    <TextField
+      data-testid="entity-value-textfield"
+      width="100%"
+      maxWidth="100%"
+      isDisabled={namespace ? false : true}
+      label={`Enter ID value`}
+      labelPosition="top"
+      labelAlign="start"
+      isRequired={true}
+      onChange={props.onEntityValueChange}
+      inputMode="text"
+      maxLength="255"
+      value={entityValue}
+    />
+  );
+  findProfileButton = (
+    <Button
+      variant="primary"
+      isDisabled={namespace || entityValue ? false : true}
+      onPress={props.onViewButtonClick}
+    >
+      <Text>View</Text>
+    </Button>
+  );
 
-    clearButton = (
-      <Button variant="primary" isQuiet onPress={props.onClearButtonClick}>
-        <Text>Clear</Text>
-      </Button>
-    );
-  }
+  clearButton = (
+    <Button variant="primary" isQuiet onPress={props.onClearButtonClick}>
+      <Text>Clear</Text>
+    </Button>
+  );
 
   return (
     <Grid
@@ -69,7 +72,11 @@ const FindProfileView = (props) => {
       // gap="size-100"
       columnGap="size-300"
     >
-      <View alignSelf="center" gridArea="namespace">
+      <View
+        data-testid="namespace-view"
+        alignSelf="center"
+        gridArea="namespace"
+      >
         {identityNamespace}
       </View>
       <View alignSelf="center" gridArea="entityValue">
@@ -93,4 +100,4 @@ FindProfileView.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default FindProfileView;
+export default React.memo(FindProfileView);

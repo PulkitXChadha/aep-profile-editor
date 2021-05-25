@@ -14,13 +14,9 @@ const NamespaceList = (props) => {
 
   //Identity Namespace State
   let headers = {};
-  // set the authorization header and org from the ims props object
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
+
   const namespaces = useActionWebInvoke({
     actionName: "get-identity-namespaces",
     headers: headers,
@@ -30,6 +26,7 @@ const NamespaceList = (props) => {
   });
   let picker = (
     <ProgressCircle
+      data-testid="namespace-list-progress-circle"
       id="namespace-list-progress-circle"
       aria-label="Getting Identity Namespaces"
       isIndeterminate
@@ -37,19 +34,23 @@ const NamespaceList = (props) => {
       marginStart="size-100"
     />
   );
-
+  let namespaceData = [];
   if (namespaces.error) {
-    console.log(namespaces.error.message);
+    namespaceData = [];
   }
 
   if (!namespaces.data && !namespaces.error && !namespaces.isLoading) {
-    picker = <Text>You have no namespaces!</Text>;
+    namespaceData = [];
   }
 
   if (namespaces.data) {
-    const namespaceData = namespaces.data || [];
+    namespaceData = namespaces.data;
+  }
+
+  if (!namespaces.isLoading) {
     picker = (
       <Picker
+        data-testid="namespaces-list-picker"
         id="namespaces-list-picker"
         width="100%"
         maxWidth="100%"
@@ -80,4 +81,4 @@ NamespaceList.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default NamespaceList;
+export default React.memo(NamespaceList);

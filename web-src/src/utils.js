@@ -30,17 +30,23 @@ async function actionWebInvoke(actionName, headers = {}, params = {}) {
     headers: actionHeaders,
     body: JSON.stringify(params),
   });
+
   let content = await response.text();
+
   if (!response.ok) {
     throw new Error(
-      `failed request to '${actionUrl}' with status: ${response.status} and message: ${content}`
+      `failed request with status: ${
+        response.status
+      } and message: ${JSON.stringify(content)}`
     );
   }
+
   try {
     content = JSON.parse(content);
   } catch (e) {
     // response is not json
   }
+
   return content;
 }
 

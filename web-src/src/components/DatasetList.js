@@ -19,8 +19,10 @@ const DatasetList = (props) => {
       sandboxName: props.sandboxName,
     },
   });
+  let datasetsData = [];
   let picker = (
     <ProgressCircle
+      data-testid="dataset-list-progress-circle"
       id="dataset-list-progress-circle"
       aria-label="Getting Datasets"
       isIndeterminate
@@ -30,11 +32,11 @@ const DatasetList = (props) => {
   );
 
   if (datasets.error) {
-    console.log(datasets.error.message);
+    datasetsData = [];
   }
 
   if (!datasets.data && !datasets.error && !datasets.isLoading) {
-    picker = <Text>No Datasets found for the Schema!</Text>;
+    datasetsData = [];
   }
 
   if (datasets.data) {
@@ -42,7 +44,8 @@ const DatasetList = (props) => {
       const schemaRef = datasets.data[dataset].schemaRef || {};
       return schemaRef.id === props.schemaId;
     });
-
+  }
+  if (!datasets.isLoading) {
     picker = (
       <Picker
         isDisabled={!props.schemaId || props.isDisabled}
@@ -75,4 +78,4 @@ DatasetList.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default DatasetList;
+export default React.memo(DatasetList);
