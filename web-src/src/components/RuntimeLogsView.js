@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import React from "react";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Grid, View, Flex, Heading, Divider } from "@adobe/react-spectrum";
@@ -8,34 +9,24 @@ import ActivationList from "./ActivationList";
 import ActivationLog from "./ActivationLog";
 
 const RuntimeLogsView = (props) => {
-  const [sandboxName, setSandboxName] = useState(props.sandboxName);
   const [activationID, setActivationID] = useState();
-
-  //Update page if sandbox or container change
-  useEffect(() => {
-    setSandboxName(props.sandboxName);
-  }, [props.sandboxName]);
 
   let activationListContent = null;
   let activationLogContent = null;
-  //   if (sandboxName) {
   activationListContent = (
     <ActivationList
       ims={props.ims}
-      sandboxName={sandboxName}
       onSelection={(activationId) => {
         setActivationID(activationId);
       }}
     />
   );
-  //   }
 
   if (activationID) {
     activationLogContent = (
       <ActivationLog
         key={activationID}
         ims={props.ims}
-        sandboxName={sandboxName}
         activationID={activationID}
       />
     );
@@ -60,6 +51,7 @@ const RuntimeLogsView = (props) => {
       columns={["1fr", "1fr", "1fr", "1fr"]}
       rows={["auto"]}
       columnGap="size-50"
+      height="100%"
     >
       <View
         gridArea="activationList"
@@ -94,4 +86,4 @@ RuntimeLogsView.propTypes = {
   ims: PropTypes.any,
 };
 
-export default RuntimeLogsView;
+export default React.memo(RuntimeLogsView);
