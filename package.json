@@ -39,14 +39,32 @@
     "@babel/core": "^7.13.10",
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.12.13",
     "@openwhisk/wskdebug": "^1.3.0",
-    "jest": "^24.9.0"
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^13.0.16",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^24.9.0",
+    "jest-css-modules": "^2.1.0",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
+    "react-test-renderer": "^17.0.2"
   },
   "scripts": {
-    "test": "jest --passWithNoTests ./test",
-    "e2e": "jest --collectCoverage=false --testRegex ./e2e"
+    "test:coverage": "DEBUG_PRINT_LIMIT=100000 jest --watchAll=true --env=jest-environment-jsdom-sixteen --coverage --testPathPattern=\".test.js\" --verbose",
+    "e2e": "jest --collectCoverage=false --testRegex ./e2e",
+    "test:coverage:integration": "DEBUG_PRINT_LIMIT=100000 jest --watchAll=true --env=jest-environment-jsdom-sixteen --coverage --testPathPattern=\"integration.test.js\" --verbose",
+    "test:coverage:unit": "jest --watchAll=false --env=jest-environment-jsdom-sixteen --coverage --testPathPattern=\"unit.test.js\" --verbose"
   },
   "engines": {
     "node": "^10 || ^12"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sss|styl)$": "<rootDir>/node_modules/jest-css-modules"
+    },
+    "testPathIgnorePatterns": [
+      "home/mac/dev/git/personal/react-json-view"
+    ]
   }
 }
