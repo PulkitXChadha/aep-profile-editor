@@ -67,22 +67,6 @@ async function main(params) {
       },
     };
     // fetch content from external api endpoint
-
-    logger.debug("url  = " + apiEndpoint);
-    logger.debug("post body  = " + JSON.stringify(body, null, 2));
-    logger.debug(
-      "headers  = " +
-        JSON.stringify(
-          {
-            Authorization: `Bearer ${token}`,
-            "x-sandbox-name": params.sandboxName,
-            "Cache-Control": "no-cache",
-            "Content-Type": "application/json",
-          },
-          null,
-          2
-        )
-    );
     const res = await fetch(apiEndpoint, {
       method: "POST",
       body: JSON.stringify(body),
