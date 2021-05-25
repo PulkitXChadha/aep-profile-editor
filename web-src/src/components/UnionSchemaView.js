@@ -19,22 +19,14 @@ import SemanticForm from "@rjsf/semantic-ui";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 
 import SettingsIcon from "@spectrum-icons/workflow/Settings";
-import {
-  ProfileProvider,
-  useProfileState,
-  useProfileDispatch,
-} from "../context/ProfileViewContext.js";
+import { useProfileDispatch } from "../context/ProfileViewContext.js";
 const UnionSchemaView = (props) => {
   const setUpdatedProfile = useProfileDispatch();
   const [formTheme, setFormTheme] = useState("fluent-ui");
+
   let headers = {};
-  // set the authorization header and org from the ims props object
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
 
   const unionSchema = useActionWebInvoke({
     actionName: "get-schema-details",
@@ -47,6 +39,7 @@ const UnionSchemaView = (props) => {
 
   let content = (
     <ProgressCircle
+      data-testid="union-json-schema-view-progress-circle"
       id="union-json-schema-view-progress-circle"
       aria-label="Getting Schema"
       isIndeterminate
@@ -112,20 +105,14 @@ const UnionSchemaView = (props) => {
           </SemanticForm>
         );
         break;
-      default:
-        formContent = (
-          <CoreForm {...formSettings}>
-            <React.Fragment />
-          </CoreForm>
-        );
     }
 
     content = (
-      <View marginStart="size-100">
+      <View marginStart="size-100" data-testid="json-schema-form-view">
         <Flex direction="column">
           <View justifySelf="flex-end" alignSelf="flex-end">
             <MenuTrigger>
-              <ActionButton>
+              <ActionButton data-testid="json-schema-form-theme-button">
                 <SettingsIcon />
               </ActionButton>
               <Menu onAction={(key) => setFormTheme(key)}>
@@ -137,7 +124,7 @@ const UnionSchemaView = (props) => {
               </Menu>
             </MenuTrigger>
           </View>
-          {formContent}
+          <View data-testid={`${formTheme}-form`}>{formContent}</View>
         </Flex>
       </View>
     );
@@ -151,4 +138,4 @@ UnionSchemaView.propTypes = {
   ims: PropTypes.any,
 };
 
-export default UnionSchemaView;
+export default React.memo(UnionSchemaView);
