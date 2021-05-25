@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import ReactJson from "react-json-view";
 import PropTypes from "prop-types";
 import {
-  ListBox,
   ProgressCircle,
   Text,
   View,
@@ -24,12 +23,9 @@ const ProfileDataView = (props) => {
   const [enableProfileFormEdit, setEnableProfileFormEdit] = useState(false);
 
   let headers = {};
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
+
   let profile = null;
   let dataToDisplay = {};
   let schemaContent,
@@ -48,7 +44,8 @@ const ProfileDataView = (props) => {
 
   profileJSONContent = (
     <ProgressCircle
-      id="profile-view-progress-circle"
+      data-testid="profile-data-view-progress-circle"
+      id="profile-data-view-progress-circle"
       aria-label="Getting Profile"
       isIndeterminate
       isHidden={!profile.isLoading}
@@ -58,10 +55,10 @@ const ProfileDataView = (props) => {
   schemaContent = profileJSONContent;
 
   if (!profile.isLoading && profile.error) {
-    profileJSONContent = <Text>No Profile Data Found</Text>;
+    dataToDisplay = {};
   }
   if (!profile.data && !profile.error && !profile.isLoading) {
-    profileJSONContent = <Text>No Profile Data Found</Text>;
+    dataToDisplay = {};
   }
 
   if (!profile.isLoading && profile.data) {
@@ -70,6 +67,9 @@ const ProfileDataView = (props) => {
     delete dataToDisplay._ACP_BATCHID;
     delete dataToDisplay._acp_system_metadata;
     delete dataToDisplay._id;
+  }
+
+  if (!profile.isLoading) {
     profileJSONContent = (
       <div
         css={css`
@@ -136,7 +136,7 @@ const ProfileDataView = (props) => {
               props.onEditButtonClick(!enableProfileFormEdit);
             }}
           >
-            <SpectrumTab key="addProfile">
+            <SpectrumTab key="addProfile" textValue="addProfile">
               <EditIcon />
               <Text>Edit Profile</Text>
             </SpectrumTab>
@@ -162,4 +162,4 @@ ProfileDataView.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default ProfileDataView;
+export default React.memo(ProfileDataView);

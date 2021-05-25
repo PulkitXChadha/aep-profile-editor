@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Text,
@@ -14,12 +15,8 @@ import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 
 const ActivationList = (props) => {
   let headers = {};
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
 
   let activationList = useActionWebInvoke({
     actionName: "get-activation-list",
@@ -30,6 +27,7 @@ const ActivationList = (props) => {
 
   let activationListContent = (
     <ProgressCircle
+      data-testid="activation-list-progress-circle"
       id="activation-list-progress-circle"
       aria-label="Getting Activation List"
       isIndeterminate
@@ -39,15 +37,16 @@ const ActivationList = (props) => {
   );
 
   if (!activationList.isLoading && activationList.error) {
-    activationListContent = <Text>No Activation Logs Found</Text>;
+    activationListContent = <Text>No Activations Found</Text>;
   }
   if (
     !activationList.data &&
     !activationList.error &&
     !activationList.isLoading
   ) {
-    activationListContent = <Text>No Activation Logs Found</Text>;
+    activationListContent = <Text>No Activations Found</Text>;
   }
+
   if (!activationList.isLoading && activationList.data) {
     activationListContent = (
       <div
@@ -57,22 +56,27 @@ const ActivationList = (props) => {
         `}
       >
         <ListBox
+          data-testid="activationListBox"
           onSelectionChange={(id) => {
             props.onSelection(id.currentKey);
           }}
           aria-label="Options"
           selectionMode="single"
+          height="100%"
+          width="100%"
         >
-          <Section title="Activation List">
+          <Section title="Activation List" height="100%" width="100%">
             {activationList.data
               .sort((a, b) => b.end - a.end)
               .map((activation) => (
                 <SpectrumTab
                   key={activation.activationId}
                   textValue={activation.name}
+                  height="100%"
+                  width="100%"
                 >
                   <Event size="S" />
-                  <Text>{activation.name || ""}</Text>
+                  <Text>{activation.name}</Text>
                   <Text slot="description">
                     {new Date(activation.end).toString()}
                   </Text>
@@ -92,4 +96,4 @@ ActivationList.propTypes = {
   ims: PropTypes.any,
 };
 
-export default ActivationList;
+export default React.memo(ActivationList);

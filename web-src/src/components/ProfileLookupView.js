@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import React from "react";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
@@ -12,12 +13,8 @@ import {
   ActionGroup,
   Item as SpectrumTab,
 } from "@adobe/react-spectrum";
-import { Redirect, useParams } from "react-router-dom";
-import {
-  ProfileProvider,
-  useProfileState,
-  useProfileDispatch,
-} from "../context/ProfileViewContext.js";
+import { useParams } from "react-router-dom";
+import { ProfileProvider } from "../context/ProfileViewContext.js";
 
 import SchemaSelectionSideBar from "./SchemaSelectionSideBar";
 import AddCircleIcon from "@spectrum-icons/workflow/AddCircle";
@@ -27,6 +24,7 @@ import NewProfileView from "./NewProfileView";
 import ExperienceEventsView from "./ExperienceEventsView";
 import DataIngestionView from "./DataIngestionView";
 import FindProfileView from "./FindProfileView";
+
 const ProfileLookupView = (props) => {
   let { namespace, identityValue } = useParams();
   const [addNewFlag, setAddNewFlag] = useState(false);
@@ -43,8 +41,6 @@ const ProfileLookupView = (props) => {
     "record"
   );
   const [dataIngestionVisibility, setDataIngestionVisibility] = useState(false);
-  const [redirect, setRedirect] = useState(false);
-
   useEffect(() => {
     setSelectedNamespace(namespace);
     setEntityValue(identityValue);
@@ -161,11 +157,6 @@ const ProfileLookupView = (props) => {
       />
     );
   }
-
-  let redirectTo = null;
-  if (redirect) {
-    redirectTo = <Redirect to="/addProfile" />;
-  }
   return (
     <Flex direction="column" gap="size-50">
       <Grid
@@ -184,21 +175,21 @@ const ProfileLookupView = (props) => {
             alignSelf="center"
             variant="primary"
             onAction={() => {
-              // setRedirect(true);
               setAddNewFlag(!addNewFlag);
               setEntityValue();
               setSelectedNamespace();
               setDataIngestionVisibility(!dataIngestionVisibility);
             }}
+            // isDisabled={selectedSchemaMetaID ? false : true}
           >
             {addNewFlag && (
-              <SpectrumTab key="addProfile">
+              <SpectrumTab key="findProfile" textValue="findProfile">
                 <SearchIcon />
                 <Text>Find</Text>
               </SpectrumTab>
             )}
             {!addNewFlag && (
-              <SpectrumTab key="addProfile">
+              <SpectrumTab key="addProfile" textValue="addProfile">
                 <AddCircleIcon />
                 <Text>Add</Text>
               </SpectrumTab>
@@ -217,6 +208,7 @@ const ProfileLookupView = (props) => {
       >
         <ProfileProvider>
           <View
+            data-testid="schema-side-bar-view"
             gridArea="schemaSideBar"
             overflow="auto"
             height="100%"
@@ -240,7 +232,6 @@ const ProfileLookupView = (props) => {
           </View>
         </ProfileProvider>
       </Grid>
-      {redirectTo}
     </Flex>
   );
 };
@@ -250,4 +241,4 @@ ProfileLookupView.propTypes = {
   ims: PropTypes.any,
 };
 
-export default ProfileLookupView;
+export default React.memo(ProfileLookupView);

@@ -4,16 +4,10 @@ import { Picker, ProgressCircle, Item, Text } from "@adobe/react-spectrum";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 
 const UnionSchemaList = (props) => {
-  const selection = props.initialSelection || "";
-  //Identity Namespace State
   let headers = {};
-  // set the authorization header and org from the ims props object
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
+
   const unions = useActionWebInvoke({
     actionName: "get-all-unions",
     headers: headers,
@@ -31,17 +25,19 @@ const UnionSchemaList = (props) => {
       marginStart="size-100"
     />
   );
-
+  let unionData = [];
+  let selection = null;
   if (unions.error) {
-    console.log(unions.error.message);
+    unionData = [];
   }
 
   if (!unions.data && !unions.error && !unions.isLoading) {
-    picker = <Text>You have no unions!</Text>;
+    unionData = [];
   }
 
   if (unions.data) {
-    const unionData =
+    selection = props.defaultClassSelection;
+    unionData =
       unions.data.results.map((union) => ({
         title: union.title,
         key: union["meta:class"],
@@ -51,15 +47,19 @@ const UnionSchemaList = (props) => {
           ? "record"
           : "time-series",
       })) || [];
+  }
+
+  if (!unions.isLoading) {
     picker = (
       <Picker
+        data-testid="union-schema-list-picker"
         id="union-schema-list-picker"
         width="90%"
         maxWidth="90%"
         justifySelf="end"
         marginStart="size-100"
         label="Select a Class"
-        defaultSelectedKey={props.defaultClassSelection}
+        defaultSelectedKey={selection}
         isRequired={true}
         placeholder="Select an Class"
         aria-label="Select an Class"
@@ -86,4 +86,4 @@ UnionSchemaList.propTypes = {
   onSelectionChange: PropTypes.func,
 };
 
-export default UnionSchemaList;
+export default React.memo(UnionSchemaList);

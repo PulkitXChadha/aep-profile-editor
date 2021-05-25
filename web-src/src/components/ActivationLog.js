@@ -14,12 +14,8 @@ import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 
 const ActivationLog = (props) => {
   let headers = {};
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
 
   let activationLog = useActionWebInvoke({
     actionName: "get-activation-log",
@@ -31,6 +27,7 @@ const ActivationLog = (props) => {
 
   let activationLogContent = (
     <ProgressCircle
+      data-testid="activation-log-progress-circle"
       id="activation-log-progress-circle"
       aria-label="Getting Activation Log"
       isIndeterminate
@@ -61,6 +58,7 @@ const ActivationLog = (props) => {
           columnGap="size-50"
         >
           <View
+            data-testid="activationLog-view"
             gridArea="activationLog"
             overflow="auto"
             height="100%"
@@ -77,6 +75,7 @@ const ActivationLog = (props) => {
           </View>
           <View
             gridArea="activationResult"
+            data-testid="activationResult-view"
             overflow="auto"
             height="100%"
             backgroundColor="gray-50"

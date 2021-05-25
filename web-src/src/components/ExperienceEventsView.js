@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import ReactJson from "react-json-view";
 import PropTypes from "prop-types";
 import {
@@ -8,17 +8,13 @@ import {
   Text,
   View,
   Grid,
-  Flex,
   Heading,
   ListBox,
-  Section,
-  ActionGroup,
   Item as SpectrumTab,
 } from "@adobe/react-spectrum";
 
 import Event from "@spectrum-icons/workflow/Event";
 
-import AddCircleIcon from "@spectrum-icons/workflow/AddCircle";
 import { Tabs, Item } from "@react-spectrum/tabs";
 import { useActionWebInvoke } from "../hooks/useActionWebInvoke";
 import UnionSchemaView from "./UnionSchemaView";
@@ -26,12 +22,9 @@ const ExperienceEventsView = (props) => {
   const [dataToDisplay, setDataToDisplay] = useState();
 
   let headers = {};
-  if (props.ims.token && !headers.authorization) {
-    headers.authorization = `Bearer ${props.ims.token}`;
-  }
-  if (props.ims.org && !headers["x-gw-ims-org-id"]) {
-    headers["x-gw-ims-org-id"] = props.ims.org;
-  }
+  headers.authorization = `Bearer ${props.ims.token}`;
+  headers["x-gw-ims-org-id"] = props.ims.org;
+
   const experienceEvents = useActionWebInvoke({
     actionName: "get-profile-experience-events",
     headers: headers,
@@ -40,10 +33,10 @@ const ExperienceEventsView = (props) => {
       identityValue: props.identityValue,
       sandboxName: props.sandboxName,
     },
-    // cacheResponse: false,
   });
   let content = (
     <ProgressCircle
+      data-testid="experienceEvents-view-progress-circle"
       id="experienceEvents-view-progress-circle"
       aria-label="Getting Experience Events"
       isIndeterminate
@@ -54,8 +47,10 @@ const ExperienceEventsView = (props) => {
 
   let schemaContent = content;
   let eventListContent = content;
+
+  let eventsList = [];
   if (!experienceEvents.isLoading && experienceEvents.error) {
-    content = <Text>No Profile Data Found</Text>;
+    eventsList = [];
   }
 
   if (
@@ -63,12 +58,13 @@ const ExperienceEventsView = (props) => {
     !experienceEvents.error &&
     !experienceEvents.isLoading
   ) {
-    content = <Text>No Experience Events Found</Text>;
+    eventsList = [];
   }
-  let eventsList = {};
   if (!experienceEvents.isLoading && experienceEvents.data) {
-    eventsList = experienceEvents.data.children || [];
+    eventsList = experienceEvents.data.children;
+  }
 
+  if (!experienceEvents.isLoading) {
     eventListContent = (
       <div
         css={css`
@@ -86,7 +82,7 @@ const ExperienceEventsView = (props) => {
           {eventsList
             .sort((a, b) => b.timestamp - a.timestamp)
             .map((events, index) => (
-              <SpectrumTab key={index} textValue="Read">
+              <SpectrumTab key={index} textValue={`events-${index}`}>
                 <Event size="S" />
                 <Text>{events.entity.eventType || ""}</Text>
                 <Text slot="description">{events.entity.timestamp}</Text>
@@ -133,7 +129,6 @@ const ExperienceEventsView = (props) => {
   }
 
   return (
-    // <Flex marginStart="size-100" direction="column" gap="size-125">
     <Grid
       areas={[
         "header mainContent mainContent mainContent",
@@ -162,8 +157,6 @@ const ExperienceEventsView = (props) => {
 
       <View gridArea="timeline">{eventListContent}</View>
     </Grid>
-
-    // </Flex>
   );
 };
 
@@ -171,4 +164,4 @@ ExperienceEventsView.propTypes = {
   offer: PropTypes.any,
 };
 
-export default ExperienceEventsView;
+export default React.memo(ExperienceEventsView);
